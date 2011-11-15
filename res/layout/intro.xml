@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_gravity="center_horizontal|center" android:layout_height="match_parent" android:layout_width="match_parent">
+    <Button android:src="@drawable/icon"
+            android:layout_width="wrap_content"
+            android:id="@+id/friendButton"
+            android:text="@string/friendButton"
+            android:textSize="40px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:layout_margin="10px"
+            android:lines="2"
+            android:padding="10px">
+    </Button>
+    <Button android:src="@drawable/icon"
+            android:layout_margin="20px"
+            android:layout_width="wrap_content"
+            android:id="@+id/offerButton"
+            android:text="@string/offerButton"
+            android:textSize="40px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:lines="2" android:padding="10px">
+    </Button>
+    <Button android:id="@+id/communityButton"
+            android:src="@drawable/icon"
+            android:layout_margin="20px"
+            android:layout_width="wrap_content"
+            android:text="@string/communityButton"
+            android:textSize="40px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:lines="2" android:padding="10px">
+    </Button>
+    <Button android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/glowButton"
+            android:text="@string/glowButton">
+    </Button>
+</LinearLayout>

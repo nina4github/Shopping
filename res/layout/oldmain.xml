@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_gravity="center_vertical|center_horizontal|center" android:layout_height="wrap_content" android:layout_width="wrap_content">
+    <TableLayout android:layout_height="match_parent" android:layout_width="fill_parent" android:id="@+id/friendslist">
+        <TextView android:text="@string/maintext" android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/maintitle" android:layout_gravity="center_vertical|center_horizontal|center" android:textSize="60px"></TextView>
+        <TableRow android:layout_width="wrap_content" android:id="@+id/friendsrow1" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/LinearLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="20px">
+                <ImageButton android:layout_height="wrap_content" android:id="@+id/ImageButton01" android:src="@drawable/icon" android:layout_width="wrap_content" android:minWidth="200px" android:minHeight="200px"></ImageButton>
+                <TextView android:text="TextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TextView01" android:textSize="30px" android:layout_gravity="center_vertical"></TextView>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/LinearLayout02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="20px">
+                <ImageButton android:layout_height="wrap_content" android:id="@+id/ImageButton02" android:src="@drawable/icon" android:layout_width="wrap_content" android:minWidth="200px" android:minHeight="200px"></ImageButton>
+                <TextView android:text="TextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TextView02" android:textSize="30px" android:layout_gravity="center_vertical"></TextView>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/LinearLayout03" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="20px">
+                <ImageButton android:layout_height="wrap_content" android:id="@+id/ImageButton03" android:src="@drawable/icon" android:layout_width="wrap_content" android:minWidth="200px" android:minHeight="200px"></ImageButton>
+                <TextView android:text="TextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TextView03" android:textSize="30px" android:layout_gravity="center_vertical"></TextView>
+            </LinearLayout>
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:id="@+id/TableRow01" android:layout_height="wrap_content">
+            <LinearLayout android:id="@+id/LinearLayout04" android:layout_margin="20px" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <ImageButton android:minWidth="200px" android:layout_height="wrap_content" android:id="@+id/ImageButton04" android:src="@drawable/icon" android:minHeight="200px" android:layout_width="wrap_content"></ImageButton>
+                <TextView android:layout_gravity="center_vertical" android:text="TextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TextView04" android:textSize="30px"></TextView>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/LinearLayout05" android:layout_margin="20px" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <ImageButton android:minWidth="200px" android:layout_height="wrap_content" android:id="@+id/ImageButton05" android:src="@drawable/icon" android:minHeight="200px" android:layout_width="wrap_content"></ImageButton>
+                <TextView android:layout_gravity="center_vertical" android:text="TextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TextView05" android:textSize="30px"></TextView>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/LinearLayout06" android:layout_margin="20px" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <ImageButton android:minWidth="200px" android:layout_height="wrap_content" android:id="@+id/ImageButton06" android:src="@drawable/icon" android:minHeight="200px" android:layout_width="wrap_content"></ImageButton>
+                <TextView android:layout_gravity="center_vertical" android:text="TextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TextView06" android:textSize="30px"></TextView>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
