@@ -15,37 +15,26 @@ import dk.itu.infobus.ws.PatternBuilder;
 import dk.itu.infobus.ws.PatternOperator;
 
 public class WakeService extends Service {
+    public static final String CONTENT_URI = "idea.itu.dk.content.stuff";
+    public static final String NEW_SHOPPING_ACTIVITY = "New_Shopping_Activity";
+    public static final String ACTIVITY = "activity";
+    public static final String CONTENT = "content";
+    public static final String USER_NAME = "user_name";
+
 	private static final String EB = "EventBus";
 	private static final String TAG = "WakeService";
 
-    ShoppingActivityView scv;
-	
-	PowerManager.WakeLock wl;
-	
 
-	@Override
+
+    @Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-    public void start(ShoppingActivityView scv){
-        this.scv = scv;
-//        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-//		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Shopping events");
-
-
-		startListener();
-    }
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		// here start event bus
-		
-		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Shopping events");
-		
-			
 		startListener();
 		
 		// TODO Auto-generated method stub
@@ -53,20 +42,24 @@ public class WakeService extends Service {
 	}
 	
 	private void startListener(){
-		
+
+        final String user = "user";
 		final String state = "state";
 	    final String activity = "activity";
-	    final String objectid = "objectid";
+	    final String object = "object";
 	    final String time_stamp = "timestamp";
+        final String content = "content";
 		
 	    EventBus eb = new EventBus("tiger.itu.dk", 8004);
         Log.d(EB,"EB initialiazed");
 	    
 	    Listener l = new Listener(new PatternBuilder()
+        .addMatchAll(user)
+        .add(activity, PatternOperator.EQ,"shopping")
+        .addMatchAll(object)
         .addMatchAll(state)
-        .add(activity,PatternOperator.EQ,"shopping")
-        .addMatchAll(objectid)
         .addMatchAll(time_stamp)
+        .addMatchAll(content)
         .getPattern()){
 			
 			@Override
@@ -76,7 +69,7 @@ public class WakeService extends Service {
 			}
 			@Override
 			public void onMessage(Map<String, Object> msg) {
-				showScreen(msg);
+				handleMessage(msg);
 				
 			}
 			public void onStarted() {};
@@ -87,39 +80,44 @@ public class WakeService extends Service {
 			Log.d(EB, "EB started");
 			eb.addListener(l);
 			Log.d(EB, "EB added listener");
-			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected void showScreen(Map<String, Object> msg) {
+    /**
+     * Routine for unwrapping the contents of the received message.
+     * @param msg
+     */
+	private void handleMessage(Map<String, Object> msg) {
+        Log.i(WakeService.class.getName(), "MESSAGE RECEIVED");
         Iterator it = msg.entrySet().iterator();
         String activity = "";
-        String objectId = "";
+        String content = "";
+        String userName = "";
         while (it.hasNext()) {
            Map.Entry pairs = (Map.Entry)it.next();
            if(pairs.getKey().toString().equalsIgnoreCase("activity"))
                activity = pairs.getValue().toString();
-           else if(pairs.getKey().toString().equalsIgnoreCase("objectid"))
-               objectId = pairs.getValue().toString();
+           else if(pairs.getKey().toString().equalsIgnoreCase("content"))
+               content = pairs.getValue().toString();
+            else if(pairs.getKey().toString().equalsIgnoreCase("user"))
+               userName = pairs.getValue().toString();
            it.remove(); // avoids a ConcurrentModificationException
         }
-        if(objectId.equalsIgnoreCase("offer0"))
-            scv.removeOffer();
-        else if(objectId.equalsIgnoreCase("offer1"))
-            scv.addOffer();
-
-        else if(activity.equalsIgnoreCase("shopping")){
-            if(objectId.equalsIgnoreCase("start"))
-                scv.addShopper();
-            else scv.removeShopper();
-        }
-		//wl.acquire(10000); // on for 10 seconds
-		Intent start = new Intent(this,GlowActivity.class);
-		start.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		this.startActivity(start);
-		Log.d(EB, "EBListener started glow activity");
-		//this.startActivity(new Intent(this, GlowActivity.class));
+        announceNewShoppingActivity(activity, content, userName);
 	}
+
+    /**
+     * Broadcast a new shopping activity.
+     */
+    private void announceNewShoppingActivity(String activity, String content, String userName) {
+        Intent intent = new Intent(NEW_SHOPPING_ACTIVITY);
+        intent.putExtra(ACTIVITY, activity);
+        intent.putExtra(CONTENT, content);
+        intent.putExtra(USER_NAME, userName);
+        sendBroadcast(intent);
+    }
+
+
 }

@@ -2,6 +2,7 @@ package com.shopping;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 
 import java.util.Random;
 
@@ -14,11 +15,9 @@ import java.util.Random;
  */
 public class ShoppingCart extends Movable{
     public ShoppingCart(Context context){
-       super(BitmapFactory.decodeResource(context.getResources(), R.drawable.shoppingcart));
+        super(BitmapFactory.decodeResource(context.getResources(), R.drawable.cart));
     }
-
-    @Override
-    public String toString(){
-        return "Cart";
+    public ShoppingCart(Context context, int drawableResource){
+        super(BitmapFactory.decodeResource(context.getResources(), drawableResource));
     }
 }

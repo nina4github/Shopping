@@ -14,9 +14,4 @@ public class ShoppingOffer extends Movable{
     public ShoppingOffer(Context context) {
        super(BitmapFactory.decodeResource(context.getResources(), R.drawable.offer));
     }
-
-    @Override
-    public String toString(){
-        return "Offer";
-    }
 }

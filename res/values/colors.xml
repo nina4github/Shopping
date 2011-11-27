@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="green">#990faa0f</color>
-    <color name="elewhite">#afffffff</color>
-    <color name="eleblack">#000000</color>
+    <color name="white">#afffffff</color>
+    <color name="black">#000000</color>
+    <color name="mygreen">#369A31</color>
 </resources>

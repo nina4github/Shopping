@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <!-- Top button row for profile view -->
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="100sp">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/profileTopButtonRow"
+                      android:orientation="horizontal"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_centerInParent="true">
+            <Button
+                    android:id="@+id/profileBtn1"
+                    android:layout_width="150sp"
+                    android:layout_height="40sp"
+                    android:text="Profil"
+                    android:background="@color/white"
+                    />
+            <Button
+                    android:id="@+id/profileBtn2"
+                    android:layout_width="150sp"
+                    android:layout_height="40sp"
+                    android:text="Ugeoversigt"
+                    android:background="@color/white"
+                    />
+            <Button
+                    android:id="@+id/profileBtn3"
+                    android:layout_width="150sp"
+                    android:layout_height="40sp"
+                    android:text="Sparks"
+                    android:background="@color/white"
+                    />
+            <Button
+                    android:id="@+id/profileBtn4"
+                    android:layout_width="150sp"
+                    android:layout_height="40sp"
+                    android:text="Flest indkøb"
+                    android:background="@color/white"
+                    />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--Bottom part of screen -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:background="#654321">
+
+        <!-- Left side view with face of user and additional info-->
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="300sp"
+                        android:layout_height="fill_parent">
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                          android:orientation="vertical"
+                          android:layout_width="fill_parent"
+                          android:layout_height="fill_parent"
+                          android:translationX="100sp"
+                          android:translationY="200sp"
+                          android:background="#654321">
+                <!-- Some standard text -->
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="40sp"
+                        android:text="Profil">
+                </TextView>
+                <!-- User image -->
+                <ImageView
+                        android:id="@+id/userView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                </ImageView>
+                <!-- User name and what else -->
+                <TextView android:id="@+id/userTextView"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                </TextView>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- User status-->
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/statusLayout"
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="#221232">
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

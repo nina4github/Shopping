@@ -6,28 +6,19 @@
     <uses-sdk android:minSdkVersion="8" />
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
  
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".EMShopping"
-                  android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ShoppingActivity" android:label="@string/app_name">
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+        <activity android:name=".HomeActivity" android:label="@string/app_name">
                         <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".WakeService"></service>
-        <activity android:name=".Friends"></activity>
-        <activity android:name=".Offer"></activity>
-        <activity android:name=".Community"></activity>
-        <activity android:name=".GlowActivity"></activity>
-       <activity android:name=".FriendDetails"></activity>
         <activity android:name=".ShoppingOverview"></activity>
-        <!-- <activity android:name=".Update"></activity>  --> 
+        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".OfferActivity"></activity>
+        <service android:name=".WakeService"></service>
+        <!-- <userActivity android:name=".Update"></userActivity>  -->
     </application>
 </manifest>

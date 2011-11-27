@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        >
+    <ScrollView
+            android:id="@+id/widget54"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <LinearLayout android:id="@+id/activityoverviewview"
+                      android:orientation="horizontal"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="#0012ff"/>
+    </ScrollView>
+
+    <!-- Horizontal container for everything beneath top list of activities
+         element one on the left being the face view and info views on the right-->
+    <LinearLayout android:id="@+id/container"
+                  android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:background="#123456">
+
+        <!-- the layout on the left where face of user is-->
+        <LinearLayout android:id="@+id/activitydetailview"
+                      android:orientation="vertical"
+                      android:layout_width="200px"
+                      android:layout_height="fill_parent"
+                      android:gravity="center"
+                      android:background="#401212">
+        </LinearLayout>
+
+        <!-- location and list of offers are two layouts placed vertically-->
+        <LinearLayout android:id="@+id/activitydetailoffers"
+                      android:orientation="vertical"
+                      android:layout_width="fill_parent"
+                      android:layout_height="fill_parent"
+                      android:background="#123456">
+            <LinearLayout android:id="@+id/locationlayout"
+                          android:orientation="vertical"
+                          android:layout_width="fill_parent"
+                          android:layout_height="400px"
+                          android:background="#333333">
+                <TextView
+                        android:id="@+id/shoppinglocation"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:translationX="100px"
+                        android:translationY="100px"
+                        android:textSize="20.5sp">
+                </TextView>
+            </LinearLayout>
+            <!-- Will possible contatin an arbitrary number of offers-->
+            <LinearLayout android:id="@+id/activitydetailofferscontainer"
+                          android:orientation="horizontal"
+                          android:layout_width="fill_parent"
+                          android:layout_height="fill_parent"
+                          android:gravity="center_vertical"
+                          android:textSize="20.5sp"
+                          android:background="#654321">
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

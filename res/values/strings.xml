@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, EMShopping!</string>
-	<string name="app_name">Indkøb venner</string>
+	<string name="app_name">Shopping</string>
+
+
 	<string name="glowtext">this is a glow screen :)</string>
 	<string name="maintext">Indkøb venner</string>
 	<string name="senior1_status">Lize er på indkøb nu</string>

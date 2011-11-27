@@ -17,17 +17,17 @@ import java.util.Random;
 public class Movable implements Parcelable{
 
     protected final Bitmap bitmap;
+    private int id;
 
     /**
      * Position of movable
      */
-    protected int x = 10, y = 10;
-    protected int xDirection = 2, yDirection = 2;
+    private int x;
 
-    /**
-     *  Movables fly around
-     */
-    private static final Random rn = new Random();
+
+    private int y;
+    private int xDirection;
+    private int yDirection;
 
     public Movable(Bitmap bitmap) {
         this.bitmap = bitmap;
@@ -37,16 +37,23 @@ public class Movable implements Parcelable{
         return bitmap;
     }
 
-    public void updatePosition(int width, int height) {
-       if(x + bitmap.getWidth() >= width || x <= 0) xDirection *= -1;
-        //todo fix canvas screen height
-       if(y + bitmap.getHeight() + 100 >= height || y <= 0) yDirection *= -1;
+    public void updatePosition() {
        x += xDirection;
        y += yDirection;
     }
 
-    public int getX(){ return x; }
-    public int getY(){ return y; }
+    public int getX(){ return this.x; }
+    public int getY(){ return this.y; }
+    public void setX(int x) {
+        this.x = x;
+    }
+    public void setY(int y) {
+        this.y = y;
+    }
+    public int getXDirection(){ return xDirection; }
+    public int getYDirection(){ return yDirection; }
+    public void setXDirection(int dir){ this.xDirection=dir; }
+    public void setYDirection(int dir){ this.yDirection=dir; }
 
    // 99.9% of the time you can just ignore this
     public int describeContents() {
@@ -56,6 +63,7 @@ public class Movable implements Parcelable{
     // write your object's data to the passed-in Parcel
     public void writeToParcel(Parcel out, int flags) {
         bitmap.writeToParcel(out, PARCELABLE_WRITE_RETURN_VALUE);
+        out.writeInt(id);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -72,5 +80,16 @@ public class Movable implements Parcelable{
     // example constructor that takes a Parcel and gives you an object populated with it's values
     private Movable(Parcel in) {
         bitmap = Bitmap.CREATOR.createFromParcel(in);
+        setId(in.readInt());
     }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }
