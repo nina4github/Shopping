@@ -119,7 +119,7 @@ public class HomeActivityView extends View {
         });
     }
 
-    protected void addShopper(ShoppingCart sc){
+    protected void addShopper(Movable sc){
         touch = 1;
         movableOffset+=10;
         sc.setX(movableOffset);
@@ -146,7 +146,7 @@ public class HomeActivityView extends View {
     }
 
 
-    public void addOffer(ShoppingOffer so) {
+    public void addOffer(Movable so) {
         touch = 1;
         movableOffset+=60;
         so.setX(movableOffset);
@@ -168,7 +168,7 @@ public class HomeActivityView extends View {
     public void removeOffer(int offerId) {
         synchronized (offers){
             for(Movable so : offers){
-                if(((ShoppingOffer)so).getId() == offerId){
+                if(so.getId() == offerId){
                     offers.remove(so);
                     break;
                 }

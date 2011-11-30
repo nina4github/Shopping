@@ -52,8 +52,10 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 
         setContentView(R.layout.animationview);
         shoppingHomeHomeActivityView = (HomeActivityView) findViewById(R.id.shoppingActivityView);
+        Bundle bundle = getIntent().getExtras();
+        activeUsers = bundle.getParcelableArrayList(GalleryActivity.ACTIVE_USERS);
         getContacts();
-        getShoppingActivity();
+//        getShoppingActivity();
         for(User u : activeUsers)
          Log.d("Active CONTACT", "" + u.getUserId());
 
@@ -63,6 +65,7 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 
 
         startService(new Intent(this, WakeService.class));
+        showShoppingActivity();
     }
 
     private void getContacts() {
@@ -71,17 +74,14 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
         contacts = FetchActivityTask.getContacts();
     }
 
-    private void getShoppingActivity() {
+    private void showShoppingActivity() {
         shoppingHomeHomeActivityView.clear();
-        //Get community activity.
-        //Should be an asynchronous task
-        activeUsers = FetchActivityTask.getTestUsers(this);
         for(User u : activeUsers){
             ShoppingCart sc = new ShoppingCart(this);
             sc.setId(u.getUserId());
             shoppingHomeHomeActivityView.addShopper(sc);
             for(Movable so : u.getOffers()){
-                shoppingHomeHomeActivityView.addOffer((ShoppingOffer)so);
+                shoppingHomeHomeActivityView.addOffer(so);
             }
         }
     }

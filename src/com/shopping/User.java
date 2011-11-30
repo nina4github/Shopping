@@ -34,7 +34,7 @@ public class User  implements Parcelable {
     public Bitmap getUserImage() {
         //TODO get use image from server if possible
         if(userImage == null){
-            userImage = BitmapFactory.decodeResource(HomeActivity.getContext().getResources(), R.drawable.senior1_80px);
+            userImage = BitmapFactory.decodeResource(GalleryActivity.getContext().getResources(), R.drawable.senior1_80px);
         }
         return userImage;
     }

@@ -48,7 +48,7 @@ public class FetchActivityTask extends AsyncTask<String, Integer, Boolean> {
 
         User b = new User();
         b.setUserId(1);
-        b.setUserImage(BitmapFactory.decodeResource(HomeActivity.getContext().getResources(), R.drawable.senior2_80px));
+        b.setUserImage(BitmapFactory.decodeResource(context.getResources(), R.drawable.senior2_80px));
         b.setFullName("Bjørn");
         b.setUserActivity(UserActivity.Shopping);
         ShoppingOffer so = new ShoppingOffer(context);
@@ -57,7 +57,7 @@ public class FetchActivityTask extends AsyncTask<String, Integer, Boolean> {
 
         User c = new User();
         c.setUserId(3);
-        c.setUserImage(BitmapFactory.decodeResource(HomeActivity.getContext().getResources(), R.drawable.senior3_80px));
+        c.setUserImage(BitmapFactory.decodeResource(context.getResources(), R.drawable.senior3_80px));
         c.setFullName("Carsten");
         ShoppingOffer so1 = new ShoppingOffer(context);
         ShoppingOffer so2 = new ShoppingOffer(context);
@@ -65,10 +65,16 @@ public class FetchActivityTask extends AsyncTask<String, Integer, Boolean> {
         so2.setId(5);
         c.addOffer(so1);
         c.addOffer(so2);
+
+         User d = new User();
+        d.setUserId(12);
+        d.setUserActivity(UserActivity.Shopping);
+        d.setFullName("Kirsten");
 //
         users.add(a);
         users.add(b);
         users.add(c);
+        users.add(d);
         return users;
     }
 
