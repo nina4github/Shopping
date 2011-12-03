@@ -3,12 +3,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+              android:layout_height="fill_parent"
+        android:background="#ffffff">
 
     <!-- Top button row for profile view -->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="fill_parent"
-                    android:layout_height="100sp">
+                    android:layout_height="150sp">
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                       android:id="@+id/profileTopButtonRow"
                       android:orientation="horizontal"
@@ -17,31 +18,35 @@
                       android:layout_centerInParent="true">
             <Button
                     android:id="@+id/profileBtn1"
-                    android:layout_width="150sp"
-                    android:layout_height="40sp"
+                    android:layout_width="200sp"
+                    android:layout_height="150sp"
                     android:text="Profil"
                     android:background="@color/white"
+                    android:textSize="35sp"
                     />
             <Button
                     android:id="@+id/profileBtn2"
-                    android:layout_width="150sp"
-                    android:layout_height="40sp"
+                    android:layout_width="200sp"
+                    android:layout_height="150sp"
                     android:text="Ugeoversigt"
                     android:background="@color/white"
+                    android:textSize="35sp"
                     />
             <Button
                     android:id="@+id/profileBtn3"
-                    android:layout_width="150sp"
-                    android:layout_height="40sp"
+                    android:layout_width="200sp"
+                    android:layout_height="150sp"
                     android:text="Sparks"
                     android:background="@color/white"
+                    android:textSize="35sp"
                     />
             <Button
                     android:id="@+id/profileBtn4"
-                    android:layout_width="150sp"
-                    android:layout_height="40sp"
+                    android:layout_width="200sp"
+                    android:layout_height="150sp"
                     android:text="Flest indkøb"
                     android:background="@color/white"
+                    android:textSize="35sp"
                     />
         </LinearLayout>
     </RelativeLayout>
@@ -51,7 +56,7 @@
                   android:orientation="horizontal"
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent"
-                  android:background="#654321">
+                  >
 
         <!-- Left side view with face of user and additional info-->
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -59,18 +64,17 @@
                         android:layout_height="fill_parent">
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                           android:orientation="vertical"
-                          android:layout_width="fill_parent"
-                          android:layout_height="fill_parent"
-                          android:translationX="100sp"
-                          android:translationY="200sp"
-                          android:background="#654321">
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                         android:layout_centerInParent="true"
+                          >
                 <!-- Some standard text -->
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="40sp"
-                        android:text="Profil">
-                </TextView>
+                <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="40sp"-->
+                        <!--android:text="Profil">-->
+                <!--</TextView>-->
                 <!-- User image -->
                 <ImageView
                         android:id="@+id/userView"
@@ -80,7 +84,10 @@
                 <!-- User name and what else -->
                 <TextView android:id="@+id/userTextView"
                           android:layout_width="wrap_content"
-                          android:layout_height="wrap_content">
+                          android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="35sp"
+                        android:textColor="@color/black">
                 </TextView>
             </LinearLayout>
         </RelativeLayout>
@@ -91,7 +98,7 @@
                         android:orientation="vertical"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:background="#221232">
+                        android:background="#ffffff">
         </RelativeLayout>
     </LinearLayout>
 

@@ -58,6 +58,8 @@ public class HomeActivityView extends View {
      */
     private RefreshHandler mRedrawHandler = new RefreshHandler();
 
+
+
     class RefreshHandler extends Handler {
 
         @Override
@@ -99,11 +101,13 @@ public class HomeActivityView extends View {
         carts = new ArrayList<Movable>();
         offers = new ArrayList<Movable>();
 
+        //Put cart somewhere meaningful
+        //For bottom of screen we can start offscreen
         defaultCart = new ShoppingCart(getContext(), R.drawable.homecart);
-        defaultCart.setX(5);
-        defaultCart.setY(5);
-        defaultCart.setXDirection(2);
-        defaultCart.setYDirection(2);
+        defaultCart.setX(defaultCart.getBitmap().getWidth() * -1);
+        //defaultCart.setY(5);
+        defaultCart.setXDirection(1);
+        defaultCart.setYDirection(1);
 
         setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -119,8 +123,8 @@ public class HomeActivityView extends View {
         });
     }
 
-    protected void addShopper(Movable sc){
-        touch = 1;
+    protected void addShopper(Movable sc, boolean flashScreen){
+        if(flashScreen)touch = 1;
         movableOffset+=10;
         sc.setX(movableOffset);
         sc.setY(150);
@@ -138,16 +142,21 @@ public class HomeActivityView extends View {
         }
     }
 
-    public void removeShopper() {
+    public void removeShopper(int id) {
         if(carts.size()>0)
             synchronized (carts){
-                carts.remove(carts.size()-1);
+                for(Movable cart : carts){
+                    if(cart.getId()==id)   {
+                        carts.remove(cart);
+                        return;
+                    }
+                }
             }
     }
 
 
-    public void addOffer(Movable so) {
-        touch = 1;
+    public void addOffer(Movable so, boolean flashScreen) {
+        if(flashScreen)touch = 1;
         movableOffset+=60;
         so.setX(movableOffset);
         so.setY(300);
@@ -226,7 +235,7 @@ public class HomeActivityView extends View {
             }
         }
 
-        updatedDefaultCart(defaultCart, canvas);
+        updatedDefaultCartAtBottom(defaultCart, canvas);
 
         synchronized (carts){
             for (Movable m  : carts){
@@ -238,6 +247,38 @@ public class HomeActivityView extends View {
                 updateMovable(m, canvas);
             }
         }
+    }
+
+    /**
+     * Helper method to see if a cart for a certain user i already displayed
+     * @param userId
+     * @return
+     */
+    public boolean isUserDisplayed(int userId) {
+        synchronized (carts){
+            for(Movable m : carts){
+                if(m.getId()==userId)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Update default cart. Method that makes it move along bottom of screen
+     */
+    private void updatedDefaultCartAtBottom(Movable m, Canvas canvas) {
+        int w = canvas.getWidth();
+        if(m.getX() > w){
+            m.setX(m.getBitmap().getWidth() * -1);
+        }else{
+            m.setX(m.getX() + m.getXDirection());
+            m.setY(canvas.getHeight() - m.getBitmap().getHeight());
+        }
+
+        //Update direction and draw
+        m.updatePosition();
+        drawImage(m, canvas);
     }
 
     /**

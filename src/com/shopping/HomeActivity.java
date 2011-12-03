@@ -28,7 +28,7 @@ interface MyInterruptHandler {
 
 public class HomeActivity extends Activity implements MyInterruptHandler {
     public static final String USER_ID = "user01";
-        public static final String ACTIVE_USERS = "active_users_constant";
+    public static final String ACTIVE_USERS = "active_users_constant";
     public static final String CONTACTS = "all_shopping_contacts_for_user";
     private HomeActivityView shoppingHomeHomeActivityView;
     private BroadcastReceiver receiver;
@@ -57,31 +57,32 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
         getContacts();
 //        getShoppingActivity();
         for(User u : activeUsers)
-         Log.d("Active CONTACT", "" + u.getUserId());
+            Log.d("Active CONTACT", "" + u.getUserId());
 
         shoppingHomeHomeActivityView.setState(HomeActivityView.VISIBLE);
         shoppingHomeHomeActivityView.update();
         shoppingHomeHomeActivityView.setMyInterruptHandler(this);
 
-
-        startService(new Intent(this, WakeService.class));
         showShoppingActivity();
+        startService(new Intent(this, WakeService.class));
     }
 
     private void getContacts() {
         if(contacts != null)
             contacts.clear();
-        contacts = FetchActivityTask.getContacts();
+        contacts = FetchActivityTask.getContacts(false);
     }
 
     private void showShoppingActivity() {
         shoppingHomeHomeActivityView.clear();
         for(User u : activeUsers){
-            ShoppingCart sc = new ShoppingCart(this);
-            sc.setId(u.getUserId());
-            shoppingHomeHomeActivityView.addShopper(sc);
-            for(Movable so : u.getOffers()){
-                shoppingHomeHomeActivityView.addOffer(so);
+            if(u.getUserActivity() == UserActivity.Shopping){
+                ShoppingCart sc = new ShoppingCart(this);
+                sc.setId(u.getUserId());
+                shoppingHomeHomeActivityView.addShopper(sc, false);
+                for(Movable so : u.getOffers()){
+                    shoppingHomeHomeActivityView.addOffer(so, false);
+                }
             }
         }
     }
@@ -129,16 +130,20 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
         Log.d("shopping activity", "onStop");
         //      shoppingActivity.setMode(HomeActivityView.PAUSE);
     }
-       int i = 0;
+    int i = 0;
     public void myInterrupt() {
         i++;
         if(!interrupted){
             interrupted = true;
-        Log.d("INTENT FIRESD", "" + i);
-        Intent intent = new Intent(HomeActivity.this, ShoppingOverview.class);
-        intent.putParcelableArrayListExtra(HomeActivity.ACTIVE_USERS, activeUsers);
-        intent.putParcelableArrayListExtra(HomeActivity.CONTACTS, contacts);
-        startActivity(intent);
+            Log.d("INTENT FIRESD", "" + i);
+            Intent intent = new Intent(HomeActivity.this, ActivityOverview.class);
+            ArrayList<User> shoppers = new ArrayList<User>();
+            for(User u : activeUsers){
+                if(u.getUserActivity()==UserActivity.Shopping)
+                    shoppers.add(u);
+            }
+            intent.putParcelableArrayListExtra(HomeActivity.ACTIVE_USERS, shoppers);
+            startActivity(intent);
         }
     }
 
@@ -151,40 +156,50 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
         public void onReceive(Context context, Intent intent) {
             String activity = intent.getStringExtra(WakeService.ACTIVITY);
             String content  =  intent.getStringExtra(WakeService.CONTENT);
-            String userName =  intent.getStringExtra(WakeService.USER_NAME);
+            int userID =  intent.getIntExtra(WakeService.USER_ID,-1);
 
             if(activity.equalsIgnoreCase("shopping"))
-                updateShoppingActivity(content, userName);
+                updateShoppingActivity(content, userID);
 
-            else if(activity.equalsIgnoreCase("offer123")){
-                 ShoppingOffer so = new ShoppingOffer(HomeActivity.this);
+            else if(activity.equalsIgnoreCase("offer")){
+                ShoppingOffer so = new ShoppingOffer(HomeActivity.this);
                 so.setId(testid);
-                shoppingHomeHomeActivityView.addOffer(so);
+                shoppingHomeHomeActivityView.addOffer(so, true);
             }
         }
 
-        private void updateShoppingActivity(String content, String userName) {
+        private void updateShoppingActivity(String content, int userId) {
             if(content.equalsIgnoreCase("start")){
-                //TODO We need id for this user?!
+                User user = null;
+                for(User u : activeUsers){
+                    if(u.getUserId()==userId){
+                        user=u;
+                    }
+                }
+
+                //return if user is not know or already displayed
+                if(user==null || shoppingHomeHomeActivityView.isUserDisplayed(userId))return;
+
                 NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 Notification notification = new Notification();
                 notification.defaults = Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE;
                 nm.notify(1, notification);
 
-                User u = new User();
-                u.setFullName(userName);
-                u.setUserId(123);
-                u.setUserActivity(UserActivity.Shopping);
+                user.setUserActivity(UserActivity.Shopping);
 
                 ShoppingCart sc = new ShoppingCart(HomeActivity.this);
-                sc.setId(testid);
-                shoppingHomeHomeActivityView.addShopper(sc);
+                sc.setId(userId);
+                shoppingHomeHomeActivityView.addShopper(sc, true);
             }else if(content.equalsIgnoreCase("stop")){
+                User user = null;
                 for(User u : activeUsers){
-                    if(u.getFullName().endsWith(userName))
-                        activeUsers.remove(u);
+                    if(u.getUserId()==userId){
+                        user=u;
+                    }
                 }
-                shoppingHomeHomeActivityView.removeShopper();
+                if(user==null)return;
+                user.setUserActivity(UserActivity.Unknown);
+                shoppingHomeHomeActivityView.removeShopper(userId);
             }
         }
     }

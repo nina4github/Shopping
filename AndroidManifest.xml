@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".ActivityOverview"></activity>
         <activity android:name=".ShoppingOverview"></activity>
         <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".OfferActivity"></activity>

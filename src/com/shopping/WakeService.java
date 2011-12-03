@@ -19,7 +19,7 @@ public class WakeService extends Service {
     public static final String NEW_SHOPPING_ACTIVITY = "New_Shopping_Activity";
     public static final String ACTIVITY = "activity";
     public static final String CONTENT = "content";
-    public static final String USER_NAME = "user_name";
+    public static final String USER_ID = "user_id";
 
 	private static final String EB = "EventBus";
 	private static final String TAG = "WakeService";
@@ -43,23 +43,20 @@ public class WakeService extends Service {
 	
 	private void startListener(){
 
-        final String user = "user";
-		final String state = "state";
-	    final String activity = "activity";
-	    final String object = "object";
-	    final String time_stamp = "timestamp";
-        final String content = "content";
+        final String activity = "activity";
+		final String actor = "actor";
+	    final String content = "content";
+	    final String timestamp = "timestamp";
+
 		
 	    EventBus eb = new EventBus("tiger.itu.dk", 8004);
         Log.d(EB,"EB initialiazed");
 	    
 	    Listener l = new Listener(new PatternBuilder()
-        .addMatchAll(user)
-        .add(activity, PatternOperator.EQ,"shopping")
-        .addMatchAll(object)
-        .addMatchAll(state)
-        .addMatchAll(time_stamp)
+        .addMatchAll(activity)
+        .addMatchAll(actor)
         .addMatchAll(content)
+        .addMatchAll(timestamp)
         .getPattern()){
 			
 			@Override
@@ -94,28 +91,28 @@ public class WakeService extends Service {
         Iterator it = msg.entrySet().iterator();
         String activity = "";
         String content = "";
-        String userName = "";
+        int userId = 0;
         while (it.hasNext()) {
            Map.Entry pairs = (Map.Entry)it.next();
            if(pairs.getKey().toString().equalsIgnoreCase("activity"))
                activity = pairs.getValue().toString();
            else if(pairs.getKey().toString().equalsIgnoreCase("content"))
                content = pairs.getValue().toString();
-            else if(pairs.getKey().toString().equalsIgnoreCase("user"))
-               userName = pairs.getValue().toString();
+            else if(pairs.getKey().toString().equalsIgnoreCase("actor"))
+               userId = Integer.parseInt(pairs.getValue().toString());
            it.remove(); // avoids a ConcurrentModificationException
         }
-        announceNewShoppingActivity(activity, content, userName);
+        announceNewShoppingActivity(activity, content, userId);
 	}
 
     /**
      * Broadcast a new shopping activity.
      */
-    private void announceNewShoppingActivity(String activity, String content, String userName) {
+    private void announceNewShoppingActivity(String activity, String content, int userId) {
         Intent intent = new Intent(NEW_SHOPPING_ACTIVITY);
         intent.putExtra(ACTIVITY, activity);
         intent.putExtra(CONTENT, content);
-        intent.putExtra(USER_NAME, userName);
+        intent.putExtra(USER_ID, userId);
         sendBroadcast(intent);
     }
 

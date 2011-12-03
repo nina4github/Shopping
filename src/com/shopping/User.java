@@ -61,6 +61,10 @@ public class User  implements Parcelable {
         out.writeString(imageUrlSmall);
         out.writeInt(Gender.Male.ordinal());
         out.writeString(bio);
+        if(userActivity==UserActivity.Shopping)
+            out.writeInt(1);
+        else
+            out.writeInt(0);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -93,7 +97,10 @@ public class User  implements Parcelable {
         else
             gender = Gender.Female;
         bio = in.readString();
-
+        if(in.readInt()==1)
+            setUserActivity(UserActivity.Shopping);
+        else
+            setUserActivity(UserActivity.Unknown);
     }
 
 
@@ -181,7 +188,7 @@ public class User  implements Parcelable {
     }
 
     public String getLocation() {
-        if(location == null || location.isEmpty()) location = "Unknown";
+        if(location == null || location.isEmpty()) location = " \"ukendt sted\".";
         return location;
     }
 

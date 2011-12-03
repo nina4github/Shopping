@@ -1,14 +1,20 @@
 package com.shopping;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,20 +25,23 @@ import java.util.ArrayList;
  */
 public class GalleryActivity extends Activity {
     //Not a very good abstraction, but users are people out shopping.
-    private ArrayList<User> activeUsers;
+    private ArrayList<User> shoppingFriends;
     public static final String ACTIVE_USERS = "active_users_const";
     private static Context mContext;
+    private Timer timer;
+    public static final long SLEEP_DELAY = 1000 * 60 * 2; //milliseconds
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //The shopping activity viev runs in full screen
+        //The  activity viev runs in full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Get activity
-        activeUsers = FetchActivityTask.getTestUsers(this);
+        shoppingFriends = FetchActivityTask.getContacts(true);
+        FetchActivityTask.setUserActivity(shoppingFriends);
 
         setContentView(R.layout.mygallery);
 
@@ -41,7 +50,10 @@ public class GalleryActivity extends Activity {
 
         gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                Toast.makeText(GalleryActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                timer.cancel();
+                Intent intent = new Intent(GalleryActivity.this, ProfileActivity.class);
+                intent.putExtra(ProfileActivity.SELECTED_USER, shoppingFriends.get(position));
+                startActivity(intent);
             }
         });
 
@@ -49,8 +61,11 @@ public class GalleryActivity extends Activity {
         Button lhome = (Button)findViewById(R.id.lhomebtn);
         lhome.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                timer.cancel();
+                FetchActivityTask.setUserActivity(shoppingFriends);
                 Intent intent = new Intent(GalleryActivity.this, HomeActivity.class);
-                intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, activeUsers);
+                shoppingFriends.remove(0);
+                intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, shoppingFriends);
                 startActivity(intent);
             }
         });
@@ -63,6 +78,39 @@ public class GalleryActivity extends Activity {
             }
         });
         mContext = this;
+        restartTimer();
+        startService(new Intent(this, WakeService.class));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        timer.cancel();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Get activity
+        FetchActivityTask.setUserActivity(shoppingFriends);
+    }
+
+    private void restartTimer(){
+        if(timer!=null)timer.cancel();
+        timer = new Timer("sleeptime");
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(GalleryActivity.this, HomeActivity.class);
+                intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, shoppingFriends);
+                startActivity(intent);
+            }
+        },GalleryActivity.SLEEP_DELAY);
     }
 
     public class ImageAdapter extends BaseAdapter {
@@ -82,7 +130,7 @@ public class GalleryActivity extends Activity {
 
         public int getCount() {
             //Count is all users plus one icon for the group
-            return activeUsers.size() + 1;
+            return shoppingFriends.size() + 1;
         }
 
         public Object getItem(int position) {
@@ -94,6 +142,7 @@ public class GalleryActivity extends Activity {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
+            restartTimer();
             ViewHolder holder;
             if (convertView == null)
             {
@@ -111,13 +160,20 @@ public class GalleryActivity extends Activity {
             ImageView imageView = holder.img;
             TextView textView = holder.lbl;
             //  imageView.setImageResource(mImageIds[position]);
-            if(position == activeUsers.size()){
+            if(position == shoppingFriends.size()){
                 imageView.setBackgroundResource(R.drawable.dgroup);
                 textView.setText("Venner");
             }
             else{
-                imageView.setImageResource(R.drawable.duser);
-                textView.setText(activeUsers.get(position).getFullName());
+                String name = position == 0 ? "Min profil" : shoppingFriends.get(position).getFirstName();
+                if(shoppingFriends.get(position).getUserActivity() == UserActivity.Shopping){
+                    imageView.setImageResource(R.drawable.dshopuser);
+                    textView.setText(name);
+                }else{
+                    imageView.setImageResource(R.drawable.duser);
+                    textView.setText(name);
+                }
+
             }
 
 
@@ -129,47 +185,9 @@ public class GalleryActivity extends Activity {
         TextView lbl;
     }
 
+
     public static Context getContext(){
         return mContext;
     }
 }
 
-
-//        ImageView imageView;
-//        //reuse
-//        if(convertView == null){
-//            LinearLayout linearLayout = new LinearLayout(mContext);
-//            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-//                    LinearLayout.LayoutParams.WRAP_CONTENT,
-//                    LinearLayout.LayoutParams.WRAP_CONTENT);
-//            linearLayout.setLayoutParams(p);
-//            linearLayout.setOrientation(LinearLayout.VERTICAL);
-//            //Some magic numbers here, it's the size of the icon.
-//            //The multiply is because I've been scaling
-//            int iconX = 276*2;
-//            int iconY = 230*2;
-//            imageView = new ImageView(mContext);
-//
-//
-//            imageView.setLayoutParams(new Gallery.LayoutParams(iconX, iconY));
-//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-//            //     imageView.setBackgroundResource(mGalleryItemBackground);
-//
-//            TextView tv = new TextView(mContext);
-//            tv.setLayoutParams(p);
-//            tv.setText("NAME");
-//
-//            linearLayout.addView(imageView);
-//            linearLayout.addView(tv);
-//
-//        } else{
-//            imageView = (ImageView)convertView;
-//        }
-//
-//        //  imageView.setImageResource(mImageIds[position]);
-//        if(position == GROUP_ICON_POSITION)
-//                imageView.setBackgroundResource(R.drawable.dgroup);
-//        else
-//                imageView.setImageResource(R.drawable.duser);
-//
-//        return imageView;

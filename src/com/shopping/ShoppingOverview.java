@@ -21,7 +21,7 @@ public class ShoppingOverview extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //The shopping activity viev runs in full screen
+        //The activity viev runs in full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -29,6 +29,7 @@ public class ShoppingOverview extends Activity {
         Bundle bundle = getIntent().getExtras();
         activeUser = bundle.getParcelableArrayList(HomeActivity.ACTIVE_USERS);
         contacts = bundle.getParcelableArrayList(HomeActivity.CONTACTS);
+
         for(User u : activeUser){
             addOverViewActivity(u);
         }
