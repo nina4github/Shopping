@@ -1,6 +1,7 @@
 package com.shopping;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 /**
@@ -12,6 +13,9 @@ import android.graphics.BitmapFactory;
  */
 public class ShoppingOffer extends Movable{
     public ShoppingOffer(Context context) {
-       super(BitmapFactory.decodeResource(context.getResources(), R.drawable.offer));
+        super(BitmapFactory.decodeResource(context.getResources(), R.drawable.offer));
+    }
+    public ShoppingOffer(Context context, Bitmap bitmap) {
+        super(bitmap);
     }
 }

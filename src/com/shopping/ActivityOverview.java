@@ -15,6 +15,10 @@ import android.widget.*;
 import org.eclipse.jetty.util.resource.Resource;
 
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +30,7 @@ import java.util.TimerTask;
  * Time: 22.46
  * To change this template use File | Settings | File Templates.
  */
-public class ActivityOverview extends Activity {
+public class ActivityOverview extends android.app.Activity {
     private ArrayList<User> shoppingFriends;
     private int objectsForGallery=0;
     private Timer timer;
@@ -76,7 +80,7 @@ public class ActivityOverview extends Activity {
         restartTimer();
     }
 
-        private void restartTimer(){
+    private void restartTimer(){
         if(timer!=null)timer.cancel();
         timer = new Timer("sleeptime");
         timer.schedule(new TimerTask() {
@@ -109,8 +113,11 @@ public class ActivityOverview extends Activity {
             index++;
             for(Movable m : u.getOffers()){
                 if(index==position){
+                    Drawable image = ImageOperations(this, m.getAltImageUrl(), "image.jpg");
                     ImageView iv = (ImageView)findViewById(R.id.activityoverviewimage);
-                    iv.setImageBitmap(m.getBitmap());
+                    if(image != null)
+                        iv.setImageDrawable(image);
+                    else iv.setImageBitmap(m.getBitmap());
 
                     TextView tv = (TextView)findViewById(R.id.activityoverviewtext);
                     tv.setText(u.getFullName() + " har delt dette tilbud");
@@ -122,6 +129,26 @@ public class ActivityOverview extends Activity {
             }
             if(found)break;
         }
+    }
+
+    private Drawable ImageOperations(Context ctx, String url, String saveFilename) {
+        try {
+            InputStream is = (InputStream) this.fetch(url);
+            Drawable d = Drawable.createFromStream(is, "src");
+            return d;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Object fetch(String address) throws MalformedURLException,IOException {
+        URL url = new URL(address);
+        Object content = url.getContent();
+        return content;
     }
 
     public class ImageAdapter extends BaseAdapter {

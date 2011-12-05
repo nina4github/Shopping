@@ -12,6 +12,7 @@ import android.provider.ContactsContract;
 import android.text.Layout;
 import android.view.View;
 import android.widget.*;
+import org.eclipse.jetty.util.resource.Resource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,45 +29,44 @@ import java.util.TimerTask;
  * Time: 14.42
  * To change this template use File | Settings | File Templates.
  */
-public class ProfileActivity extends android.app.Activity {
+public class GroupProfileActivity extends android.app.Activity {
     private User user;
+    private ArrayList<User> shoppingFriends;
     private View previousView;
     public static String SELECTED_USER = "selected_user";
     private Timer timer;
-    public static final String SHOPPING_FRIENDS = "user_shopping_friends";
-    private ArrayList<User> shoppingFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile);
+        setContentView(R.layout.group);
         Bundle bundle = getIntent().getExtras();
+        //Here selected is just user of this device
         user = (User)bundle.getParcelable(ProfileActivity.SELECTED_USER);
         shoppingFriends = bundle.getParcelableArrayList(ProfileActivity.SHOPPING_FRIENDS);
         //first in array is same as this user
-         shoppingFriends.remove(0);
-        setUserImage(user.getImageUrl());
-        TextView tv = (TextView)findViewById(R.id.userTextView);
-        String text = "";
-        if(user.getFullName()==null || user.getFullName().isEmpty())
-            text = "" + user.getUserId();
-        else text = user.getFirstName();
+        shoppingFriends.remove(0);
+        Drawable image = getResources().getDrawable(R.drawable.group);
+        ImageView iv = (ImageView)findViewById(R.id.groupView);
+        iv.setImageDrawable(image);
+        TextView tv = (TextView)findViewById(R.id.groupTextView);
+        String text = "Venner";
         tv.setText(text);
 
-                        //listener for left home button, shopping cart
-        Button lhome = (Button)findViewById(R.id.profilelhomebtn);
+        //listener for left home button, shopping cart
+        Button lhome = (Button)findViewById(R.id.grouplhomebtn);
         lhome.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 timer.cancel();
-                Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
+                Intent intent = new Intent(GroupProfileActivity.this, HomeActivity.class);
                 intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, shoppingFriends);
                 startActivity(intent);
+                finish();
             }
         });
 
         //listener for left home button, shopping cart
-        Button rhome = (Button)findViewById(R.id.profilerhomebtn);
+        Button rhome = (Button)findViewById(R.id.grouprhomebtn);
         rhome.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 timer.cancel();
@@ -78,8 +78,10 @@ public class ProfileActivity extends android.app.Activity {
         restartTimer();
     }
 
+
+    //who is shopping
     private void setProfileStatus(View view) {
-        RelativeLayout statusLayout = (RelativeLayout)findViewById(R.id.statusLayout);
+        RelativeLayout statusLayout = (RelativeLayout)findViewById(R.id.groupStatusLayout);
         statusLayout.removeAllViews();
         statusLayout.invalidate();
         updateButtonColor(view);
@@ -87,22 +89,34 @@ public class ProfileActivity extends android.app.Activity {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-        TextView statusText = new TextView(this);
-        statusText.setLayoutParams(params);
-        statusText.setTextSize(20.0f);
-        String text;
-        if(user.getUserActivity()==UserActivity.Shopping)
-            text = user.getFirstName() + " er på indkøb i " + user.getLocation();
-        else
-        text = "Ingen status på " + user.getFirstName();
-        statusText.setText(text);
-        statusText.setTextSize(40);
-        statusLayout.addView(statusText);
+        //  params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        ImageView iv;
+        int x = 0;
+        for(User u : shoppingFriends){
+            iv = new ImageView(GalleryActivity.getContext());
+            iv.setLayoutParams(params);
+            Drawable d = getUserImageDrawable(u.getImageUrl());
+            iv.setImageDrawable(d);
+            iv.setTranslationX(x);
+            statusLayout.addView(iv);
+
+            //Add shopping cart if shopping
+            if(u.getUserActivity()==UserActivity.Shopping){
+                iv = new ImageView(GalleryActivity.getContext());
+                iv.setLayoutParams(params);
+                iv.setImageDrawable(getResources().getDrawable(R.drawable.cart));
+                iv.setTranslationX(x);
+                iv.setTranslationY(d.getIntrinsicHeight() + 20);
+                statusLayout.addView(iv);
+            }
+            x+=d.getIntrinsicWidth() +20;
+        }
+
+        //   statusLayout.addView(statusText);
     }
 
     private void setWeekOverview(View view) {
-        RelativeLayout statusLayout = (RelativeLayout)findViewById(R.id.statusLayout);
+        RelativeLayout statusLayout = (RelativeLayout)findViewById(R.id.groupStatusLayout);
         ArrayList<ArrayList<Movable>> weekActivity = FetchActivityTask.getWeekActivity(HomeActivity.USER_ID);
         populateWeekView(weekActivity);
         statusLayout.removeAllViews();
@@ -116,7 +130,7 @@ public class ProfileActivity extends android.app.Activity {
     }
 
     private void setSparks(View view) {
-        RelativeLayout statusLayout = (RelativeLayout)findViewById(R.id.statusLayout);
+        RelativeLayout statusLayout = (RelativeLayout)findViewById(R.id.groupStatusLayout);
         statusLayout.removeAllViews();
         statusLayout.invalidate();
         updateButtonColor(view);
@@ -124,7 +138,7 @@ public class ProfileActivity extends android.app.Activity {
     }
 
     private void setShoppingStats(View view) {
-        RelativeLayout statusLayout = (RelativeLayout)findViewById(R.id.statusLayout);
+        RelativeLayout statusLayout = (RelativeLayout)findViewById(R.id.groupStatusLayout);
         statusLayout.removeAllViews();
         statusLayout.invalidate();
         updateButtonColor(view);
@@ -132,7 +146,7 @@ public class ProfileActivity extends android.app.Activity {
 
 
     private void setupButtonListeners() {
-        Button b = (Button)findViewById(R.id.profileBtn1);
+        Button b = (Button)findViewById(R.id.groupBtn1);
         b.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 restartTimer();
@@ -142,7 +156,7 @@ public class ProfileActivity extends android.app.Activity {
         //Initialize with the profile view set
         setProfileStatus(b);
 
-        b = (Button)findViewById(R.id.profileBtn2);
+        b = (Button)findViewById(R.id.groupBtn2);
         b.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 restartTimer();
@@ -150,7 +164,7 @@ public class ProfileActivity extends android.app.Activity {
             }
         });
 
-        b = (Button)findViewById(R.id.profileBtn3);
+        b = (Button)findViewById(R.id.groupBtn3);
         b.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 restartTimer();
@@ -158,7 +172,7 @@ public class ProfileActivity extends android.app.Activity {
             }
         });
 
-        b = (Button)findViewById(R.id.profileBtn4);
+        b = (Button)findViewById(R.id.groupBtn4);
         b.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 restartTimer();
@@ -175,13 +189,13 @@ public class ProfileActivity extends android.app.Activity {
         previousView = newButton;
     }
 
-        private void restartTimer(){
+    private void restartTimer(){
         if(timer!=null)timer.cancel();
         timer = new Timer("sleeptime");
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
+                Intent intent = new Intent(GroupProfileActivity.this, HomeActivity.class);
                 intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, shoppingFriends);
                 startActivity(intent);
             }
@@ -190,10 +204,9 @@ public class ProfileActivity extends android.app.Activity {
 
 
     //Get image from server
-    private void setUserImage(String url){
+    private Drawable getUserImageDrawable(String url){
         Drawable image = ImageOperations(this, url, "image.jpg");
-        ImageView iv = (ImageView)findViewById(R.id.userView);
-        iv.setImageDrawable(image);
+        return image;
     }
 
     private Drawable ImageOperations(Context ctx, String url, String saveFilename) {

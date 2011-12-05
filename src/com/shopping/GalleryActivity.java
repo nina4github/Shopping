@@ -34,6 +34,7 @@ public class GalleryActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FetchActivityTask.getAllOffersForUser("user01");
         //The  activity viev runs in full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -51,9 +52,22 @@ public class GalleryActivity extends Activity {
         gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 timer.cancel();
-                Intent intent = new Intent(GalleryActivity.this, ProfileActivity.class);
-                intent.putExtra(ProfileActivity.SELECTED_USER, shoppingFriends.get(position));
-                startActivity(intent);
+                //Check if it is the group
+                if(position==shoppingFriends.size()){
+                    Intent intent = new Intent(GalleryActivity.this, GroupProfileActivity.class);
+                    //This user
+                    intent.putExtra(ProfileActivity.SELECTED_USER, shoppingFriends.get(0));
+                    //Friends
+                    intent.putExtra(ProfileActivity.SHOPPING_FRIENDS, shoppingFriends);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(GalleryActivity.this, ProfileActivity.class);
+                    //Selected user
+                    intent.putExtra(ProfileActivity.SELECTED_USER, shoppingFriends.get(position));
+                    //Friends
+                    intent.putExtra(ProfileActivity.SHOPPING_FRIENDS, shoppingFriends);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -107,6 +121,7 @@ public class GalleryActivity extends Activity {
             @Override
             public void run() {
                 Intent intent = new Intent(GalleryActivity.this, HomeActivity.class);
+                shoppingFriends.remove(0);
                 intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, shoppingFriends);
                 startActivity(intent);
             }

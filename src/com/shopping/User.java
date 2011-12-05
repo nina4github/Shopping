@@ -188,7 +188,7 @@ public class User  implements Parcelable {
     }
 
     public String getLocation() {
-        if(location == null || location.isEmpty()) location = " \"ukendt sted\".";
+        if(location == null || location.isEmpty()) location = ""; // " \"sted kendes ikke\".";
         return location;
     }
 

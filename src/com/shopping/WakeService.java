@@ -110,6 +110,7 @@ public class WakeService extends Service {
      */
     private void announceNewShoppingActivity(String activity, String content, int userId) {
         Intent intent = new Intent(NEW_SHOPPING_ACTIVITY);
+        Log.d("WAKE message", activity + " " + content + " " + userId);
         intent.putExtra(ACTIVITY, activity);
         intent.putExtra(CONTENT, content);
         intent.putExtra(USER_ID, userId);

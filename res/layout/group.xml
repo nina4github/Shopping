@@ -4,19 +4,20 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:background="#ffffff">
-    <!-- Top button row for profile view -->
+        android:background="#ffffff">
+
+    <!-- Top button row for group  view -->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="fill_parent"
                     android:layout_height="150sp">
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/profileTopButtonRow"
+                      android:id="@+id/groupTopButtonRow"
                       android:orientation="horizontal"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_centerInParent="true">
             <Button
-                    android:id="@+id/profileBtn1"
+                    android:id="@+id/groupBtn1"
                     android:layout_width="200sp"
                     android:layout_height="150sp"
                     android:text="Profil"
@@ -24,7 +25,7 @@
                     android:textSize="35sp"
                     />
             <Button
-                    android:id="@+id/profileBtn2"
+                    android:id="@+id/groupBtn2"
                     android:layout_width="200sp"
                     android:layout_height="150sp"
                     android:text="Ugeoversigt"
@@ -32,7 +33,7 @@
                     android:textSize="35sp"
                     />
             <Button
-                    android:id="@+id/profileBtn3"
+                    android:id="@+id/groupBtn3"
                     android:layout_width="200sp"
                     android:layout_height="150sp"
                     android:text="Sparks"
@@ -40,7 +41,7 @@
                     android:textSize="35sp"
                     />
             <Button
-                    android:id="@+id/profileBtn4"
+                    android:id="@+id/groupBtn4"
                     android:layout_width="200sp"
                     android:layout_height="150sp"
                     android:text="Flest indkøb"
@@ -55,7 +56,7 @@
                   android:orientation="horizontal"
                   android:layout_width="fill_parent"
                   android:layout_height="450sp"
-            >
+                  >
 
         <!-- Left side view with face of user and additional info-->
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -65,43 +66,45 @@
                           android:orientation="vertical"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:layout_centerInParent="true"
-                    >
+                         android:layout_centerInParent="true"
+                          >
                 <!-- Some standard text -->
                 <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textSize="40sp"-->
-                <!--android:text="Profil">-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="40sp"-->
+                        <!--android:text="Group">-->
                 <!--</TextView>-->
                 <!-- User image -->
                 <ImageView
-                        android:id="@+id/userView"
+                        android:id="@+id/groupView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                 </ImageView>
                 <!-- User name and what else -->
-                <TextView android:id="@+id/userTextView"
+                <TextView android:id="@+id/groupTextView"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:textSize="35sp"
-                          android:textColor="@color/black">
+                        android:layout_gravity="center"
+                        android:textSize="35sp"
+                        android:textColor="@color/black">
                 </TextView>
             </LinearLayout>
         </RelativeLayout>
 
         <!-- User status-->
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/statusLayout"
+                        android:id="@+id/groupStatusLayout"
                         android:orientation="vertical"
                         android:layout_width="fill_parent"
+                        android:translationX="70sp"
+                        android:translationY="50sp"
                         android:layout_height="fill_parent"
                         android:background="#ffffff">
         </RelativeLayout>
     </LinearLayout>
 
-    <!-- Home buttons -->
+        <!-- Home buttons -->
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
@@ -113,13 +116,13 @@
                 android:layout_alignParentBottom="true"
                 >
             <Button
-                    android:id="@+id/profilelhomebtn"
+                    android:id="@+id/grouplhomebtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/lhome"
                     />
             <Button
-                    android:id="@+id/profilerhomebtn"
+                    android:id="@+id/grouprhomebtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rhome"

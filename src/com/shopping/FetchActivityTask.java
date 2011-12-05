@@ -86,61 +86,6 @@ public class FetchActivityTask extends AsyncTask<String, Integer, Boolean> {
         return users;
     }
 
-    /**
-     * TODO non static and async task
-     * @return
-     */
-//    public static ArrayList<User> getActivity(){
-//        if(contacts == null)
-//            contacts = getContacts();
-//        ArrayList<User> activeUsers = new ArrayList<User>();
-//        String jString = readActivity(JSON_GET_ACTIVITY);
-//        /**
-//         * Server return a JSONObject "aspects" which contain JSONArray of objects "aspect"
-//         */
-//        JSONObject jObj = null;
-//        try {
-//            jObj = new JSONObject(jString);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        /**
-//         *  Convert JSONArray to our types.
-//         */
-//        try {
-//            JSONArray jsonArray = jObj.getJSONArray("aspects");
-//            Log.i(FetchActivityTask.class.getName(), "Number of entries " + jsonArray.length());
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject("aspect");
-//
-//                if(jsonObject.getString("name").equalsIgnoreCase("shopping")){
-//                    User u = getUserwithId(jsonObject.getInt("user_id"));
-//                    u.setUserActivity(UserActivity.Shopping);
-//                    activeUsers.add(u);
-//                    Log.i(FetchActivityTask.class.getName(), "User id found: " + jsonObject.getString("user_id"));
-//                }else{
-//                    Log.i(FetchActivityTask.class.getName(), "User id found: " + jsonObject.getString("user_id"));
-//                    Log.i(FetchActivityTask.class.getName(), "User activity: " + jsonObject.getString("name"));
-//                    /**
-//                     *
-//                     * set stuff like
-//                     *         {"name":"shopping",
-//                     "created_at":"2011-11-13T14:10:06Z",
-//                     "updated_at":"2011-11-25T10:04:05Z",
-//                     "order_id":null,
-//                     "id":56,
-//                     "user_id":12,
-//                     "contacts_visible":true}
-//                     */
-//                }
-//
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return activeUsers;
-//    }
 
     /**
      * Get a new user if user is not already in our collection
@@ -378,7 +323,7 @@ public class FetchActivityTask extends AsyncTask<String, Integer, Boolean> {
                             if(tags.get(k).toString().equalsIgnoreCase("shopping")){
                                 shopping=true;
                             }else if(tags.get(k).toString().equalsIgnoreCase("start")){
-                               start = true;
+                                start = true;
                             }
                         }
                         //add found activities to its day i
@@ -392,5 +337,39 @@ public class FetchActivityTask extends AsyncTask<String, Integer, Boolean> {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         return activityObjects;
+    }
+
+    /**
+     * Filters all shopping offers in stream for the user.
+     * @param id
+     * @return
+     */
+    public static ArrayList<ShoppingOffer> getAllOffersForUser(String id){
+        String JSON_GET_OFFERS_ACTIVITY = "http://idea.itu.dk:8080/activities/shopping.json?user="+id+"@idea.itu.dk:3000";
+        String jString = readActivity(JSON_GET_OFFERS_ACTIVITY);
+        ArrayList<ShoppingOffer> offers = new ArrayList<ShoppingOffer>();
+        /**
+         * Server return a JSONObject "aspects" which contain JSONArray of objects "aspect"
+         */
+        JSONObject jObj = null;
+        try {
+            jObj = new JSONObject(jString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray jArr = jObj.getJSONArray("stream");
+            //Take oldest updates first
+            for(int i = 0; i < jArr.length(); i++){
+                 JSONObject object = jArr.getJSONObject(i);
+                 if(object.getString("verb").equalsIgnoreCase("Photo")){
+                     //Add shopping offer
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return offers;
     }
 }

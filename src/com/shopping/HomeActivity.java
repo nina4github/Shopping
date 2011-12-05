@@ -158,12 +158,21 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
             String content  =  intent.getStringExtra(WakeService.CONTENT);
             int userID =  intent.getIntExtra(WakeService.USER_ID,-1);
 
-            if(activity.equalsIgnoreCase("shopping"))
+            if(activity.equalsIgnoreCase("shopping") &&
+                    !content.equalsIgnoreCase("start") &&
+                    !content.equalsIgnoreCase("stop"))
                 updateShoppingActivity(content, userID);
 
-            else if(activity.equalsIgnoreCase("offer")){
+            else{
                 ShoppingOffer so = new ShoppingOffer(HomeActivity.this);
-                so.setId(testid);
+                so.setAltImageUrl(content);
+                so.setId(userID);
+                for(User u : activeUsers){
+                    if(u.getUserId()==userID){
+                        u.addOffer(so);
+                        break;
+                    }
+                }
                 shoppingHomeHomeActivityView.addOffer(so, true);
             }
         }

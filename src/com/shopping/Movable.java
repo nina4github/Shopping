@@ -29,8 +29,11 @@ public class Movable implements Parcelable{
     private int xDirection;
     private int yDirection;
 
+    private String altImageUrl;
+
     public Movable(Bitmap bitmap) {
         this.bitmap = bitmap;
+        altImageUrl = "";
     }
 
     protected Bitmap getBitmap(){
@@ -64,6 +67,7 @@ public class Movable implements Parcelable{
     public void writeToParcel(Parcel out, int flags) {
         bitmap.writeToParcel(out, PARCELABLE_WRITE_RETURN_VALUE);
         out.writeInt(id);
+        out.writeString(altImageUrl);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -81,6 +85,7 @@ public class Movable implements Parcelable{
     private Movable(Parcel in) {
         bitmap = Bitmap.CREATOR.createFromParcel(in);
         setId(in.readInt());
+        setAltImageUrl(in.readString());
     }
 
 
@@ -92,4 +97,11 @@ public class Movable implements Parcelable{
         this.id = id;
     }
 
+    public String getAltImageUrl() {
+        return altImageUrl;
+    }
+
+    public void setAltImageUrl(String altImageUrl) {
+        this.altImageUrl = altImageUrl;
+    }
 }

@@ -25,6 +25,7 @@
         <activity android:name=".ActivityOverview"></activity>
         <activity android:name=".ShoppingOverview"></activity>
         <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".GroupProfileActivity"></activity>
         <activity android:name=".OfferActivity"></activity>
         <service android:name=".WakeService"></service>
         <!-- <userActivity android:name=".Update"></userActivity>  -->
