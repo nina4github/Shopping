@@ -31,8 +31,7 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */                                           //Input, Progress Report Type, Result Type
 public class FetchActivityTask extends AsyncTask<String, Integer, Boolean> {
-    private static final String JSON_GET_ACTIVITY =  "http://idea.itu.dk:8080/activities/shopping.json?user=" + HomeActivity.USER_ID +"@idea.itu.dk:3000";
-    private static final String JSON_GET_CONTACTS =  "http://idea.itu.dk:8080/activities/shopping/contacts.json?user=" + HomeActivity.USER_ID +"@idea.itu.dk:3000";
+
 
     private static ArrayList<User> contacts;
     @Override
@@ -130,11 +129,11 @@ public class FetchActivityTask extends AsyncTask<String, Integer, Boolean> {
         return builder.toString();
     }
 
-    public static ArrayList<User> getContacts(boolean includeSelf) {
+    public static ArrayList<User> getContactsForUser(boolean includeSelf, String userId) {
         contacts = new ArrayList<User>();
         if(includeSelf)
-            contacts.add(getUserForId(HomeActivity.USER_ID));
-        String jString = readActivity(JSON_GET_CONTACTS);
+            contacts.add(getUserForId(userId));
+        String jString = readActivity(getContactsString(userId));
         /**
          * Server return a JSONObject "aspects" which contain JSONArray of objects "aspect"
          */
@@ -194,8 +193,8 @@ public class FetchActivityTask extends AsyncTask<String, Integer, Boolean> {
         contacts.add(newContact);
     }
 
-    public static void setUserActivity(ArrayList<User> shoppingFriends) {
-        String jString = readActivity(JSON_GET_ACTIVITY);
+    public static void setUserActivity(ArrayList<User> shoppingFriends, String uId) {
+        String jString = readActivity(getActivityString(uId));
         /**
          * Server return a JSONObject "aspects" which contain JSONArray of objects "aspect"
          */
@@ -286,58 +285,58 @@ public class FetchActivityTask extends AsyncTask<String, Integer, Boolean> {
         return user;
     }
 
-    public static ArrayList<ArrayList<Movable>> getWeekActivity(String id){
-        String JSON_GETWEEK_ACTIVITY = "http://idea.itu.dk:8080/activities/shopping/week.json?user="+id+"@idea.itu.dk:3000";
-        String jString = readActivity(JSON_GETWEEK_ACTIVITY);
-        ArrayList<ArrayList<Movable>> activityObjects = new ArrayList<ArrayList<Movable>>();
-        for(int j = 0; j < 7; j++){
-            activityObjects.add(j, new ArrayList<Movable>());
-        }
-        /**
-         * Server return a JSONObject "aspects" which contain JSONArray of objects "aspect"
-         */
-        JSONObject jObj = null;
-        try {
-            jObj = new JSONObject(jString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JSONObject stream = null;
-        try {
-            stream = jObj.getJSONObject("stream");
-            //Get all 7 days a week
-            for(int i = 0; i < 7; i++){
-                //If days is there we parse all activity
-                if(!stream.isNull("" + i)){
-                    JSONArray dayArr = stream.getJSONArray("" + i);
-                    //Check all activities
-                    for(int h = 0; h < dayArr.length(); h++){
-                        JSONObject day = dayArr.getJSONObject(h);
-                        String actor = day.getJSONObject("actor").getString("preferredUsername");
-                        //We look for activity of this single user, continue if this is not us
-                        if(!actor.equalsIgnoreCase(HomeActivity.USER_ID))continue;
-                        boolean shopping = false;
-                        boolean start    = false;
-                        JSONArray tags = day.getJSONObject("object").getJSONArray("tags");
-                        for(int k = 0; k < tags.length(); k++){
-                            if(tags.get(k).toString().equalsIgnoreCase("shopping")){
-                                shopping=true;
-                            }else if(tags.get(k).toString().equalsIgnoreCase("start")){
-                                start = true;
-                            }
-                        }
-                        //add found activities to its day i
-                        if(shopping && start) {
-                            activityObjects.get(i).add(new ShoppingCart(GalleryActivity.getContext()));
-                        }
-                    }
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        return activityObjects;
-    }
+//    public static ArrayList<ArrayList<Movable>> getWeekActivity(String id){
+//        String JSON_GETWEEK_ACTIVITY = "http://idea.itu.dk:8080/activities/shopping/week.json?user="+id+"@idea.itu.dk:3000";
+//        String jString = readActivity(JSON_GETWEEK_ACTIVITY);
+//        ArrayList<ArrayList<Movable>> activityObjects = new ArrayList<ArrayList<Movable>>();
+//        for(int j = 0; j < 7; j++){
+//            activityObjects.add(j, new ArrayList<Movable>());
+//        }
+//        /**
+//         * Server return a JSONObject "aspects" which contain JSONArray of objects "aspect"
+//         */
+//        JSONObject jObj = null;
+//        try {
+//            jObj = new JSONObject(jString);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        JSONObject stream = null;
+//        try {
+//            stream = jObj.getJSONObject("stream");
+//            //Get all 7 days a week
+//            for(int i = 0; i < 7; i++){
+//                //If days is there we parse all activity
+//                if(!stream.isNull("" + i)){
+//                    JSONArray dayArr = stream.getJSONArray("" + i);
+//                    //Check all activities
+//                    for(int h = 0; h < dayArr.length(); h++){
+//                        JSONObject day = dayArr.getJSONObject(h);
+//                        String actor = day.getJSONObject("actor").getString("preferredUsername");
+//                        //We look for activity of this single user, continue if this is not us
+//                        if(!actor.equalsIgnoreCase(HomeActivity.USER_ID))continue;
+//                        boolean shopping = false;
+//                        boolean start    = false;
+//                        JSONArray tags = day.getJSONObject("object").getJSONArray("tags");
+//                        for(int k = 0; k < tags.length(); k++){
+//                            if(tags.get(k).toString().equalsIgnoreCase("shopping")){
+//                                shopping=true;
+//                            }else if(tags.get(k).toString().equalsIgnoreCase("start")){
+//                                start = true;
+//                            }
+//                        }
+//                        //add found activities to its day i
+//                        if(shopping && start) {
+//                            activityObjects.get(i).add(new ShoppingCart(GalleryActivity.getContext()));
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//        }
+//        return activityObjects;
+//    }
 
     /**
      * Filters all shopping offers in stream for the user.
@@ -372,4 +371,14 @@ public class FetchActivityTask extends AsyncTask<String, Integer, Boolean> {
         }
         return offers;
     }
+
+    private static String getActivityString(String userId){
+     return  "http://idea.itu.dk:8080/activities/shopping.json?user=" + userId +"@idea.itu.dk:3000";
+    }
+
+        private static String getContactsString(String userId){
+     return  "http://idea.itu.dk:8080/activities/shopping/contacts.json?user=" + userId +"@idea.itu.dk:3000";
+    }
+
+
 }

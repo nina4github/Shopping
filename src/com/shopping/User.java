@@ -15,6 +15,9 @@ import java.util.Date;
  * Time: 18.51
  * To change this template use File | Settings | File Templates.
  */
+enum Gender {
+    Male, Female;
+}
 public class User  implements Parcelable {
     private int userId;
     private String fullName, firstName, lastName, bio;

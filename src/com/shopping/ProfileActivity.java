@@ -103,8 +103,8 @@ public class ProfileActivity extends android.app.Activity {
 
     private void setWeekOverview(View view) {
         RelativeLayout statusLayout = (RelativeLayout)findViewById(R.id.statusLayout);
-        ArrayList<ArrayList<Movable>> weekActivity = FetchActivityTask.getWeekActivity(HomeActivity.USER_ID);
-        populateWeekView(weekActivity);
+//        ArrayList<ArrayList<Movable>> weekActivity = FetchActivityTask.getWeekActivity(HomeActivity.USER_ID);
+//        populateWeekView(weekActivity);
         statusLayout.removeAllViews();
         statusLayout.invalidate();
         updateButtonColor(view);

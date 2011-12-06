@@ -117,8 +117,8 @@ public class GroupProfileActivity extends android.app.Activity {
 
     private void setWeekOverview(View view) {
         RelativeLayout statusLayout = (RelativeLayout)findViewById(R.id.groupStatusLayout);
-        ArrayList<ArrayList<Movable>> weekActivity = FetchActivityTask.getWeekActivity(HomeActivity.USER_ID);
-        populateWeekView(weekActivity);
+//        ArrayList<ArrayList<Movable>> weekActivity = FetchActivityTask.getWeekActivity(HomeActivity.USER_ID);
+//        populateWeekView(weekActivity);
         statusLayout.removeAllViews();
         statusLayout.invalidate();
         updateButtonColor(view);

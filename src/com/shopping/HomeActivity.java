@@ -70,7 +70,7 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
     private void getContacts() {
         if(contacts != null)
             contacts.clear();
-        contacts = FetchActivityTask.getContacts(false);
+        contacts = FetchActivityTask.getContactsForUser(false, HomeActivity.USER_ID);
     }
 
     private void showShoppingActivity() {

@@ -11,6 +11,7 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
+import org.apache.commons.logging.Log;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -41,8 +42,8 @@ public class GalleryActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Get activity, boolean for including self.
-        shoppingFriends = FetchActivityTask.getContacts(true);
-        FetchActivityTask.setUserActivity(shoppingFriends);
+        shoppingFriends = FetchActivityTask.getContactsForUser(true, "user01");
+        FetchActivityTask.setUserActivity(shoppingFriends, "user01");
 
         setContentView(R.layout.mygallery);
 
@@ -76,7 +77,7 @@ public class GalleryActivity extends Activity {
         lhome.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 timer.cancel();
-                FetchActivityTask.setUserActivity(shoppingFriends);
+                FetchActivityTask.setUserActivity(shoppingFriends, HomeActivity.USER_ID);
                 Intent intent = new Intent(GalleryActivity.this, HomeActivity.class);
                 shoppingFriends.remove(0);
                 intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, shoppingFriends);
@@ -94,6 +95,13 @@ public class GalleryActivity extends Activity {
         mContext = this;
         restartTimer();
         startService(new Intent(this, WakeService.class));
+
+        ArrayList<User> shoppingFriends1 = FetchActivityTask.getContactsForUser(true, "user01");
+        FetchActivityTask.setUserActivity(shoppingFriends1, "user01");
+        for(User u : shoppingFriends1){
+        if (u.getUserActivity() == UserActivity.Shopping)
+            Toast.makeText(this, u.getFirstName() + " is shopping.", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -111,7 +119,7 @@ public class GalleryActivity extends Activity {
     protected void onResume() {
         super.onResume();
         //Get activity
-        FetchActivityTask.setUserActivity(shoppingFriends);
+        FetchActivityTask.setUserActivity(shoppingFriends, HomeActivity.USER_ID);
     }
 
     private void restartTimer(){
