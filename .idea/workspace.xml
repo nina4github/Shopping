@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9bfb55d5-3d3c-448c-8050-bde9858a0eae" name="Default" comment="metger">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable/homeCart.png" afterPath="" />
+    <list default="true" id="9bfb55d5-3d3c-448c-8050-bde9858a0eae" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/homecart.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="EMShopping.iws" />
@@ -151,7 +151,7 @@
       <file leaf-file-name="GroupProfileActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="168" column="78" selection-start="6001" selection-end="6001" vertical-scroll-proportion="2.1413722">
+            <state line="107" column="2" selection-start="3966" selection-end="3966" vertical-scroll-proportion="0.23908524">
               <folding />
             </state>
           </provider>
@@ -705,7 +705,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24893798" sideWeight="0.7222222" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.10183875" sideWeight="0.9852431" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2503536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2503536" sideWeight="0.9586039" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32673267" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2772074" sideWeight="0.18536122" order="1" side_tool="true" content_ui="tabs" />
@@ -855,7 +855,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="78" selection-start="6001" selection-end="6001" vertical-scroll-proportion="2.1413722">
+        <state line="107" column="2" selection-start="3966" selection-end="3966" vertical-scroll-proportion="0.23908524">
           <folding />
         </state>
       </provider>
