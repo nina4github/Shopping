@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9bfb55d5-3d3c-448c-8050-bde9858a0eae" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/group.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/com/shopping/R.java" afterPath="$PROJECT_DIR$/gen/com/shopping/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/profile.xml" afterPath="$PROJECT_DIR$/res/layout/profile.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/ActivityOverview.java" afterPath="$PROJECT_DIR$/src/com/shopping/ActivityOverview.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java" afterPath="$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/GalleryActivity.java" afterPath="$PROJECT_DIR$/src/com/shopping/GalleryActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/HomeActivity.java" afterPath="$PROJECT_DIR$/src/com/shopping/HomeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/Movable.java" afterPath="$PROJECT_DIR$/src/com/shopping/Movable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/ProfileActivity.java" afterPath="$PROJECT_DIR$/src/com/shopping/ProfileActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/ShoppingOffer.java" afterPath="$PROJECT_DIR$/src/com/shopping/ShoppingOffer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/User.java" afterPath="$PROJECT_DIR$/src/com/shopping/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/WakeService.java" afterPath="$PROJECT_DIR$/src/com/shopping/WakeService.java" />
     </list>
     <ignored path="EMShopping.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -80,46 +67,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ProfileActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/shopping/ProfileActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="183" column="85" selection-start="6471" selection-end="6471" vertical-scroll-proportion="-82.15385">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="profile.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/profile.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="41" selection-start="2546" selection-end="2551" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="group.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/group.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="99" column="47" selection-start="4611" selection-end="4611" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WakeService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/shopping/WakeService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="105" column="94" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FetchActivityTask.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="FetchActivityTask.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="372" column="21" selection-start="14575" selection-end="14575" vertical-scroll-proportion="0.7905759">
+            <state line="158" column="70" selection-start="5675" selection-end="5681" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="38" selection-start="238" selection-end="238" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="R.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gen/com/shopping/R.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HomeActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/HomeActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="48" selection-start="698" selection-end="704" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -134,19 +112,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GroupProfileActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java">
+      <file leaf-file-name="UserActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/UserActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="106" column="78" selection-start="3960" selection-end="3960" vertical-scroll-proportion="-13.384615">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="intro.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/intro.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="9" column="12" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -155,7 +124,7 @@
       <file leaf-file-name="GalleryActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/shopping/GalleryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="66" selection-start="1384" selection-end="1384" vertical-scroll-proportion="0.0">
+            <state line="42" column="51" selection-start="1437" selection-end="1437" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -164,7 +133,27 @@
       <file leaf-file-name="ActivityOverview.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/shopping/ActivityOverview.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="88" column="39" selection-start="3055" selection-end="3055" vertical-scroll-proportion="-11.384615">
+            <state line="88" column="39" selection-start="3055" selection-end="3055" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gender.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/Gender.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="12" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GroupProfileActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="112" column="22" selection-start="4175" selection-end="4175" vertical-scroll-proportion="0.6550152">
               <folding />
             </state>
           </provider>
@@ -198,8 +187,8 @@
         <option value="$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/group.xml" />
         <option value="$PROJECT_DIR$/src/com/shopping/WakeService.java" />
-        <option value="$PROJECT_DIR$/src/com/shopping/GalleryActivity.java" />
         <option value="$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java" />
+        <option value="$PROJECT_DIR$/src/com/shopping/GalleryActivity.java" />
       </list>
     </option>
   </component>
@@ -243,15 +232,34 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Favorites" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="EMShopping" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; Android 4.0.1 Platform &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EMShopping" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -292,30 +300,16 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="EMShopping" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="EMShopping" />
+              <option name="myItemId" value="shopping" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="HomeActivity.java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -350,24 +344,45 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EMShopping" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EMShopping" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shopping" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="94" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="102" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="102" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="ExportedApkPath" value="$PROJECT_DIR$/EMShopping.apk" />
-    <property name="recentsLimit" value="5" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="99" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="ExportedApkPath" value="$PROJECT_DIR$/EMShopping.apk" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="ExportedModule" value="EMShopping" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="106" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="898" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="900" />
@@ -380,16 +395,16 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="options.lastSelected" value="preferences.pathVariables" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -508,6 +523,28 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="CHOOSE_DEVICE_MANUALLY" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings">
@@ -552,28 +589,6 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="CHOOSE_DEVICE_MANUALLY" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -738,26 +753,26 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="22" width="1280" height="774" extended-state="0" />
+    <frame x="0" y="22" width="1280" height="774" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298351" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24893798" sideWeight="0.7222222" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10183875" sideWeight="0.9852431" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.10183875" sideWeight="0.9852431" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32859176" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32673267" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2772074" sideWeight="0.18536122" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39967507" sideWeight="0.8005658" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24675325" sideWeight="0.89816123" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24594156" sideWeight="0.89816123" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.7779349" sideWeight="0.9991883" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Android Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47666195" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32859176" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32673267" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.9991883" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39923954" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -788,7 +803,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="overview implemented.&#10;To do. Week overview on profiles. Group overview" />
+    <option name="LAST_COMMIT_MESSAGE" value="put basic &quot;venner&quot; view" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -805,6 +820,7 @@
     <MESSAGE value="Basic structure" />
     <MESSAGE value="new home screen basic impl." />
     <MESSAGE value="overview implemented.&#10;To do. Week overview on profiles. Group overview" />
+    <MESSAGE value="put basic &quot;venner&quot; view" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -814,112 +830,104 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/Movable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="0" selection-start="2042" selection-end="2042" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/HomeActivityView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="16" selection-start="2967" selection-end="2967" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/HomeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="172" column="30" selection-start="6065" selection-end="6065" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/OfferActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="362" selection-end="362" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="61" selection-start="1265" selection-end="1265" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activityoverview.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="31" selection-start="1741" selection-end="2817" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/ActivityOverview.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="39" selection-start="3055" selection-end="3055" vertical-scroll-proportion="-11.384615">
-          <folding />
-        </state>
+        <state line="60" column="31" selection-start="1741" selection-end="2817" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/shopping/ProfileActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="183" column="85" selection-start="6471" selection-end="6471" vertical-scroll-proportion="-82.15385">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/intro.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="183" column="85" selection-start="6471" selection-end="6471" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/profile.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="41" selection-start="2546" selection-end="2551" vertical-scroll-proportion="0.0">
+        <state line="56" column="41" selection-start="2546" selection-end="2551" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/group.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="99" column="47" selection-start="4611" selection-end="4611" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/WakeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="105" column="94" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/intro.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/HomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="48" selection-start="698" selection-end="704" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/shopping/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="190" column="68" selection-start="5046" selection-end="5046" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="190" column="68" selection-start="5046" selection-end="5046" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/UserActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="78" selection-start="3960" selection-end="3960" vertical-scroll-proportion="-13.384615">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/group.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="47" selection-start="4611" selection-end="4611" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/WakeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="94" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.0">
+        <state line="9" column="12" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/shopping/GalleryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="66" selection-start="1384" selection-end="1384" vertical-scroll-proportion="0.0">
+        <state line="42" column="51" selection-start="1437" selection-end="1437" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="372" column="21" selection-start="14575" selection-end="14575" vertical-scroll-proportion="0.7905759">
+        <state line="158" column="70" selection-start="5675" selection-end="5681" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="38" selection-start="238" selection-end="238" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gen/com/shopping/R.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/ActivityOverview.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="39" selection-start="3055" selection-end="3055" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/Gender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="12" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="22" selection-start="4175" selection-end="4175" vertical-scroll-proportion="0.6550152">
           <folding />
         </state>
       </provider>

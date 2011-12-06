@@ -40,7 +40,7 @@ public class GalleryActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //Get activity
+        //Get activity, boolean for including self.
         shoppingFriends = FetchActivityTask.getContacts(true);
         FetchActivityTask.setUserActivity(shoppingFriends);
 
