@@ -27,6 +27,7 @@ import java.util.TimerTask;
 public class GalleryActivity extends Activity {
     //Not a very good abstraction, but users are people out shopping.
     private ArrayList<User> shoppingFriends;
+    private ArrayList<User> objects;
     public static final String ACTIVE_USERS = "active_users_const";
     private static Context mContext;
     private Timer timer;
@@ -35,15 +36,17 @@ public class GalleryActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FetchActivityTask.getAllOffersForUser("user01");
+
         //The  activity viev runs in full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Get activity, boolean for including self.
-        shoppingFriends = FetchActivityTask.getContactsForUser(true, "user01");
+        shoppingFriends = FetchActivityTask.getContactsForUser(true, HomeActivity.USER_ID,"person");
         FetchActivityTask.setUserActivity(shoppingFriends, "user01");
+        objects = FetchActivityTask.getContactsForUser(false,HomeActivity.USER_ID,"thing");
+        FetchActivityTask.setUserActivity(objects, HomeActivity.USER_ID);
 
         setContentView(R.layout.mygallery);
 
@@ -54,7 +57,7 @@ public class GalleryActivity extends Activity {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 timer.cancel();
                 //Check if it is the group
-                if(position==shoppingFriends.size()){
+                if(position==0){
                     Intent intent = new Intent(GalleryActivity.this, GroupProfileActivity.class);
                     //This user
                     intent.putExtra(ProfileActivity.SELECTED_USER, shoppingFriends.get(0));
@@ -64,7 +67,7 @@ public class GalleryActivity extends Activity {
                 }else{
                     Intent intent = new Intent(GalleryActivity.this, ProfileActivity.class);
                     //Selected user
-                    intent.putExtra(ProfileActivity.SELECTED_USER, shoppingFriends.get(position));
+                    intent.putExtra(ProfileActivity.SELECTED_USER, shoppingFriends.get(position-1));
                     //Friends
                     intent.putExtra(ProfileActivity.SHOPPING_FRIENDS, shoppingFriends);
                     startActivity(intent);
@@ -79,8 +82,9 @@ public class GalleryActivity extends Activity {
                 timer.cancel();
                 FetchActivityTask.setUserActivity(shoppingFriends, HomeActivity.USER_ID);
                 Intent intent = new Intent(GalleryActivity.this, HomeActivity.class);
-                shoppingFriends.remove(0);
-                intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, shoppingFriends);
+                ArrayList<User> objs = shoppingFriends;
+                objs.addAll(objects);
+                intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, objs);
                 startActivity(intent);
             }
         });
@@ -92,16 +96,11 @@ public class GalleryActivity extends Activity {
                 Toast.makeText(GalleryActivity.this, "Du er hjemme.", Toast.LENGTH_LONG).show();
             }
         });
+        ArrayList<ShoppingOffer> s = FetchActivityTask.getAllOffersForUser(HomeActivity.USER_ID);
+
         mContext = this;
         restartTimer();
         startService(new Intent(this, WakeService.class));
-
-        ArrayList<User> shoppingFriends1 = FetchActivityTask.getContactsForUser(true, "user01");
-        FetchActivityTask.setUserActivity(shoppingFriends1, "user01");
-        for(User u : shoppingFriends1){
-        if (u.getUserActivity() == UserActivity.Shopping)
-            Toast.makeText(this, u.getFirstName() + " is shopping.", Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override
@@ -129,8 +128,9 @@ public class GalleryActivity extends Activity {
             @Override
             public void run() {
                 Intent intent = new Intent(GalleryActivity.this, HomeActivity.class);
-                shoppingFriends.remove(0);
-                intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, shoppingFriends);
+                ArrayList<User> objs = shoppingFriends;
+                objs.addAll(objects);
+                intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, objs);
                 startActivity(intent);
             }
         },GalleryActivity.SLEEP_DELAY);
@@ -183,13 +183,13 @@ public class GalleryActivity extends Activity {
             ImageView imageView = holder.img;
             TextView textView = holder.lbl;
             //  imageView.setImageResource(mImageIds[position]);
-            if(position == shoppingFriends.size()){
+            if(position == 0){
                 imageView.setBackgroundResource(R.drawable.dgroup);
                 textView.setText("Venner");
             }
             else{
-                String name = position == 0 ? "Min profil" : shoppingFriends.get(position).getFirstName();
-                if(shoppingFriends.get(position).getUserActivity() == UserActivity.Shopping){
+                String name =  shoppingFriends.get(position-1).getFirstName();
+                if(shoppingFriends.get(position-1).getUserActivity() == UserActivity.Shopping){
                     imageView.setImageResource(R.drawable.dshopuser);
                     textView.setText(name);
                 }else{

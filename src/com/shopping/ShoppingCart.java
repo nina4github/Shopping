@@ -11,7 +11,6 @@ import java.util.Random;
  * User: ahkj
  * Date: 14/11/11
  * Time: 18.16
- * To change this template use File | Settings | File Templates.
  */
 public class ShoppingCart extends Movable{
     public ShoppingCart(Context context){

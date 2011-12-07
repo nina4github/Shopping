@@ -27,7 +27,8 @@ import java.util.TimerTask;
  * User: ahkj
  * Date: 27/11/11
  * Time: 14.42
- * To change this template use File | Settings | File Templates.
+*  Profile view for the group - shopping friends. Very similar to the ProfileActivity.class and the two
+ *  may be subject merged in to some degree.
  */
 public class GroupProfileActivity extends android.app.Activity {
     private User user;
@@ -44,8 +45,6 @@ public class GroupProfileActivity extends android.app.Activity {
         //Here selected is just user of this device
         user = (User)bundle.getParcelable(ProfileActivity.SELECTED_USER);
         shoppingFriends = bundle.getParcelableArrayList(ProfileActivity.SHOPPING_FRIENDS);
-        //first in array is same as this user
-        shoppingFriends.remove(0);
         Drawable image = getResources().getDrawable(R.drawable.group);
         ImageView iv = (ImageView)findViewById(R.id.groupView);
         iv.setImageDrawable(image);
@@ -100,21 +99,22 @@ public class GroupProfileActivity extends android.app.Activity {
             iv.setTranslationX(x);
             statusLayout.addView(iv);
 
-            //Add shopping cart if shopping
+            //Add shopping cart if shopping. This is the cart image underneath the user image.
             if(u.getUserActivity()==UserActivity.Shopping){
                 iv = new ImageView(GalleryActivity.getContext());
                 iv.setLayoutParams(params);
                 iv.setImageDrawable(getResources().getDrawable(R.drawable.cart));
                 iv.setTranslationX(x);
-                iv.setTranslationY(d.getIntrinsicHeight() + 20);
+                iv.setTranslationY(d.getIntrinsicHeight() -25);//25 is magic number for distance to user image
                 statusLayout.addView(iv);
             }
-            x+=d.getIntrinsicWidth() +20;
+            x+=d.getIntrinsicWidth() +20; //next image is placed at width of current image plus some spacing
         }
 
         //   statusLayout.addView(statusText);
     }
 
+    //THE four/three button operations in the top
     private void setWeekOverview(View view) {
         RelativeLayout statusLayout = (RelativeLayout)findViewById(R.id.groupStatusLayout);
 //        ArrayList<ArrayList<Movable>> weekActivity = FetchActivityTask.getWeekActivity(HomeActivity.USER_ID);
@@ -171,21 +171,22 @@ public class GroupProfileActivity extends android.app.Activity {
                 setSparks( view);
             }
         });
-
-        b = (Button)findViewById(R.id.groupBtn4);
-        b.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                restartTimer();
-                setShoppingStats( view);
-            }
-        });
+//flest indkob
+//        b = (Button)findViewById(R.id.groupBtn4);
+//        b.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View view) {
+//                restartTimer();
+//                setShoppingStats( view);
+//            }
+//        });
     }
 
+    //Swap button background - which one is highlighted
     private void updateButtonColor(View newButton){
         //Update button row
         if(previousView != null)
             previousView.setBackgroundColor(getResources().getColor(R.color.white));
-        newButton.setBackgroundColor(getResources().getColor(R.color.mygreen));
+        newButton.setBackgroundColor(getResources().getColor(R.color.myblue));
         previousView = newButton;
     }
 
@@ -196,7 +197,9 @@ public class GroupProfileActivity extends android.app.Activity {
             @Override
             public void run() {
                 Intent intent = new Intent(GroupProfileActivity.this, HomeActivity.class);
-                intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, shoppingFriends);
+                ArrayList<User> objs = shoppingFriends;
+                objs.addAll(FetchActivityTask.getObjectsActivity(HomeActivity.USER_ID));
+                intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, objs);
                 startActivity(intent);
             }
         },GalleryActivity.SLEEP_DELAY);

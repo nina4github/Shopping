@@ -5,8 +5,7 @@ package com.shopping;
  * User: ahkj
  * Date: 26/11/11
  * Time: 20.39
- * To change this template use File | Settings | File Templates.
  */
 public enum UserActivity {
-    Unknown, Shopping, Billard, Petanque;
+    Unknown, Shopping, Billard, Petanque, Frisbee, Swimming, WalkingTheDog, PlayingChess; //etc
 }

@@ -19,7 +19,7 @@ public class WakeService extends Service {
     public static final String NEW_SHOPPING_ACTIVITY = "New_Shopping_Activity";
     public static final String ACTIVITY = "activity";
     public static final String CONTENT = "content";
-    public static final String USER_ID = "user_id";
+    public static final String ACTOR = "actor";
 
 	private static final String EB = "EventBus";
 	private static final String TAG = "WakeService";
@@ -49,7 +49,7 @@ public class WakeService extends Service {
 	    final String timestamp = "timestamp";
 
 		
-	    EventBus eb = new EventBus("tiger.itu.dk", 8004);
+	    EventBus eb = new EventBus("idea.itu.dk", 8000);
         Log.d(EB,"EB initialiazed");
 	    
 	    Listener l = new Listener(new PatternBuilder()
@@ -91,29 +91,30 @@ public class WakeService extends Service {
         Iterator it = msg.entrySet().iterator();
         String activity = "";
         String content = "";
-        int userId = 0;
+        String actor = "";
         while (it.hasNext()) {
            Map.Entry pairs = (Map.Entry)it.next();
            if(pairs.getKey().toString().equalsIgnoreCase("activity"))
                activity = pairs.getValue().toString();
            else if(pairs.getKey().toString().equalsIgnoreCase("content"))
                content = pairs.getValue().toString();
-            else if(pairs.getKey().toString().equalsIgnoreCase("actor"))
-               userId = Integer.parseInt(pairs.getValue().toString());
+            else if(pairs.getKey().toString().equalsIgnoreCase("actor")){
+                   actor = pairs.getValue().toString();
+           }
            it.remove(); // avoids a ConcurrentModificationException
         }
-        announceNewShoppingActivity(activity, content, userId);
+        announceNewShoppingActivity(activity, content, actor);
 	}
 
     /**
      * Broadcast a new shopping activity.
      */
-    private void announceNewShoppingActivity(String activity, String content, int userId) {
+    private void announceNewShoppingActivity(String activity, String content, String userId) {
         Intent intent = new Intent(NEW_SHOPPING_ACTIVITY);
         Log.d("WAKE message", activity + " " + content + " " + userId);
         intent.putExtra(ACTIVITY, activity);
         intent.putExtra(CONTENT, content);
-        intent.putExtra(USER_ID, userId);
+        intent.putExtra(ACTOR, userId);
         sendBroadcast(intent);
     }
 

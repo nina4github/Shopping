@@ -28,7 +28,10 @@ import java.util.TimerTask;
  * User: ahkj
  * Date: 01/12/11
  * Time: 22.46
- * To change this template use File | Settings | File Templates.
+ *
+ *  ActivityOverview - screen that is displayed when animation screen is tapped.
+ *
+ *  A Gallery object displays all User objects that were on the animation screen.
  */
 public class ActivityOverview extends android.app.Activity {
     private ArrayList<User> shoppingFriends;
@@ -37,10 +40,12 @@ public class ActivityOverview extends android.app.Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Hide top bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activityoverview);
+        //Again sending around the data we need, as we have no persistance
         shoppingFriends = getIntent().getExtras().getParcelableArrayList(HomeActivity.ACTIVE_USERS);
 
         /**
@@ -80,6 +85,7 @@ public class ActivityOverview extends android.app.Activity {
         restartTimer();
     }
 
+    //Timer for going back to animation screen.
     private void restartTimer(){
         if(timer!=null)timer.cancel();
         timer = new Timer("sleeptime");
@@ -97,12 +103,24 @@ public class ActivityOverview extends android.app.Activity {
      * @param position
      */
     private void setDetailViewForObject(int position) {
+        if(shoppingFriends.size()==0){
+            TextView tv = (TextView)findViewById(R.id.activityoverviewtext);
+            tv.setTextSize(50.0f);
+            tv.setText("Ingen aktivitet");
+            tv.invalidate();
+            return;
+        }
+        //Index is used to find the object tapped in the gallery. The gallery shows a list of user
+        //objects entangled with Movable/offers objects. Eg. User, User, Offer, User, Offer, Offer
+        //This is because the gallery is populated with a User, then all his offers, then the next User..
+        //Position is thus relative users and amount of movables.
         int index=0;
         boolean found=false;
         for(User u : shoppingFriends){
             if(position==index){
                 TextView tv = (TextView)findViewById(R.id.activityoverviewtext);
-                tv.setText(u.getFirstName() + " er på indkøb i " + u.getLocation());
+
+                tv.setText(u.getFirstName() + " er på indkøb " + (u.getLocation().isEmpty() ? "" : "i " + u.getLocation()));
                 tv.setTextSize(50.0f);
 
                 ImageView iv = (ImageView)findViewById(R.id.activityoverviewimage);
@@ -131,6 +149,13 @@ public class ActivityOverview extends android.app.Activity {
         }
     }
 
+    /**
+     * Three helper methods for fetching an image for a URL
+     * @param ctx
+     * @param url
+     * @param saveFilename
+     * @return
+     */
     private Drawable ImageOperations(Context ctx, String url, String saveFilename) {
         try {
             InputStream is = (InputStream) this.fetch(url);
@@ -150,7 +175,11 @@ public class ActivityOverview extends android.app.Activity {
         Object content = url.getContent();
         return content;
     }
+    //END
 
+    /**
+     * Image adapter stuff
+     */
     public class ImageAdapter extends BaseAdapter {
         int mGalleryItemBackground;
         private Context mContext;
@@ -181,6 +210,7 @@ public class ActivityOverview extends android.app.Activity {
 
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
+            //Only instanciate when needed.
             if (convertView == null)
             {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -228,6 +258,9 @@ public class ActivityOverview extends android.app.Activity {
         }
     }
 
+    /**
+     * Helper class for optimization at a later point.
+     */
     class ViewHolder {
         ImageView img;
     }

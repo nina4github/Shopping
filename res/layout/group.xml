@@ -36,18 +36,18 @@
                     android:id="@+id/groupBtn3"
                     android:layout_width="200sp"
                     android:layout_height="150sp"
-                    android:text="Sparks"
+                    android:text="Tilbud"
                     android:background="@color/white"
                     android:textSize="35sp"
                     />
-            <Button
-                    android:id="@+id/groupBtn4"
-                    android:layout_width="200sp"
-                    android:layout_height="150sp"
-                    android:text="Flest indkøb"
-                    android:background="@color/white"
-                    android:textSize="35sp"
-                    />
+            <!--<Button-->
+                    <!--android:id="@+id/groupBtn4"-->
+                    <!--android:layout_width="200sp"-->
+                    <!--android:layout_height="150sp"-->
+                    <!--android:text="Flest indkøb"-->
+                    <!--android:background="@color/white"-->
+                    <!--android:textSize="35sp"-->
+                    <!--/>-->
         </LinearLayout>
     </RelativeLayout>
 

@@ -16,7 +16,7 @@ import java.util.Random;
  * User: ahkj
  * Date: 14/11/11
  * Time: 16.32
- * To change this template use File | Settings | File Templates.
+ * View doing the actual annimations
  */
 public class HomeActivityView extends View {
 
@@ -124,8 +124,8 @@ public class HomeActivityView extends View {
     }
 
     protected void addShopper(Movable sc, boolean flashScreen){
-        if(flashScreen)touch = 1;
-        movableOffset+=10;
+        if(flashScreen)touch = 1; //see draw method for function of touch counter
+        movableOffset+=10; //just so objects are not on top of eachother
         sc.setX(movableOffset);
         sc.setY(150);
         synchronized (carts){
@@ -227,6 +227,7 @@ public class HomeActivityView extends View {
         if(adding) return;
         super.onDraw(canvas);
 
+        //If not 0 we will put some colored background on for 20 'clicks'
         if(touch > 0){
             canvas.drawRect(getCanvasSizedRect(canvas) , getBluePaint());
             touch++;
@@ -282,6 +283,7 @@ public class HomeActivityView extends View {
     }
 
     /**
+     * OLD STD with home animation in top left corner
      * Update the position of a single Movable, that moves as the default cart.
      * For now, some magic numbers here to define the space of the movable.
      */
@@ -306,6 +308,7 @@ public class HomeActivityView extends View {
     }
 
     /**
+     * NEW STD with home cart at bottom of screen
      * Update of a movable's position that will make it bounce off the edges of the screen.
      * @param m
      * @param canvas

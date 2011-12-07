@@ -13,7 +13,8 @@ import java.util.Date;
  * User: ahkj
  * Date: 23/11/11
  * Time: 18.51
- * To change this template use File | Settings | File Templates.
+ * User class should probably just be our SIObject class. User object can be persons or rollators as for now.
+ * Besides the bad naming, it nothing more than a datacontainer.
  */
 enum Gender {
     Male, Female;

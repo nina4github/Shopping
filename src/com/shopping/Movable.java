@@ -12,7 +12,7 @@ import java.util.Random;
  * User: ahkj
  * Date: 14/11/11
  * Time: 18.16
- * To change this template use File | Settings | File Templates.
+ * A movable object with the notion of position and direction. Direction also effects speed.
  */
 public class Movable implements Parcelable{
 
@@ -29,7 +29,13 @@ public class Movable implements Parcelable{
     private int xDirection;
     private int yDirection;
 
+    //Stuff we probably dont need, this is for tis last minute version and problems with sub classes
+    //of movable ie ShoppingCart not being parceable the way I wanted.
     private String altImageUrl;
+    private int sharedByUserId;
+    private String name;
+    //Get rid of the three above
+
 
     public Movable(Bitmap bitmap) {
         this.bitmap = bitmap;
@@ -68,6 +74,8 @@ public class Movable implements Parcelable{
         bitmap.writeToParcel(out, PARCELABLE_WRITE_RETURN_VALUE);
         out.writeInt(id);
         out.writeString(altImageUrl);
+        out.writeInt(sharedByUserId);
+        out.writeString(name);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -86,6 +94,8 @@ public class Movable implements Parcelable{
         bitmap = Bitmap.CREATOR.createFromParcel(in);
         setId(in.readInt());
         setAltImageUrl(in.readString());
+        setSharedByUserId(in.readInt());
+        setName(in.readString());
     }
 
 
@@ -103,5 +113,23 @@ public class Movable implements Parcelable{
 
     public void setAltImageUrl(String altImageUrl) {
         this.altImageUrl = altImageUrl;
+    }
+
+
+    public int getSharedByUserId() {
+        return sharedByUserId;
+    }
+
+    public void setSharedByUserId(int sharedByUserId) {
+        this.sharedByUserId = sharedByUserId;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

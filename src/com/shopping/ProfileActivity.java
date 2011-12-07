@@ -26,7 +26,7 @@ import java.util.TimerTask;
  * User: ahkj
  * Date: 27/11/11
  * Time: 14.42
- * To change this template use File | Settings | File Templates.
+ * Similar to GroupProfileActivity, just view pushing stuff.
  */
 public class ProfileActivity extends android.app.Activity {
     private User user;
@@ -44,8 +44,6 @@ public class ProfileActivity extends android.app.Activity {
         Bundle bundle = getIntent().getExtras();
         user = (User)bundle.getParcelable(ProfileActivity.SELECTED_USER);
         shoppingFriends = bundle.getParcelableArrayList(ProfileActivity.SHOPPING_FRIENDS);
-        //first in array is same as this user
-         shoppingFriends.remove(0);
         setUserImage(user.getImageUrl());
         TextView tv = (TextView)findViewById(R.id.userTextView);
         String text = "";
@@ -93,7 +91,7 @@ public class ProfileActivity extends android.app.Activity {
         statusText.setTextSize(20.0f);
         String text;
         if(user.getUserActivity()==UserActivity.Shopping)
-            text = user.getFirstName() + " er på indkøb i " + user.getLocation();
+            text = user.getFirstName() + " er på indkøb " + (user.getLocation().isEmpty() ? "" : "i " + user.getLocation());
         else
         text = "Ingen status på " + user.getFirstName();
         statusText.setText(text);
@@ -120,6 +118,8 @@ public class ProfileActivity extends android.app.Activity {
         statusLayout.removeAllViews();
         statusLayout.invalidate();
         updateButtonColor(view);
+
+        ArrayList<ShoppingOffer> offers =  FetchActivityTask.getAllOffersForUser("user01");
 
     }
 
@@ -158,20 +158,21 @@ public class ProfileActivity extends android.app.Activity {
             }
         });
 
-        b = (Button)findViewById(R.id.profileBtn4);
-        b.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                restartTimer();
-                setShoppingStats( view);
-            }
-        });
+        //Flest indkøb
+//        b = (Button)findViewById(R.id.profileBtn4);
+//        b.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View view) {
+//                restartTimer();
+//                setShoppingStats( view);
+//            }
+//        });
     }
 
     private void updateButtonColor(View newButton){
         //Update button row
         if(previousView != null)
             previousView.setBackgroundColor(getResources().getColor(R.color.white));
-        newButton.setBackgroundColor(getResources().getColor(R.color.mygreen));
+        newButton.setBackgroundColor(getResources().getColor(R.color.myblue));
         previousView = newButton;
     }
 
@@ -182,7 +183,10 @@ public class ProfileActivity extends android.app.Activity {
             @Override
             public void run() {
                 Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
-                intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, shoppingFriends);
+                ArrayList<User> objs = new ArrayList<User>();
+                objs.addAll(shoppingFriends);
+                objs.addAll(FetchActivityTask.getObjectsActivity(HomeActivity.USER_ID));
+                intent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS, objs);
                 startActivity(intent);
             }
         },GalleryActivity.SLEEP_DELAY);

@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="9bfb55d5-3d3c-448c-8050-bde9858a0eae" name="Default" comment="Cleaning up git mess">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/ufadedshopping.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/ushopping.png" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/shopping/Gender.java" afterPath="" />
+    <list default="true" id="9bfb55d5-3d3c-448c-8050-bde9858a0eae" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/shopping/DetailView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/shopping/OfferActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/shopping/ShoppingOverview.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/com/shopping/R.java" afterPath="$PROJECT_DIR$/gen/com/shopping/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/dshopuser.xml" afterPath="$PROJECT_DIR$/res/drawable/dshopuser.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/mygallery.xml" afterPath="$PROJECT_DIR$/res/layout/mygallery.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/group.xml" afterPath="$PROJECT_DIR$/res/layout/group.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/profile.xml" afterPath="$PROJECT_DIR$/res/layout/profile.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/colors.xml" afterPath="$PROJECT_DIR$/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/ActivityOverview.java" afterPath="$PROJECT_DIR$/src/com/shopping/ActivityOverview.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java" afterPath="$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/GalleryActivity.java" afterPath="$PROJECT_DIR$/src/com/shopping/GalleryActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java" afterPath="$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/HomeActivity.java" afterPath="$PROJECT_DIR$/src/com/shopping/HomeActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/HomeActivityView.java" afterPath="$PROJECT_DIR$/src/com/shopping/HomeActivityView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/Movable.java" afterPath="$PROJECT_DIR$/src/com/shopping/Movable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/ProfileActivity.java" afterPath="$PROJECT_DIR$/src/com/shopping/ProfileActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/ShoppingCart.java" afterPath="$PROJECT_DIR$/src/com/shopping/ShoppingCart.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/User.java" afterPath="$PROJECT_DIR$/src/com/shopping/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/UserActivity.java" afterPath="$PROJECT_DIR$/src/com/shopping/UserActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/shopping/WakeService.java" afterPath="$PROJECT_DIR$/src/com/shopping/WakeService.java" />
     </list>
     <ignored path="EMShopping.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -78,28 +88,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FetchActivityTask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java">
+      <file leaf-file-name="Movable.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/Movable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="306" column="35" selection-start="11408" selection-end="11408" vertical-scroll-proportion="-10.846154">
+            <state line="36" column="32" selection-start="878" selection-end="878" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProfileActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/shopping/ProfileActivity.java">
+      <file leaf-file-name="ShoppingOffer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/ShoppingOffer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="105" column="0" selection-start="3876" selection-end="4027" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HomeActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/shopping/HomeActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="83" selection-start="2526" selection-end="2526" vertical-scroll-proportion="0.0">
+            <state line="13" column="13" selection-start="289" selection-end="289" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -108,59 +109,72 @@
       <file leaf-file-name="User.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/shopping/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="50" selection-start="707" selection-end="707" vertical-scroll-proportion="-11.538462">
+            <state line="16" column="64" selection-start="457" selection-end="457" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ufadedshopping.png" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/res/drawable/ufadedshopping.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="UserActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/UserActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="95" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WakeService.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/WakeService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="53" column="49" selection-start="1424" selection-end="1424" vertical-scroll-proportion="0.9346505">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShoppingCart.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/ShoppingCart.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="14" selection-start="243" selection-end="243" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="GalleryActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/shopping/GalleryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="98" column="0" selection-start="4019" selection-end="4390" vertical-scroll-proportion="0.0">
+            <state line="38" column="0" selection-start="1166" selection-end="1166" vertical-scroll-proportion="1.9615384">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProfileActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/ProfileActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="60" selection-start="745" selection-end="745" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dshopuser.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/drawable/dshopuser.xml">
+      <file leaf-file-name="HomeActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/HomeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="202" selection-end="202" vertical-scroll-proportion="0.0">
+            <state line="239" column="39" selection-start="9415" selection-end="9415" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="duser.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/drawable/duser.xml">
+      <file leaf-file-name="HomeActivityView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/shopping/HomeActivityView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="4" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mygallery.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/mygallery.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="43" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GroupProfileActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="119" column="0" selection-start="4371" selection-end="4522" vertical-scroll-proportion="0.0">
+            <state line="310" column="49" selection-start="9037" selection-end="9037" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -180,22 +194,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/res/layout/weeklayout.xml" />
-        <option value="$PROJECT_DIR$/src/com/shopping/ShoppingOffer.java" />
-        <option value="$PROJECT_DIR$/src/com/shopping/Movable.java" />
-        <option value="$PROJECT_DIR$/src/com/shopping/ActivityOverview.java" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/res/layout/profile.xml" />
-        <option value="$PROJECT_DIR$/res/layout/group.xml" />
-        <option value="$PROJECT_DIR$/src/com/shopping/WakeService.java" />
-        <option value="$PROJECT_DIR$/src/com/shopping/Gender.java" />
-        <option value="$PROJECT_DIR$/src/com/shopping/User.java" />
         <option value="$PROJECT_DIR$/res/layout/mygallery.xml" />
-        <option value="$PROJECT_DIR$/src/com/shopping/HomeActivity.java" />
-        <option value="$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java" />
-        <option value="$PROJECT_DIR$/src/com/shopping/ProfileActivity.java" />
-        <option value="$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java" />
+        <option value="$PROJECT_DIR$/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/src/com/shopping/WakeService.java" />
         <option value="$PROJECT_DIR$/src/com/shopping/GalleryActivity.java" />
+        <option value="$PROJECT_DIR$/res/layout/group.xml" />
+        <option value="$PROJECT_DIR$/res/layout/profile.xml" />
+        <option value="$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java" />
+        <option value="$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/shopping/ActivityOverview.java" />
+        <option value="$PROJECT_DIR$/src/com/shopping/HomeActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/shopping/HomeActivityView.java" />
+        <option value="$PROJECT_DIR$/src/com/shopping/Movable.java" />
+        <option value="$PROJECT_DIR$/src/com/shopping/ProfileActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/shopping/ShoppingCart.java" />
+        <option value="$PROJECT_DIR$/src/com/shopping/User.java" />
+        <option value="$PROJECT_DIR$/src/com/shopping/UserActivity.java" />
       </list>
     </option>
   </component>
@@ -343,6 +357,10 @@
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -358,13 +376,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EMShopping" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EMShopping" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Favorites">
         <subPane subId="EMShopping">
           <PATH>
@@ -375,22 +406,23 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="94" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="102" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="102" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="ExportedApkPath" value="$PROJECT_DIR$/EMShopping.apk" />
-    <property name="recentsLimit" value="5" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="99" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="ExportedApkPath" value="$PROJECT_DIR$/EMShopping.apk" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="ExportedModule" value="EMShopping" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="106" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="898" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="900" />
@@ -403,16 +435,16 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="options.lastSelected" value="preferences.pathVariables" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -531,6 +563,28 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="CHOOSE_DEVICE_MANUALLY" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings">
@@ -575,28 +629,6 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="CHOOSE_DEVICE_MANUALLY" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -761,28 +793,28 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1279" height="774" extended-state="0" />
-    <editor active="false" />
+    <frame x="9" y="22" width="1280" height="774" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298351" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3281471" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24893798" sideWeight="0.7222222" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.10183875" sideWeight="0.9852431" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16690241" sideWeight="0.9852431" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2503536" sideWeight="0.9586039" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32673267" sideWeight="0.941511" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2772074" sideWeight="0.18536122" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32981315" sideWeight="0.74964637" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32981315" sideWeight="0.74964637" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39967507" sideWeight="0.8005658" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24289195" sideWeight="0.74964637" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24269481" sideWeight="0.6718529" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2503536" sideWeight="0.9991883" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47666195" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27581328" sideWeight="0.9991883" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43281472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32859176" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.9991883" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39923954" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -811,7 +843,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="metger" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaning up git mess" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -830,6 +862,7 @@
     <MESSAGE value="overview implemented.&#10;To do. Week overview on profiles. Group overview" />
     <MESSAGE value="put basic &quot;venner&quot; view" />
     <MESSAGE value="metger" />
+    <MESSAGE value="Cleaning up git mess" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -839,104 +872,120 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/WakeService.java">
+    <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="94" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.0" />
+        <state line="6" column="26" selection-start="243" selection-end="243" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/intro.xml">
+    <entry file="file://$PROJECT_DIR$/res/layout/group.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="38" selection-start="238" selection-end="238" vertical-scroll-proportion="0.0">
+        <state line="42" column="0" selection-start="1891" selection-end="2279" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gen/com/shopping/R.java">
+    <entry file="file://$PROJECT_DIR$/res/layout/profile.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/UserActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="12" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/ActivityOverview.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="39" selection-start="3055" selection-end="3055" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/dshopuser.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="202" selection-end="202" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/duser.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="4" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/mygallery.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="43" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/HomeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="83" selection-start="2526" selection-end="2526" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="306" column="35" selection-start="11408" selection-end="11408" vertical-scroll-proportion="-10.846154">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/shopping/ProfileActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="0" selection-start="3876" selection-end="4027" vertical-scroll-proportion="0.0">
+        <state line="50" column="78" selection-start="2344" selection-end="2345" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/shopping/GroupProfileActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="0" selection-start="4371" selection-end="4522" vertical-scroll-proportion="0.0">
+        <state line="183" column="55" selection-start="6657" selection-end="6657" vertical-scroll-proportion="18.653847">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/ActivityOverview.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="74" selection-start="1526" selection-end="1526" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/FetchActivityTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="540" column="0" selection-start="20579" selection-end="20579" vertical-scroll-proportion="-6.9615383">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/shopping/GalleryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="0" selection-start="4019" selection-end="4390" vertical-scroll-proportion="0.0">
+        <state line="38" column="0" selection-start="1166" selection-end="1166" vertical-scroll-proportion="1.9615384">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/HomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="239" column="39" selection-start="9415" selection-end="9415" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/HomeActivityView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="310" column="49" selection-start="9037" selection-end="9037" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/Movable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="32" selection-start="878" selection-end="878" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/ProfileActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="60" selection-start="745" selection-end="745" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/ShoppingCart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="14" selection-start="243" selection-end="243" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/ShoppingOffer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="13" selection-start="289" selection-end="289" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/shopping/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="50" selection-start="707" selection-end="707" vertical-scroll-proportion="-11.538462">
+        <state line="16" column="64" selection-start="457" selection-end="457" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/ufadedshopping.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/UserActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="95" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/shopping/WakeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="49" selection-start="1424" selection-end="1424" vertical-scroll-proportion="0.9346505">
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>
