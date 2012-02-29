@@ -1,33 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.shopping"
-      android:versionCode="1"
-      android:versionName="1.0">
+    package="com.shopping"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
     <uses-sdk android:minSdkVersion="8" />
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
-    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
- 
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
-        <!--<activity android:name=".HomeActivity" android:label="@string/app_name">-->
-                        <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-                <activity android:name=".GalleryActivity" android:label="@string/app_name">
-                        <intent-filter>
+
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WAKE_LOCK" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.VIBRATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:debuggable="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+
+        <!-- <activity android:name=".HomeActivity" android:label="@string/app_name"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <activity
+            android:label="@string/app_name"
+            android:name=".GalleryActivity" >
+            <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".ActivityOverview"></activity>
-        <activity android:name=".ShoppingOverview"></activity>
-        <activity android:name=".ProfileActivity"></activity>
-        <activity android:name=".GroupProfileActivity"></activity>
-        <activity android:name=".OfferActivity"></activity>
-        <service android:name=".WakeService"></service>
-        <!-- <userActivity android:name=".Update"></userActivity>  -->
+        <activity android:name=".HomeActivity" >
+        </activity>
+        <activity android:name=".ActivityOverview" >
+        </activity>
+        <activity android:name=".ShoppingOverview" >
+        </activity>
+        <activity android:name=".ProfileActivity" >
+        </activity>
+        <activity android:name=".GroupProfileActivity" >
+        </activity>
+        <activity android:name=".OfferActivity" >
+        </activity>
+
+        <service android:name=".WakeService" >
+        </service>
+        <!-- <userActivity android:name=".Update"></userActivity> -->
     </application>
+
 </manifest>

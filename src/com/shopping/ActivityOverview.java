@@ -1,20 +1,5 @@
 package com.shopping;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.*;
-import android.widget.*;
-import org.eclipse.jetty.util.resource.Resource;
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -22,6 +7,26 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.Gallery;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by IntelliJ IDEA.
@@ -120,7 +125,7 @@ public class ActivityOverview extends android.app.Activity {
             if(position==index){
                 TextView tv = (TextView)findViewById(R.id.activityoverviewtext);
 
-                tv.setText(u.getFirstName() + " er p√• indk√∏b " + (u.getLocation().isEmpty() ? "" : "i " + u.getLocation()));
+                tv.setText(u.getFirstName() + " er på indkøb " + ( u.getLocation()!=null ? "" : "i " + u.getLocation()));
                 tv.setTextSize(50.0f);
 
                 ImageView iv = (ImageView)findViewById(R.id.activityoverviewimage);

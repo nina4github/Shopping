@@ -32,6 +32,7 @@ public class User  implements Parcelable {
     private String imageUrlMedium;
     private String imageUrlSmall;
     private Gender gender;
+   
 
     public User(){}
 

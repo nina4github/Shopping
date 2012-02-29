@@ -1,15 +1,19 @@
 package com.shopping;
 
-import android.content.Context;
-import android.graphics.*;
-import android.os.*;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-
 import java.util.ArrayList;
 import java.util.Random;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
 
 /**
  * Created by IntelliJ IDEA.

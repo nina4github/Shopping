@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Shopping</string>
 
-
-	<string name="glowtext">this is a glow screen :)</string>
-	<string name="maintext">Indkøb venner</string>
-	<string name="senior1_status">Lize er på indkøb nu</string>
-	<string name="senior2_status">Marie var på indkøb i går til 11.00</string>
-	<string name="senior3_status">Peter var på indkøb i går til 14.00</string>
-	<string name="senior4_status">Jonas delt et tilbud fra Fakta 1 time siden
+    <string name="app_name">Shopping</string>
+    <string name="glowtext">this is a glow screen :)</string>
+    <string name="maintext">Indkøb venner</string>
+    <string name="senior1_status">Lize er på indkøb nu</string>
+    <string name="senior2_status">Marie var på indkøb i går til 11.00</string>
+    <string name="senior3_status">Peter var på indkøb i går til 14.00</string>
+    <string name="senior4_status">Jonas delt et tilbud fra Fakta 1 time siden
 	</string>
-	<string name="senior5_status">Elsemarie var på indkøb i morges til 10.30</string>
-	<string name="senior6_status">Jens var på indkøb i morges til 11.30</string>
-	<string name="tilbudText">Tilbud</string>
-	<string name="placesText">Indkøb steder</string>
-	<string name="rutinerText">Indkøb rutiner</string>
-	<string name="friendButton">Venner</string>
-	<string name="offerButton">Tilbud</string>
-	<string name="communityButton">Fællesskab</string>
-	<string name="glowButton">nyhed</string>
-
+    <string name="senior5_status">Elsemarie var på indkøb i morges til 10.30</string>
+    <string name="senior6_status">Jens var på indkøb i morges til 11.30</string>
+    <string name="tilbudText">Tilbud</string>
+    <string name="placesText">Indkøb steder</string>
+    <string name="rutinerText">Indkøb rutiner</string>
+    <string name="friendButton">Venner</string>
+    <string name="offerButton">Tilbud</string>
+    <string name="communityButton">Fællesskab</string>
+    <string name="glowButton">nyhed</string>
+    <string name="activeNumber">#</string>
+    <string name="activeMessage">venner på indkøb</string>
+    <string name="statusDataMessageTMP"> has been walking for shopping 1.5 km</string>
+	<string name="statusDataGroupMessageTMP"> the group has been walking 12 km, as much as going to Copenhagen city center and back</string>
 </resources>

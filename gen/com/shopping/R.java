@@ -130,6 +130,8 @@ public final class R {
         public static final int weeklayout=0x7f03000b;
     }
     public static final class string {
+        public static final int activeMessage=0x7f060011;
+        public static final int activeNumber=0x7f060010;
         public static final int app_name=0x7f060000;
         public static final int communityButton=0x7f06000e;
         public static final int friendButton=0x7f06000c;
@@ -145,6 +147,8 @@ public final class R {
         public static final int senior4_status=0x7f060006;
         public static final int senior5_status=0x7f060007;
         public static final int senior6_status=0x7f060008;
+        public static final int statusDataGroupMessageTMP=0x7f060013;
+        public static final int statusDataMessageTMP=0x7f060012;
         public static final int tilbudText=0x7f060009;
     }
     public static final class styleable {
