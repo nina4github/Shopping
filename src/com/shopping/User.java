@@ -32,6 +32,7 @@ public class User  implements Parcelable {
     private String imageUrlMedium;
     private String imageUrlSmall;
     private Gender gender;
+    private String type;
    
 
     public User(){}
@@ -66,6 +67,7 @@ public class User  implements Parcelable {
         out.writeString(imageUrlSmall);
         out.writeInt(Gender.Male.ordinal());
         out.writeString(bio);
+        out.writeString(type);
         if(userActivity==UserActivity.Shopping)
             out.writeInt(1);
         else
@@ -102,6 +104,7 @@ public class User  implements Parcelable {
         else
             gender = Gender.Female;
         bio = in.readString();
+        type = in.readString();
         if(in.readInt()==1)
             setUserActivity(UserActivity.Shopping);
         else
@@ -224,4 +227,14 @@ public class User  implements Parcelable {
     public void setImageUrlMedium(String imageUrlMedium) {
         this.imageUrlMedium = imageUrlMedium;
     }
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+		return type;
+	}
+    
+    
 }

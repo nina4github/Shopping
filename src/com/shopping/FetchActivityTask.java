@@ -11,6 +11,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -30,7 +32,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
@@ -188,7 +189,7 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 		ArrayList<User> contacts = new ArrayList<User>();
 		if (includeSelf)
 			contacts.add(getUserForId(userId));
-		
+
 		String jString = readActivity(getContactsString(userId));
 
 		JSONObject jObj = null;
@@ -269,6 +270,18 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 		contacts.add(newContact);
 	}
 
+	enum EntityType {
+		person, thing, place;
+		static EntityType fromString(String str) {
+			for (EntityType t : EntityType.values()) {
+				if (t.name().equals(str)) {
+					return t;
+				}
+			}
+			return null;
+		}
+	}
+
 	/**
 	 * Helper method for creating a new User object.
 	 * 
@@ -299,6 +312,17 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 		// user01
 		String bio = jsonObject.getString("note");
 
+		JSONArray tags = jsonObject.getJSONArray("tags");
+		ArrayList<String> tags_list = new ArrayList<String>(tags.length());
+		String type = null;
+		for (int i = 0; i < tags.length(); i++) {
+			tags_list.add(tags.getString(i));
+			EntityType t = EntityType.fromString(tags.getString(i));
+			if (null != t) {
+				type = t.name();
+			}
+		}
+
 		newUser.setImageUrl(image_url);
 		if (gender.equalsIgnoreCase("male"))
 			newUser.setGender(Gender.Male);
@@ -309,8 +333,9 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 		newUser.setFullName(full_name);
 		newUser.setBirthDay(new Date()); // Birthday
 		newUser.setBio(bio);
+		newUser.setType(type);
 		newUser.setUserId(user_id);
-		
+
 		return newUser;
 	}
 
@@ -371,14 +396,14 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 				if (content.contains("start") || content.contains("stop")) {
 					start = content.contains("start") ? true : false;
 					String thingName = actor.getString("name");
-					Log.d("fetch","detected start or stop by :"+thingName);
-					
+					Log.d("fetch", "detected start or stop by :" + thingName);
+
 					String userName = thingName.split(" ")[0];
-					userName = userName.substring(0, userName.length()-1);
+					userName = userName.substring(0, userName.length() - 1);
 					// I am getting a message from a THING and here I want to
 					// update the status of the person it is associated to
 					// here association works by name
-					
+
 					for (User user : shoppingFriends) {
 						if (userName.equals(user.getFirstName())) {
 							user.setUserActivity(start ? UserActivity.Shopping
@@ -397,17 +422,18 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 					loc = content.contains("enter") ? actor.getString("name")
 							: "";
 					//
-					// example of the content that I have to parse 
+					// example of the content that I have to parse
 					// <a data-hovercard='/people/8'
 					// href='/u/bagrollator02' class='mention hovercardable'
 					// >Toves Taske Rollator </a> enter <a
 					// href=\"/tags/shopping\" class=\"tag\">#shopping</a>
 					//
 					String thingname = content.split(">")[0].split("<")[0];
-					Log.d("fetch activity task","thing in a new location: "+thingname);
+					Log.d("fetch activity task", "thing in a new location: "
+							+ thingname);
 					String userName = thingname.split(" ")[0];
-					userName = userName.substring(0, userName.length()-1);
-					
+					userName = userName.substring(0, userName.length() - 1);
+
 					for (User user : shoppingFriends) {
 						if (userName.equals(user.getFirstName())) {
 							user.setLocation(loc);
@@ -581,14 +607,14 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 	 * @param id
 	 * @return
 	 */
-	public static ArrayList<ArrayList<Movable>> getWeekActivity(String id) {
+	// public static ArrayList<ArrayList<Movable>> getWeekActivity(String id) {
+
+	public static WeekActivities getWeekActivity(String id,
+			ArrayList<User> entities) {
 		String JSON_GETWEEK_ACTIVITY = "http://idea.itu.dk:8080/activities/shopping/week.json?user="
 				+ id + "@idea.itu.dk:3000";
 		String jString = readActivity(JSON_GETWEEK_ACTIVITY);
-		ArrayList<ArrayList<Movable>> activityObjects = new ArrayList<ArrayList<Movable>>();
-		for (int j = 0; j < 7; j++) {
-			activityObjects.add(j, new ArrayList<Movable>());
-		}
+
 		/**
 		 * Server return a JSONObject "aspects" which contain JSONArray of
 		 * objects "aspect"
@@ -600,49 +626,68 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 			e.printStackTrace();
 		}
 		JSONObject stream = null;
+		WeekActivities weekActivities = new WeekActivities();
+
 		try {
 			stream = jObj.getJSONObject("stream");
-			// Get all 7 days a week
+
+			// Get all 7 days a week,
 			for (int i = 0; i < 7; i++) {
+
 				// If days is there we parse all activity
+				// check that for that day there were activities recorded
 				if (!stream.isNull("" + i)) {
+					// take all the activities for a certain day
 					JSONArray dayArr = stream.getJSONArray("" + i);
+
 					// Check all activities
 					for (int h = 0; h < dayArr.length(); h++) {
-						JSONObject day = dayArr.getJSONObject(h);
-						String actor = day.getJSONObject("actor").getString(
-								"preferredUsername");
-						// We look for activity of this single user, continue if
-						// this is not us
-						if (!actor.equalsIgnoreCase(HomeActivity.USER_ID))
-							continue;
-						boolean shopping = false;
-						boolean start = false;
-						JSONArray tags = day.getJSONObject("object")
-								.getJSONArray("tags");
-						for (int k = 0; k < tags.length(); k++) {
-							if (tags.get(k).toString().equalsIgnoreCase(
-									"shopping")) {
-								shopping = true;
-							} else if (tags.get(k).toString().equalsIgnoreCase(
-									"start")) {
-								start = true;
+						// parse the event post
+						JSONObject event = dayArr.getJSONObject(h);
+						int actorId = event.getJSONObject("actor").getInt("id"); // the
+						// machine
+						// name
+						User actor = Utilities
+								.getContactById(actorId, entities);
+
+						if (actor != null) {
+							// if there is new activity add it to the counter
+							// and save it in the WeekElement
+							if (event.getJSONObject("object").getString(
+									"content").contains("start") // started
+																	// activity
+									|| event.getJSONObject("object").getString(
+											"content").contains("enter") // entered
+									// a
+									// location
+									|| event.getString("verb")
+											.equalsIgnoreCase("photo")) { // shared
+																			// a
+																			// spark
+
+								weekActivities
+										.addActivityPerDayByUser(i, actor);
+								Log.d("FetchActivity week",
+										"added activity for day: " + i
+												+ " for actor "
+												+ actor.getFirstName());
 							}
 						}
-						// add found activities to its day i
-						if (shopping && start) {
-							activityObjects.get(i).add(
-									new ShoppingCart(GalleryActivity
-											.getContext()));
-						}
-					}
-				}
+
+						// // add found activities to its day i
+						// if (shopping && start) {
+						// activityObjects.get(i).add(
+						// new ShoppingCart(GalleryActivity
+						// .getContext()));
+						// }
+					}// end for
+				}// end control on stream being null for a day
 			}
 		} catch (JSONException e) {
 			e.printStackTrace(); // To change body of catch statement use File |
 			// Settings | File Templates.
 		}
-		return activityObjects;
+		return weekActivities;
 	}
 
 	/**
@@ -841,9 +886,10 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 					int objectId = object.getInt("id");
 					JSONObject tobject = object.getJSONObject("object");
 					int actorId = object.getJSONObject("actor").getInt("id");
-					Log.d("Fetch offers", "actor id "+actorId+" =? user id "+user.getUserId());
+					Log.d("Fetch offers", "actor id " + actorId
+							+ " =? user id " + user.getUserId());
 					if (actorId == user.getUserId()) {
-						Log.d("Fetch offers","matching");
+						Log.d("Fetch offers", "matching");
 						// String actor_name =
 						// Utilities.getContactById(Integer.parseInt(objectId),getContacts()).getFullName();
 						String filename = actorId + "_offer_" + objectId

@@ -5,10 +5,9 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import com.shopping.ProfileActivity.ImageAdapterCircleGallery;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -28,9 +27,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 /**
@@ -216,16 +215,70 @@ public class GroupProfileActivity extends android.app.Activity {
 	// THE four/three button operations in the top
 	private void setWeekOverview(View view) {
 		RelativeLayout statusLayout = (RelativeLayout) findViewById(R.id.groupStatusLayout);
-		// ArrayList<ArrayList<Movable>> weekActivity =
-		// FetchActivityTask.getWeekActivity(HomeActivity.USER_ID);
-		// populateWeekView(weekActivity);
+		ArrayList<User> entities = new ArrayList<User>();
+		entities.add(user);
+		entities.addAll(shoppingFriends);
+		WeekActivities weekActivities = FetchActivityTask.getWeekActivity(HomeActivity.USER_ID,entities);
+		// ArrayList<HashMap<Integer,
+														// Integer>>
+														// weekActivity =
+	
+		populateWeekView(weekActivities,statusLayout);
 		statusLayout.removeAllViews();
 		statusLayout.invalidate();
 		updateButtonColor(view);
 	}
 
-	private void populateWeekView(ArrayList<ArrayList<Movable>> weekActivity) {
+	// private void populateWeekView(ArrayList<ArrayList<Movable>> weekActivity)
+	// {
+	private void populateWeekView(
+			WeekActivities activities, RelativeLayout statusLayout) {
+		// what day is today?
+		Calendar calendar = Calendar.getInstance();
+		int today = calendar.get(Calendar.DAY_OF_WEEK);
+		// today goes from 1 to 7, our stream goes from 0 to 6
 
+		// order the array relativeWeek to have today as the last element
+		int sparkscounter[] = new int[7];
+		int shoppingcounter[] = new int[7]; 
+		int placecounter[] = new int[7];
+		
+		
+		for (int i = 0; i < 7; i++) {
+			int day = (i+today)%7;
+			sparkscounter[i] = activities.countByDayAndType(day, "person");
+			shoppingcounter[i]=activities.countByDayAndType(day, "thing");
+			placecounter[i]=activities.countByDayAndType(day, "place");
+			LinearLayout weekLayout = new LinearLayout(this);
+			LinearLayout.LayoutParams weekparams = new LinearLayout.LayoutParams(100, 400);
+			weekLayout.setOrientation(LinearLayout.VERTICAL);
+			LinearLayout dayLayout = new LinearLayout(this);
+			
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 400);
+			dayLayout.setLayoutParams(params);
+			dayLayout = populateDayView(sparkscounter[i],shoppingcounter[i],placecounter[i]);
+			statusLayout.addView(dayLayout);
+		}
+
+
+	}
+	
+	private LinearLayout populateDayView(int sparks, int shopping, int place){
+		LinearLayout dayLayout = new LinearLayout(this);
+		ImageView shoppingCarts = new ImageView(this);
+		shoppingCarts.setImageResource( R.drawable.cart);
+		shoppingCarts.setLayoutParams(new LinearLayout.LayoutParams(50,50));
+		ImageView shoppingOffers = new ImageView(this);
+		shoppingOffers.setImageResource( R.drawable.bag);
+		shoppingOffers.setLayoutParams(new LinearLayout.LayoutParams(50,50));
+		
+		for (int i = 0; i <sparks; i++) {
+			dayLayout.addView(shoppingCarts);
+		}
+		for (int i = 0; i <shopping; i++) {
+			dayLayout.addView(shoppingOffers);
+		}
+		return dayLayout;
 	}
 
 	private void setSparks(View view) {
@@ -239,8 +292,8 @@ public class GroupProfileActivity extends android.app.Activity {
 			public void run() {
 				// offers = FetchActivityTask
 				// .getAllOffersForUser(HomeActivity.USER_ID);
-				offers = FetchActivityTask.getAllOffersForUser(
-						HomeActivity.USER_ID);
+				offers = FetchActivityTask
+						.getAllOffersForUser(HomeActivity.USER_ID);
 				runOnUiThread(new Runnable() {
 					public void run() {
 						onOffers();
@@ -250,73 +303,69 @@ public class GroupProfileActivity extends android.app.Activity {
 			}
 		}.start();
 
-		
-
 	}
 
 	private void onOffers() {
 		if (offers != null) {
-			
-			
+
 			RelativeLayout statusLayout = (RelativeLayout) findViewById(R.id.groupStatusLayout);
 			statusLayout.removeAllViews();
 			statusLayout.invalidate();
-			
+
 			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 					RelativeLayout.LayoutParams.FILL_PARENT,
 					RelativeLayout.LayoutParams.FILL_PARENT);
-			params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-			
-			
+			params
+					.addRule(RelativeLayout.CENTER_IN_PARENT,
+							RelativeLayout.TRUE);
+
 			Gallery offersGallery = new Gallery(this);
-			
+
 			offersGallery.setLayoutParams(params);
-			
-			
+
 			offersGallery.setTop(10);
 			offersGallery.setBottom(10);
-			
-			
+
 			statusLayout.addView(offersGallery);
-			
+
 			ImageAdapterCircleGallery galleryAdapter = new ImageAdapterCircleGallery(
 					this);
 			Bitmap[] offers_images = new Bitmap[offers.size()];
 
 			int i = 0;
 			for (ShoppingOffer offer : offers) {
-				
+
 				offers_images[i] = offer.getBitmap();
 				i = i + 1;
 			}
 			galleryAdapter.setmImageBitmaps(offers_images);
 			Log.d("Profile Activity - set spark", "gallery bitmaps: "
 					+ galleryAdapter.getmImageBitmaps().length);
-			
+
 			offersGallery.setAdapter(galleryAdapter);
 			galleryAdapter.notifyDataSetChanged();
 
 			final TextView message = new TextView(this);
-			
+
 			statusLayout.addView(message);
 
 			offersGallery
 					.setOnItemSelectedListener(new OnItemSelectedListener() {
 						public void onItemSelected(AdapterView<?> arg0, View v,
 								int position, long id) {
-							
-//							int userId = offers.get(position)
-//									.getSharedByUserId();
-//							User u = Utilities.getContactById(userId,
-//									shoppingFriends);
-//							// if the spark has been shared by current user
-//							if (u == null) {
-//								u = user;
-//							}
-//							
-//							String text = "shared by: " + u.getFirstName();
-//							message.setText(text);
-//							message.setTextSize(40);
+
+							// int userId = offers.get(position)
+							// .getSharedByUserId();
+							// User u = Utilities.getContactById(userId,
+							// shoppingFriends);
+							// // if the spark has been shared by current user
+							// if (u == null) {
+							// u = user;
+							// }
+							//							
+							// String text = "shared by: " + u.getFirstName();
+							// message.setText(text);
+							// message.setTextSize(40);
 
 						}
 
@@ -328,7 +377,7 @@ public class GroupProfileActivity extends android.app.Activity {
 		}
 
 	}
-	
+
 	private void setShoppingStats(View view) {
 		RelativeLayout statusLayout = (RelativeLayout) findViewById(R.id.groupStatusLayout);
 		statusLayout.removeAllViews();
@@ -434,6 +483,7 @@ public class GroupProfileActivity extends android.app.Activity {
 		super.onPause();
 		timer.cancel();
 	}
+
 	public class ImageAdapterCircleGallery extends BaseAdapter {
 
 		private Context mContext;
@@ -509,16 +559,15 @@ public class GroupProfileActivity extends android.app.Activity {
 
 			i.setImageBitmap(mImageBitmaps[position]);
 			// i.setImageResource(R.drawable.aase);
-			
 
 			i.setScaleType(ImageView.ScaleType.FIT_XY);
-			//i.setPadding(10, 10, 10, 10);
-			
+			// i.setPadding(10, 10, 10, 10);
+
 			int height = parent.getHeight();
-			i.setLayoutParams(new Gallery.LayoutParams(height-20, height-10));
-			
-			
-			
+			i
+					.setLayoutParams(new Gallery.LayoutParams(height - 20,
+							height - 10));
+
 			RelativeLayout rl = new RelativeLayout(GroupProfileActivity.this);
 			rl.setPadding(10, 5, 10, 5);
 			rl.setBackgroundColor(R.color.myblue);
