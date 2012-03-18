@@ -265,6 +265,8 @@ public class GroupProfileActivity extends android.app.Activity {
 		weekLayout.setOrientation(LinearLayout.VERTICAL);
 		
 		statusLayout.addView(weekLayout);
+		LinearLayout[] dayLayout = new LinearLayout[7];
+		int x = 5;
 		
 		for (int i = 0; i < 7; i++) {
 			int day = (i+today)%7;
@@ -272,15 +274,18 @@ public class GroupProfileActivity extends android.app.Activity {
 			shoppingcounter[i]=activities.countByDayAndType(day, "thing");
 			placecounter[i]=activities.countByDayAndType(day, "place");
 			
-			Log.d(TAG, "dimensions "+sparkscounter[i] + " "+ shoppingcounter[i]+ " "+ placecounter[i]);
+			//Log.d(TAG, "dimensions "+sparkscounter[i] + " "+ shoppingcounter[i]+ " "+ placecounter[i]);
 			
-			LinearLayout dayLayout = new LinearLayout(this);
+			dayLayout[i] = new LinearLayout(GalleryActivity.getContext());
 			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 400);
-			dayLayout.setLayoutParams(params);
-			dayLayout.setBackgroundColor(R.color.myblue);
-			dayLayout.setLeft(5+100*i);
-			//populateDayView(sparkscounter[i],shoppingcounter[i],placecounter[i],dayLayout);
-			weekLayout.addView(dayLayout);
+			dayLayout[i].setLayoutParams(params);
+			//dayLayout[i].setBackgroundColor();
+			dayLayout[i].setTranslationX(x);
+			Log.d(TAG, "traslation "+ x);
+			x+=(10+100);
+			
+			populateDayView(sparkscounter[i],shoppingcounter[i],placecounter[i],dayLayout[i]);
+			weekLayout.addView(dayLayout[i]);
 		}
 
 
