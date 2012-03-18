@@ -255,6 +255,17 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 		String last_name = jsonObject.getString("nichname");
 		String full_name = jsonObject.getString("preferredUsername");
 		String bio = jsonObject.getString("note");
+		
+		JSONArray tags = jsonObject.getJSONArray("tags");
+		ArrayList<String> tags_list = new ArrayList<String>(tags.length());
+		String type = null;
+		for (int i = 0; i < tags.length(); i++) {
+			tags_list.add(tags.getString(i));
+			EntityType t = EntityType.fromString(tags.getString(i));
+			if (null != t) {
+				type = t.name();
+			}
+		}
 
 		newContact.setImageUrl(image_url);
 		if (gender.equalsIgnoreCase("male"))
@@ -266,7 +277,8 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 		newContact.setFullName(full_name);
 		newContact.setBirthDay(new Date()); // Birthday
 		newContact.setBio(bio);
-
+		newContact.setType(type);
+		
 		contacts.add(newContact);
 	}
 
@@ -647,24 +659,36 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 						int actorId = event.getJSONObject("actor").getInt("id"); // the
 						// machine
 						// name
+						
 						User actor = Utilities
 								.getContactById(actorId, entities);
 
 						if (actor != null) {
+							Log.d("Fetch activity week", "actor = "+actor.getFirstName());
 							// if there is new activity add it to the counter
 							// and save it in the WeekElement
 							if (event.getJSONObject("object").getString(
-									"content").contains("start") // started
-																	// activity
-									|| event.getJSONObject("object").getString(
-											"content").contains("enter") // entered
-									// a
-									// location
-									|| event.getString("verb")
-											.equalsIgnoreCase("photo")) { // shared
-																			// a
-																			// spark
-
+									"content").contains("start")) {
+								// started activity
+								weekActivities
+										.addActivityPerDayByUser(i, actor);
+								Log.d("FetchActivity week",
+										"added activity for day: " + i
+												+ " for actor "
+												+ actor.getFirstName());
+							} else if (event.getJSONObject("object").getString(
+									"content").contains("enter")) {// entered a
+																	// location
+								weekActivities
+										.addActivityPerDayByUser(i, actor);
+								Log.d("FetchActivity week",
+										"added activity for day: " + i
+												+ " for actor "
+												+ actor.getFirstName());
+							} else if (event.getString("verb")
+									.equalsIgnoreCase("photo")) { // shared
+								// a
+								// spark
 								weekActivities
 										.addActivityPerDayByUser(i, actor);
 								Log.d("FetchActivity week",

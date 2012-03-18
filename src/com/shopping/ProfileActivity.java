@@ -40,6 +40,7 @@ public class ProfileActivity extends android.app.Activity {
 	public static String SELECTED_USER = "selected_user";
 	private Timer timer;
 	public static final String SHOPPING_FRIENDS = "user_shopping_friends";
+	protected static final String SHOPPING_OBJECTS = "user_shopping_contacts";
 	private ArrayList<User> shoppingFriends;
 	private ArrayList<ShoppingOffer> offers;
 	private ProgressDialog dialog;

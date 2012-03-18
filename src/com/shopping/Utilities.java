@@ -277,7 +277,8 @@ public class Utilities {
 
 	public static User getContactById(int actor, ArrayList<User> c) {
 		for (User user : c) {
-			if (user.getUserId()==(actor)) {
+			
+			if (user.getUserId()==actor) {
 				return user;
 			}
 		}

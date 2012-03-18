@@ -31,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ImageView.ScaleType;
 
 /**
  * Created by IntelliJ IDEA. User: ahkj Date: 27/11/11 Time: 14.42 Profile view
@@ -38,6 +39,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
  * and the two may be subject merged in to some degree.
  */
 public class GroupProfileActivity extends android.app.Activity {
+	private String TAG = "Group Profile Activity";
 	private User user;
 	private ArrayList<User> shoppingFriends;
 	private View previousView;
@@ -45,6 +47,7 @@ public class GroupProfileActivity extends android.app.Activity {
 	private Timer timer;
 	protected ArrayList<ShoppingOffer> offers;
 	private ProgressDialog dialog;
+	private ArrayList<User> objects;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class GroupProfileActivity extends android.app.Activity {
 		user = (User) bundle.getParcelable(ProfileActivity.SELECTED_USER);
 		shoppingFriends = bundle
 				.getParcelableArrayList(ProfileActivity.SHOPPING_FRIENDS);
+		objects = bundle.getParcelableArrayList(ProfileActivity.SHOPPING_OBJECTS);
 		Drawable image = getResources().getDrawable(R.drawable.group);
 		ImageView iv = (ImageView) findViewById(R.id.groupView);
 		iv.setImageDrawable(image);
@@ -215,17 +219,26 @@ public class GroupProfileActivity extends android.app.Activity {
 	// THE four/three button operations in the top
 	private void setWeekOverview(View view) {
 		RelativeLayout statusLayout = (RelativeLayout) findViewById(R.id.groupStatusLayout);
+		statusLayout.removeAllViews();
+		statusLayout.invalidate();
+		
 		ArrayList<User> entities = new ArrayList<User>();
-		entities.add(user);
+		//entities.add(user);
 		entities.addAll(shoppingFriends);
+		entities.addAll(objects);
+//		for (User user : entities) {
+//			Log.d(TAG,"entities list: "+user.getFirstName());
+//		}
+//		
 		WeekActivities weekActivities = FetchActivityTask.getWeekActivity(HomeActivity.USER_ID,entities);
 		// ArrayList<HashMap<Integer,
 														// Integer>>
 														// weekActivity =
-	
+		Log.d(TAG, "week activities object has (person): "+weekActivities.countByType("person"));
+		weekActivities.print();
+		
 		populateWeekView(weekActivities,statusLayout);
-		statusLayout.removeAllViews();
-		statusLayout.invalidate();
+		
 		updateButtonColor(view);
 	}
 
@@ -233,6 +246,8 @@ public class GroupProfileActivity extends android.app.Activity {
 	// {
 	private void populateWeekView(
 			WeekActivities activities, RelativeLayout statusLayout) {
+		
+		Log.d(TAG,"populate week");
 		// what day is today?
 		Calendar calendar = Calendar.getInstance();
 		int today = calendar.get(Calendar.DAY_OF_WEEK);
@@ -243,42 +258,53 @@ public class GroupProfileActivity extends android.app.Activity {
 		int shoppingcounter[] = new int[7]; 
 		int placecounter[] = new int[7];
 		
+		LinearLayout weekLayout = new LinearLayout(GalleryActivity.getContext());
+		LinearLayout.LayoutParams weekparams = new LinearLayout.LayoutParams(750,450);
+		weekLayout.setLayoutParams(weekparams);
+	
+		weekLayout.setOrientation(LinearLayout.VERTICAL);
+		
+		statusLayout.addView(weekLayout);
 		
 		for (int i = 0; i < 7; i++) {
 			int day = (i+today)%7;
 			sparkscounter[i] = activities.countByDayAndType(day, "person");
 			shoppingcounter[i]=activities.countByDayAndType(day, "thing");
 			placecounter[i]=activities.countByDayAndType(day, "place");
-			LinearLayout weekLayout = new LinearLayout(this);
-			LinearLayout.LayoutParams weekparams = new LinearLayout.LayoutParams(100, 400);
-			weekLayout.setOrientation(LinearLayout.VERTICAL);
-			LinearLayout dayLayout = new LinearLayout(this);
 			
+			Log.d(TAG, "dimensions "+sparkscounter[i] + " "+ shoppingcounter[i]+ " "+ placecounter[i]);
+			
+			LinearLayout dayLayout = new LinearLayout(this);
 			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 400);
 			dayLayout.setLayoutParams(params);
-			dayLayout = populateDayView(sparkscounter[i],shoppingcounter[i],placecounter[i]);
-			statusLayout.addView(dayLayout);
+			dayLayout.setBackgroundColor(R.color.myblue);
+			dayLayout.setLeft(5+100*i);
+			//populateDayView(sparkscounter[i],shoppingcounter[i],placecounter[i],dayLayout);
+			weekLayout.addView(dayLayout);
 		}
 
 
 	}
 	
-	private LinearLayout populateDayView(int sparks, int shopping, int place){
-		LinearLayout dayLayout = new LinearLayout(this);
-		ImageView shoppingCarts = new ImageView(this);
-		shoppingCarts.setImageResource( R.drawable.cart);
-		shoppingCarts.setLayoutParams(new LinearLayout.LayoutParams(50,50));
-		ImageView shoppingOffers = new ImageView(this);
-		shoppingOffers.setImageResource( R.drawable.bag);
-		shoppingOffers.setLayoutParams(new LinearLayout.LayoutParams(50,50));
+	private void populateDayView(int sparks, int shopping, int place, LinearLayout day){
+		Log.d(TAG, "populate day");
+		
+		
 		
 		for (int i = 0; i <sparks; i++) {
-			dayLayout.addView(shoppingCarts);
+			ImageView shoppingCarts = new ImageView(this);
+			shoppingCarts.setImageResource( R.drawable.cart);
+			shoppingCarts.setScaleType(ScaleType.FIT_XY);
+			shoppingCarts.setLayoutParams(new LinearLayout.LayoutParams(80,80));
+			day.addView(shoppingCarts);
 		}
 		for (int i = 0; i <shopping; i++) {
-			dayLayout.addView(shoppingOffers);
+			ImageView shoppingOffers = new ImageView(this);
+			shoppingOffers.setImageResource( R.drawable.bag);
+			shoppingOffers.setScaleType(ScaleType.FIT_XY);
+			shoppingOffers.setLayoutParams(new LinearLayout.LayoutParams(80,80));
+			day.addView(shoppingOffers);
 		}
-		return dayLayout;
 	}
 
 	private void setSparks(View view) {

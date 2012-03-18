@@ -36,7 +36,6 @@ public class GalleryActivity extends Activity {
 	public static final String ACTIVE_USERS = "active_users_const";
 	private static Context mContext;
 	private Timer timer;
-	private ArrayList<User> contacts;
 	public static final long SLEEP_DELAY = 1000 * 60 * 2; // milliseconds
 
 	public ProgressDialog dialog = null;
@@ -116,6 +115,7 @@ public class GalleryActivity extends Activity {
 					// Friends
 					intent.putExtra(ProfileActivity.SHOPPING_FRIENDS,
 							shoppingFriends);
+					intent.putExtra(ProfileActivity.SHOPPING_OBJECTS, objects);
 					startActivity(intent);
 				} else {
 					
@@ -127,6 +127,7 @@ public class GalleryActivity extends Activity {
 					// Friends
 					intent.putExtra(ProfileActivity.SHOPPING_FRIENDS,
 							shoppingFriends);
+					intent.putExtra(ProfileActivity.SHOPPING_OBJECTS, objects);
 					startActivity(intent);
 				}
 			}
