@@ -33,6 +33,7 @@ public class GalleryActivity extends Activity {
 	// Not a very good abstraction, but users are people out shopping.
 	private ArrayList<User> shoppingFriends;
 	private ArrayList<User> objects;
+	private ArrayList<User> places;
 	public static final String ACTIVE_USERS = "active_users_const";
 	private static Context mContext;
 	private Timer timer;
@@ -45,6 +46,11 @@ public class GalleryActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		/*
+		 * TODO check if connection is available if ok continue, else do not ask
+		 * diaspora!!
+		 */
+
 		dialog = ProgressDialog.show(this, "", "Loading. Please wait...", true);
 		dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
@@ -55,7 +61,6 @@ public class GalleryActivity extends Activity {
 
 		new Thread() {
 			public void run() {
-
 				doOnCreate();
 				dialog.dismiss();
 			};
@@ -63,6 +68,8 @@ public class GalleryActivity extends Activity {
 
 	}
 
+	// function launched by the main thread
+	// it takes care of connecting to the diaspora client
 	public void doOnCreate() {
 
 		// Get activity, boolean for including self.
@@ -70,33 +77,52 @@ public class GalleryActivity extends Activity {
 		// HomeActivity.USER_ID);
 		shoppingFriends = FetchActivityTask.getContactsForUser(true,
 				HomeActivity.USER_ID, "person");
+		// retrieve the stream of today and set the activity field of the users
+		// of type person
 		FetchActivityTask
 				.setUserActivity(shoppingFriends, HomeActivity.USER_ID);
+
 		objects = FetchActivityTask.getContactsForUser(false,
 				HomeActivity.USER_ID, "thing");
+		// retrieve the stream of today and set the activity field of the users
+		// of type thing
 		FetchActivityTask.setUserActivity(objects, HomeActivity.USER_ID);
-
-		// ArrayList<ShoppingOffer> s = FetchActivityTask
-		// .getAllOffersForUser(HomeActivity.USER_ID);
+		
+		places = FetchActivityTask.getContactsForUser(false,
+				HomeActivity.USER_ID, "place");
+		// retrieve the stream of today and set the activity field of the users
+		// of type place
+		FetchActivityTask.setUserActivity(places, HomeActivity.USER_ID);
 
 		mContext = this;
 
 		// when I am done with the data
+		// return to do things on the view
 		runOnUiThread(new Runnable() {
 			public void run() {
 				onDataFetched();
 			}
 		});
 
+		// routine to set a timer for the screensaver that in this case is the ambient display mode (HomeActivity)
 		restartTimer();
+		// instantiate the geniehub/eventbus
 		if (!isEbRunning) {
 			isEbRunning = true;
-			startService(new Intent(this, WakeService.class));
+			Intent ghintent = new Intent(this, WakeService.class);
+			ArrayList<User> objs = shoppingFriends;
+			objs.addAll(objects);
+			objs.addAll(places);
+			
+			ghintent.putParcelableArrayListExtra(
+					GalleryActivity.ACTIVE_USERS, objs);
+			startService(ghintent);
 		}
 	}
 
+	
 	private void onDataFetched() {
-		setContentView(R.layout.mygallery);
+		setContentView(R.layout.mygallery); // TODO put it earlier
 		Gallery gallery = (Gallery) findViewById(R.id.gallery);
 		gallery.setAdapter(new ImageAdapter(this));
 
@@ -111,14 +137,20 @@ public class GalleryActivity extends Activity {
 					// This user
 					intent.putExtra(ProfileActivity.SELECTED_USER,
 							shoppingFriends.get(0));
-					
+
 					// Friends
 					intent.putExtra(ProfileActivity.SHOPPING_FRIENDS,
 							shoppingFriends);
 					intent.putExtra(ProfileActivity.SHOPPING_OBJECTS, objects);
-					startActivity(intent);
-				} else {
 					
+					// TODO here places is not considered
+					// it will be the case to include them
+					// to implement the forth view about the places visited
+					
+					startActivity(intent);
+					
+				} else {
+
 					Intent intent = new Intent(GalleryActivity.this,
 							ProfileActivity.class);
 					// Selected user
@@ -128,6 +160,11 @@ public class GalleryActivity extends Activity {
 					intent.putExtra(ProfileActivity.SHOPPING_FRIENDS,
 							shoppingFriends);
 					intent.putExtra(ProfileActivity.SHOPPING_OBJECTS, objects);
+					
+					// TODO here places is not considered
+					// it will be the case to include them
+					// to implement the forth view about the places visited
+					
 					startActivity(intent);
 				}
 			}
@@ -144,13 +181,15 @@ public class GalleryActivity extends Activity {
 						HomeActivity.class);
 				ArrayList<User> objs = shoppingFriends;
 				objs.addAll(objects);
+				objs.addAll(places);
+				
 				intent.putParcelableArrayListExtra(
 						GalleryActivity.ACTIVE_USERS, objs);
 				startActivity(intent);
 			}
 		});
 
-		// listener for left home button, shopping cart
+		// listener for left home button, home
 		Button rhome = (Button) findViewById(R.id.rhomebtn);
 		rhome.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
@@ -198,8 +237,9 @@ public class GalleryActivity extends Activity {
 						HomeActivity.class);
 				ArrayList<User> objs = shoppingFriends;
 				objs.addAll(objects);
+				objs.addAll(places);
 				intent.putParcelableArrayListExtra(
-						GalleryActivity.ACTIVE_USERS, objs);
+						GalleryActivity.ACTIVE_USERS, objs); // all the users are active users
 				startActivity(intent);
 			}
 		}, GalleryActivity.SLEEP_DELAY);

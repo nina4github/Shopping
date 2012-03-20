@@ -1,13 +1,13 @@
 package com.shopping;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
-import android.os.PowerManager;
 import android.util.Log;
 import dk.itu.infobus.ws.EventBus;
 import dk.itu.infobus.ws.Listener;
@@ -21,6 +21,7 @@ public class WakeService extends Service {
 	public static final String CONTENT = "content";
 	public static final String ACTOR = "actor";
 
+	public ArrayList<User> contacts = null;
 	private static final String EB = "EventBus";
 	private static final String TAG = "WakeService";
 
@@ -33,7 +34,11 @@ public class WakeService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		startListener();
-
+		Bundle bundle = intent.getExtras();
+		// Again sending around the data we need, as we have no persistance
+		contacts = bundle
+				.getParcelableArrayList(GalleryActivity.ACTIVE_USERS);
+		
 		// TODO Auto-generated method stub
 		return START_NOT_STICKY;
 	}
@@ -48,10 +53,17 @@ public class WakeService extends Service {
 		EventBus eb = new EventBus("idea.itu.dk", 8000);
 		Log.d(EB, "EB initialiazed");
 
-		Listener l = new Listener(new PatternBuilder().addMatchAll(activity)
-				.addMatchAll(actor).addMatchAll(content).addMatchAll(timestamp)
-				.getPattern()) {
-
+		// create an array with the ID of the contacts that the current user
+		// wants to listen to
+		String[] contact_ids = new String[contacts.size()];
+		for (int i = 0; i < contacts.size(); i++) {
+			contact_ids[i] = String.valueOf(contacts.get(i).getFullName());
+		}
+		
+		Listener l = new Listener(new PatternBuilder().add(activity,PatternOperator.EQ, HomeActivity.ACTIVITY)
+				.add(actor,PatternOperator.EQ,contact_ids).getPattern()) {			
+			
+			
 			@Override
 			public void cleanUp() throws Exception {
 				// TODO Auto-generated method stub

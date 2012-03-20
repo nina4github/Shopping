@@ -36,17 +36,24 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 	public static final String CONTACTS = "all_shopping_contacts_for_user";
 	public static final String TEST_OFFER_URL = "http://idea.itu.dk:3000/uploads/images/scaled_full_fb79b5fef393d17fc2c5.jpg";
 	public static final String TAG = "Home Activity";
+	public static final String ACTIVITY = "shopping";
+
 	// Animation view
 	private HomeActivityView shoppingHomeHomeActivityView;
+	// Broadcast receiver takes care of messages from the GenieHub/EventBus initialized in WakeService
 	private BroadcastReceiver receiver;
+	
 	boolean interrupted;
 
-	// Not a very good abstraction, but users are people out shopping.
-	// Sadly this is a mixture of persons and objects like rollators - very bad
-	// name...
+	// Users are people, things and places. In this app, active users are people out shopping.
+	// there is a direct link between the name of the person and the name of the thing that that person uses
+	// Sadly this is a mixture of persons and objects e.g. rollators 
+	
 	private ArrayList<User> activeUsers;
+	
 	// With no persistent data in place we keep all contacts
 	private ArrayList<User> contacts;
+	
 	private static Context mContext;
 
 	@Override
@@ -54,7 +61,8 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 		super.onCreate(savedInstanceState);
 		mContext = this;
 		interrupted = false;
-		// The shopping activity viev runs in full screen
+		
+		// The shopping activity view runs in full screen
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -65,25 +73,20 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 		// Again sending around the data we need, as we have no persistance
 		activeUsers = bundle
 				.getParcelableArrayList(GalleryActivity.ACTIVE_USERS);
-		getContacts();
-		// getShoppingActivity();
-		for (User u : activeUsers)
-			Log.d("Active CONTACT", "" + u.getUserId());
+
+// 		DEBUG 
+//		for (User u : activeUsers)
+//			Log.d("Active CONTACT", "" + u.getUserId()); 
 
 		shoppingHomeHomeActivityView.setState(HomeActivityView.VISIBLE);
 		shoppingHomeHomeActivityView.update();
 		shoppingHomeHomeActivityView.setMyInterruptHandler(this);
 
 		showShoppingActivity();
+		// TODO check if by any chance it can happen that the GB/EB is off
 		//startService(new Intent(this, WakeService.class));
 	}
 
-	private void getContacts() {
-		if (contacts != null)
-			contacts.clear();
-		contacts = FetchActivityTask.getContactsForUser(false,
-				HomeActivity.USER_ID); // no need for filter :)
-	}
 
 	// Updates the animaiton view with users (and objects) that are shopping
 	private void showShoppingActivity() {
@@ -163,7 +166,7 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 			ArrayList<User> shoppers = new ArrayList<User>();
 			for (User u : activeUsers) {
 				if (u.getUserActivity() == UserActivity.Shopping)
-					shoppers.add(u);
+					shoppers.add(u); // add all the users as shoppers ?
 			}
 			intent.putParcelableArrayListExtra(HomeActivity.ACTIVE_USERS,
 					shoppers);
@@ -186,7 +189,7 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 			String actor = intent.getStringExtra(WakeService.ACTOR);
 			Log.d("GH event", activity + " " + actor + " " + content);
 			User actor_u = null;
-			actor_u = Utilities.getContactByFullName(actor, contacts);
+			actor_u = Utilities.getContactByFullName(actor, activeUsers);
 			if (actor_u != null) {
 				int actor_id = actor_u.getUserId();
 				// Not a very good way of making distinction between messages,
