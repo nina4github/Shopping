@@ -30,8 +30,8 @@ import android.widget.TextView;
 
 /**
  * Created by IntelliJ IDEA.
- * User: ahkj
- * Date: 01/12/11
+ * User: ahkj revised by elna and moxy
+ * Date: 01/12/11 revised march 2012
  * Time: 22.46
  *
  *  ActivityOverview - screen that is displayed when animation screen is tapped.
@@ -39,7 +39,7 @@ import android.widget.TextView;
  *  A Gallery object displays all User objects that were on the animation screen.
  */
 public class ActivityOverview extends android.app.Activity {
-    private ArrayList<User> shoppingFriends;
+    private ArrayList<User> activeUsers;
     private int objectsForGallery=0;
     private Timer timer;
     @Override
@@ -51,12 +51,12 @@ public class ActivityOverview extends android.app.Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activityoverview);
         //Again sending around the data we need, as we have no persistance
-        shoppingFriends = getIntent().getExtras().getParcelableArrayList(HomeActivity.ACTIVE_USERS);
+        activeUsers = getIntent().getExtras().getParcelableArrayList(HomeActivity.ACTIVE_USERS);
 
         /**
          * For our gallery we will show all all objects being users and offers shared by these
          */
-        for(User u : shoppingFriends){
+        for(User u : activeUsers){
             objectsForGallery++;
             objectsForGallery += u.getOffers().size();
         }
@@ -108,7 +108,7 @@ public class ActivityOverview extends android.app.Activity {
      * @param position
      */
     private void setDetailViewForObject(int position) {
-        if(shoppingFriends.size()==0){
+        if(activeUsers.size()==0){
             TextView tv = (TextView)findViewById(R.id.activityoverviewtext);
             tv.setTextSize(50.0f);
             tv.setText("Ingen aktivitet");
@@ -121,7 +121,7 @@ public class ActivityOverview extends android.app.Activity {
         //Position is thus relative users and amount of movables.
         int index=0;
         boolean found=false;
-        for(User u : shoppingFriends){
+        for(User u : activeUsers){
             if(position==index){
                 TextView tv = (TextView)findViewById(R.id.activityoverviewtext);
 
@@ -243,7 +243,7 @@ public class ActivityOverview extends android.app.Activity {
             //Index is relative to number of users and there respective offers
             int index=0;
             Bitmap bitmap=null;
-            for(User u : shoppingFriends){
+            for(User u : activeUsers){
                 if(position==index){
                     bitmap = BitmapFactory.decodeResource(GalleryActivity.getContext().getResources(), R.drawable.cart);
                     break;

@@ -34,12 +34,14 @@ public class GalleryActivity extends Activity {
 	private ArrayList<User> shoppingFriends;
 	private ArrayList<User> objects;
 	private ArrayList<User> places;
+	private ArrayList<User> entities;
 	public static final String ACTIVE_USERS = "active_users_const";
 	private static Context mContext;
 	private Timer timer;
 	public static final long SLEEP_DELAY = 1000 * 60 * 2; // milliseconds
 
 	public ProgressDialog dialog = null;
+
 	static boolean isEbRunning;
 
 	@Override
@@ -75,24 +77,50 @@ public class GalleryActivity extends Activity {
 		// Get activity, boolean for including self.
 		// contacts = FetchActivityTask.getContactsForUser(true,
 		// HomeActivity.USER_ID);
-		shoppingFriends = FetchActivityTask.getContactsForUser(true,
-				HomeActivity.USER_ID, "person");
-		// retrieve the stream of today and set the activity field of the users
-		// of type person
-		FetchActivityTask
-				.setUserActivity(shoppingFriends, HomeActivity.USER_ID);
-
-		objects = FetchActivityTask.getContactsForUser(false,
-				HomeActivity.USER_ID, "thing");
-		// retrieve the stream of today and set the activity field of the users
-		// of type thing
-		FetchActivityTask.setUserActivity(objects, HomeActivity.USER_ID);
+		entities = new ArrayList<User>();
+		shoppingFriends = new ArrayList<User>();
+		objects = new ArrayList<User>();
+		places = new ArrayList<User>();
+		entities = FetchActivityTask.getContactsForUser(true,
+				HomeActivity.USER_ID, "");
+		Log.d("GalleryActivity", "size of entities: "+entities.size());
 		
-		places = FetchActivityTask.getContactsForUser(false,
-				HomeActivity.USER_ID, "place");
-		// retrieve the stream of today and set the activity field of the users
-		// of type place
-		FetchActivityTask.setUserActivity(places, HomeActivity.USER_ID);
+		
+
+		for (User user : entities) {
+			if (user.getType() == "person")
+				shoppingFriends.add(user);
+			else if (user.getType() == "thing")
+				objects.add(user);
+			else if (user.getType() == "place")
+				places.add(user);
+
+		}
+		FetchActivityTask.setUserActivity(this, entities, HomeActivity.USER_ID);
+		
+		// shoppingFriends = FetchActivityTask.getContactsForUser(true,
+		// HomeActivity.USER_ID, "person");
+		// // retrieve the stream of today and set the activity field of the
+		// users
+		// // of type person
+		// FetchActivityTask
+		// .setUserActivity(this, shoppingFriends, HomeActivity.USER_ID);
+		//
+		// objects = FetchActivityTask.getContactsForUser(false,
+		// HomeActivity.USER_ID, "thing");
+		// // retrieve the stream of today and set the activity field of the
+		// users
+		// // of type thing
+		// FetchActivityTask.setUserActivity(this, objects,
+		// HomeActivity.USER_ID);
+		//		
+		// places = FetchActivityTask.getContactsForUser(false,
+		// HomeActivity.USER_ID, "place");
+		// // retrieve the stream of today and set the activity field of the
+		// users
+		// // of type place
+		// FetchActivityTask.setUserActivity(this, places,
+		// HomeActivity.USER_ID);
 
 		mContext = this;
 
@@ -104,25 +132,30 @@ public class GalleryActivity extends Activity {
 			}
 		});
 
-		// routine to set a timer for the screensaver that in this case is the ambient display mode (HomeActivity)
+		// routine to set a timer for the screensaver that in this case is the
+		// ambient display mode (HomeActivity)
 		restartTimer();
+
+	}
+
+	private void onDataFetched() {
+		setContentView(R.layout.mygallery); // TODO put it earlier
+
 		// instantiate the geniehub/eventbus
 		if (!isEbRunning) {
 			isEbRunning = true;
 			Intent ghintent = new Intent(this, WakeService.class);
-			ArrayList<User> objs = shoppingFriends;
-			objs.addAll(objects);
-			objs.addAll(places);
-			
-			ghintent.putParcelableArrayListExtra(
-					GalleryActivity.ACTIVE_USERS, objs);
+
+			// ArrayList<User> objs = new ArrayList<User>();
+			// objs.addAll(shoppingFriends);
+			// objs.addAll(objects);
+			// objs.addAll(places);
+
+			ghintent.putParcelableArrayListExtra(GalleryActivity.ACTIVE_USERS,
+					entities);
 			startService(ghintent);
 		}
-	}
 
-	
-	private void onDataFetched() {
-		setContentView(R.layout.mygallery); // TODO put it earlier
 		Gallery gallery = (Gallery) findViewById(R.id.gallery);
 		gallery.setAdapter(new ImageAdapter(this));
 
@@ -142,13 +175,13 @@ public class GalleryActivity extends Activity {
 					intent.putExtra(ProfileActivity.SHOPPING_FRIENDS,
 							shoppingFriends);
 					intent.putExtra(ProfileActivity.SHOPPING_OBJECTS, objects);
-					
+
 					// TODO here places is not considered
 					// it will be the case to include them
 					// to implement the forth view about the places visited
-					
+
 					startActivity(intent);
-					
+
 				} else {
 
 					Intent intent = new Intent(GalleryActivity.this,
@@ -160,11 +193,11 @@ public class GalleryActivity extends Activity {
 					intent.putExtra(ProfileActivity.SHOPPING_FRIENDS,
 							shoppingFriends);
 					intent.putExtra(ProfileActivity.SHOPPING_OBJECTS, objects);
-					
+
 					// TODO here places is not considered
 					// it will be the case to include them
 					// to implement the forth view about the places visited
-					
+
 					startActivity(intent);
 				}
 			}
@@ -175,16 +208,19 @@ public class GalleryActivity extends Activity {
 		lhome.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				timer.cancel();
-				FetchActivityTask.setUserActivity(shoppingFriends,
-						HomeActivity.USER_ID);
+				// TODO: remove because I do not think is necessary to check
+				// again the userActivity
+				// FetchActivityTask.setUserActivity(shoppingFriends,
+				// HomeActivity.USER_ID);
 				Intent intent = new Intent(GalleryActivity.this,
 						HomeActivity.class);
-				ArrayList<User> objs = shoppingFriends;
-				objs.addAll(objects);
-				objs.addAll(places);
-				
+				// ArrayList<User> objs = new ArrayList<User>();
+				// objs.addAll(shoppingFriends);
+				// objs.addAll(objects);
+				// objs.addAll(places);
+
 				intent.putParcelableArrayListExtra(
-						GalleryActivity.ACTIVE_USERS, objs);
+						GalleryActivity.ACTIVE_USERS, entities);
 				startActivity(intent);
 			}
 		});
@@ -220,8 +256,8 @@ public class GalleryActivity extends Activity {
 
 	private void onShoppingFriends() {
 		if (shoppingFriends != null) {
-			FetchActivityTask.setUserActivity(shoppingFriends,
-					HomeActivity.USER_ID);
+			FetchActivityTask.setUserActivity(GalleryActivity.this,
+					shoppingFriends, HomeActivity.USER_ID);
 		}
 
 	}
@@ -235,11 +271,15 @@ public class GalleryActivity extends Activity {
 			public void run() {
 				Intent intent = new Intent(GalleryActivity.this,
 						HomeActivity.class);
-				ArrayList<User> objs = shoppingFriends;
-				objs.addAll(objects);
-				objs.addAll(places);
+				// ArrayList<User> objs = new ArrayList<User>();
+				// objs.addAll(shoppingFriends);
+				// objs.addAll(objects);
+				// objs.addAll(places);
 				intent.putParcelableArrayListExtra(
-						GalleryActivity.ACTIVE_USERS, objs); // all the users are active users
+						GalleryActivity.ACTIVE_USERS, entities); // all the
+																	// users are
+																	// active
+																	// users
 				startActivity(intent);
 			}
 		}, GalleryActivity.SLEEP_DELAY);

@@ -125,6 +125,7 @@ public class HomeActivityView extends View {
                 return true;
             }
         });
+        
     }
 
     protected void addShopper(Movable sc, boolean flashScreen){

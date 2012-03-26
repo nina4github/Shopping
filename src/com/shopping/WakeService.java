@@ -33,12 +33,12 @@ public class WakeService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		startListener();
+		
 		Bundle bundle = intent.getExtras();
 		// Again sending around the data we need, as we have no persistance
 		contacts = bundle
 				.getParcelableArrayList(GalleryActivity.ACTIVE_USERS);
-		
+		startListener();
 		// TODO Auto-generated method stub
 		return START_NOT_STICKY;
 	}

@@ -255,7 +255,7 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 		String last_name = jsonObject.getString("nichname");
 		String full_name = jsonObject.getString("preferredUsername");
 		String bio = jsonObject.getString("note");
-		
+
 		JSONArray tags = jsonObject.getJSONArray("tags");
 		ArrayList<String> tags_list = new ArrayList<String>(tags.length());
 		String type = null;
@@ -278,7 +278,7 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 		newContact.setBirthDay(new Date()); // Birthday
 		newContact.setBio(bio);
 		newContact.setType(type);
-		
+
 		contacts.add(newContact);
 	}
 
@@ -355,11 +355,13 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 	 * Updates a list of users setting the user to shopping if "shopping"
 	 * "start" are the last tags on the users activity stream.
 	 * 
-	 * @param shoppingFriends
+	 * @param context
+	 * 
+	 * @param entities
 	 * @param uId
 	 */
-	public static void setUserActivity(ArrayList<User> shoppingFriends,
-			String uId) {
+	public static void setUserActivity(Context context,
+			ArrayList<User> entities, String uId) {
 		String jString = readActivity(getActivityString(uId));
 		/**
 		 * Server return a JSONObject "aspects" which contain JSONArray of
@@ -376,9 +378,9 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 			JSONArray jArr = jObj.getJSONArray("stream");
 			// Take oldest updates first
 			for (int i = jArr.length() - 1; 0 <= i; i--) {
-				boolean shopping = false;
+				
 				boolean start = false;
-				boolean stop = false;
+				
 				String data = "";
 				String loc = "";
 				JSONObject actor = null;
@@ -404,19 +406,67 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 				// Set user v2
 				String content = object.getString("content");
 
-				shopping = true;
-				if (content.contains("start") || content.contains("stop")) {
+				if (jArr.getJSONObject(i).getString("verb")
+						.equalsIgnoreCase("Photo")) {
+					// get the
+					String imageurl = object.getString("remotePhotoPath")
+							+ object.getString("remotePhotoName");
+					// get the user to update, actor = person
+					String personname = actor.getString("name");
+					User currentuser = null;
+					for (User user : entities) {
+						if (personname.equals(user.getFirstName())) {
+							currentuser = user;
+							break;
+						}
+					}
+
+					Log.d("fetch activity task", "new spark from: "
+							+ currentuser.getFirstName());
+
+					boolean isNew = true;
+					
+					if (currentuser.getOffers() != null) {
+						ArrayList<Movable> list = currentuser.getOffers();
+						for (Movable movable : list) {
+							if (movable.getAltImageUrl() == imageurl) {
+								isNew = false;
+								break;
+							} else
+								isNew = true;
+						}
+					}
+					if (isNew) {
+						ShoppingOffer offer = new ShoppingOffer(context);
+						offer.setAltImageUrl(imageurl);
+						currentuser.addOffer(offer);
+					}
+
+				}else if (content.contains("start") || content.contains("stop")) {
 					start = content.contains("start") ? true : false;
 					String thingName = actor.getString("name");
 					Log.d("fetch", "detected start or stop by :" + thingName);
 
 					String userName = thingName.split(" ")[0];
-					userName = userName.substring(0, userName.length() - 1);
+					userName = userName.substring(0, userName.length() - 1); // TODO
+					// verify
+					// that
+					// things
+					// name
+					// always
+					// include
+					// persons
+					// name
+					// followed
+					// by
+					// a
+					// letter
+					// :)
 					// I am getting a message from a THING and here I want to
 					// update the status of the person it is associated to
 					// here association works by name
 
-					for (User user : shoppingFriends) {
+					for (User user : entities) {
 						if (userName.equals(user.getFirstName())) {
 							user.setUserActivity(start ? UserActivity.Shopping
 									: UserActivity.Unknown);
@@ -446,13 +496,13 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 					String userName = thingname.split(" ")[0];
 					userName = userName.substring(0, userName.length() - 1);
 
-					for (User user : shoppingFriends) {
+					for (User user : entities) {
 						if (userName.equals(user.getFirstName())) {
 							user.setLocation(loc);
 							break;
 						}
 					}
-				}
+				} 
 				// // Find user among shopping friends and update activity
 				// int userId = actor.getInt("id");
 				// if (shopping) {
@@ -659,12 +709,13 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 						int actorId = event.getJSONObject("actor").getInt("id"); // the
 						// machine
 						// name
-						
+
 						User actor = Utilities
 								.getContactById(actorId, entities);
 
 						if (actor != null) {
-							Log.d("Fetch activity week", "actor = "+actor.getFirstName());
+							Log.d("Fetch activity week", "actor = "
+									+ actor.getFirstName());
 							// if there is new activity add it to the counter
 							// and save it in the WeekElement
 							if (event.getJSONObject("object").getString(
@@ -678,7 +729,7 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 												+ actor.getFirstName());
 							} else if (event.getJSONObject("object").getString(
 									"content").contains("enter")) {// entered a
-																	// location
+								// location
 								weekActivities
 										.addActivityPerDayByUser(i, actor);
 								Log.d("FetchActivity week",

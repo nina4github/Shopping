@@ -11,6 +11,7 @@
 package com.shopping;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -19,6 +20,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -29,7 +34,8 @@ interface MyInterruptHandler {
 	public abstract void myInterrupt();
 }
 
-public class HomeActivity extends Activity implements MyInterruptHandler {
+public class HomeActivity extends Activity implements MyInterruptHandler,
+		SensorEventListener {
 	public static final String USER_ID = "user01"; // User of this particular
 	// device
 	public static final String ACTIVE_USERS = "active_users_constant";
@@ -40,20 +46,28 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 
 	// Animation view
 	private HomeActivityView shoppingHomeHomeActivityView;
-	// Broadcast receiver takes care of messages from the GenieHub/EventBus initialized in WakeService
-	private BroadcastReceiver receiver;
-	
+	// Broadcast receiver takes care of messages from the GenieHub/EventBus
+	// initialized in WakeService
+	private BroadcastReceiver receiver = new ShoppingReceiver();;
+
+	private SensorManager accelerometerManager;
+	private Sensor acceleromenter;
+	private boolean acceleromenterInitialize;
+	private float lastx;
+	private float lasty;
+	private float lastz;
+
 	boolean interrupted;
 
-	// Users are people, things and places. In this app, active users are people out shopping.
-	// there is a direct link between the name of the person and the name of the thing that that person uses
-	// Sadly this is a mixture of persons and objects e.g. rollators 
-	
+	// Users are people, things and places. In this app, active users are people
+	// out shopping.
+	// there is a direct link between the name of the person and the name of the
+	// thing that that person uses
+	// Sadly this is a mixture of persons and objects e.g. rollators
+
 	private ArrayList<User> activeUsers;
 	
-	// With no persistent data in place we keep all contacts
-	private ArrayList<User> contacts;
-	
+
 	private static Context mContext;
 
 	@Override
@@ -61,7 +75,15 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 		super.onCreate(savedInstanceState);
 		mContext = this;
 		interrupted = false;
-		
+		acceleromenterInitialize = false;
+
+		registerReceiver(receiver, new IntentFilter(
+				WakeService.NEW_SHOPPING_ACTIVITY));
+
+		accelerometerManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+		acceleromenter = accelerometerManager
+				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
 		// The shopping activity view runs in full screen
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -74,9 +96,9 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 		activeUsers = bundle
 				.getParcelableArrayList(GalleryActivity.ACTIVE_USERS);
 
-// 		DEBUG 
-//		for (User u : activeUsers)
-//			Log.d("Active CONTACT", "" + u.getUserId()); 
+		// DEBUG
+		// for (User u : activeUsers)
+		// Log.d("Active CONTACT", "" + u.getUserId());
 
 		shoppingHomeHomeActivityView.setState(HomeActivityView.VISIBLE);
 		shoppingHomeHomeActivityView.update();
@@ -84,9 +106,8 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 
 		showShoppingActivity();
 		// TODO check if by any chance it can happen that the GB/EB is off
-		//startService(new Intent(this, WakeService.class));
+		// startService(new Intent(this, WakeService.class));
 	}
-
 
 	// Updates the animaiton view with users (and objects) that are shopping
 	private void showShoppingActivity() {
@@ -96,6 +117,12 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 				ShoppingCart sc = new ShoppingCart(this);
 				sc.setId(u.getUserId());
 				shoppingHomeHomeActivityView.addShopper(sc, false);
+				for (Movable so : u.getOffers()) { // Movables are ShoppingOffer
+					// objects. Had problems
+					// with parceling these
+					shoppingHomeHomeActivityView.addOffer(so, false);
+				}
+			} else if (u.getOffers().size() > 0) {
 				for (Movable so : u.getOffers()) { // Movables are ShoppingOffer
 					// objects. Had problems
 					// with parceling these
@@ -125,14 +152,17 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 	public void onResume() {
 		super.onResume();
 		interrupted = false;
-		if (receiver == null) {
-			receiver = new ShoppingReceiver();
-			registerReceiver(receiver, new IntentFilter(
-					WakeService.NEW_SHOPPING_ACTIVITY));
-		}
+		registerReceiver(receiver, new IntentFilter(
+				WakeService.NEW_SHOPPING_ACTIVITY));
+
 		shoppingHomeHomeActivityView.setState(HomeActivityView.VISIBLE);
 		shoppingHomeHomeActivityView.update();
+
+		accelerometerManager.registerListener(this, acceleromenter,
+				SensorManager.SENSOR_DELAY_NORMAL);
+
 		Log.d("shopping activity", "onResume");
+
 	}
 
 	@Override
@@ -140,6 +170,7 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 		super.onPause();
 		interrupted = false;
 		Log.d("shopping activity", "onPause");
+		accelerometerManager.unregisterListener(this);
 		// shoppingActivity.setMode(HomeActivityView.PAUSE);
 	}
 
@@ -154,6 +185,7 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 
 	int i = 0;
 
+
 	public void myInterrupt() {
 		i++;
 		if (!interrupted) {
@@ -165,11 +197,14 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 					ActivityOverview.class);
 			ArrayList<User> shoppers = new ArrayList<User>();
 			for (User u : activeUsers) {
-				if (u.getUserActivity() == UserActivity.Shopping)
+				if (u.getUserActivity() == UserActivity.Shopping
+						|| (u.getOffers().size() > 0))
 					shoppers.add(u); // add all the users as shoppers ?
 			}
 			intent.putParcelableArrayListExtra(HomeActivity.ACTIVE_USERS,
 					shoppers);
+			// intent.putParcelableArrayListExtra(HomeActivity.ACTIVE_USERS,
+			// activeUsers);
 			startActivity(intent);
 		}
 	}
@@ -200,15 +235,14 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 						&& (content.contains("start") || content
 								.contains("stop"))) {
 
-					
 					// I am getting a message from a THING and here I want to
 					// update the status of the person it is associated to
 					// here association works by name
 					String thing = actor;
 					String userName = thing.split(" ")[0];
-					userName = userName.substring(0, userName.length()-1);
-					
-					for (User user : contacts) {
+					userName = userName.substring(0, userName.length() - 1);
+
+					for (User user : activeUsers) {
 						if (userName.equals(user.getFirstName())) {
 							actor_id = user.getUserId();
 							break;
@@ -229,12 +263,14 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 				// TODO : why is it publishing 2 icons?
 				else if (activity.equalsIgnoreCase("shopping")
 						&& content.contains("spark:photo")) {
-					Log.d(TAG, "I have found a new spark");
+					Log.d(TAG, "I have found a new spark: "
+							+ content.split("spark:photo:")[1].split(" ")[0]);
 					ShoppingOffer so = new ShoppingOffer(HomeActivity.this);
 
-					//so.setAltImageUrl("http://idea.itu.dk:3000/uploads/images/scaled_full_fb79b5fef393d17fc2c5.jpg");//content.split(":")[2]);
-					so.setAltImageUrl(content.split("spark:photo:")[1].split(" ")[0]);
-					
+					// so.setAltImageUrl("http://idea.itu.dk:3000/uploads/images/scaled_full_fb79b5fef393d17fc2c5.jpg");//content.split(":")[2]);
+					so.setAltImageUrl(content.split("spark:photo:")[1]
+							.split(" ")[0]);
+
 					so.setId(actor_id);
 					// if (activeUsers.contains(actor_u))
 					actor_u.addOffer(so);
@@ -258,7 +294,7 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 					}
 					User addressedUser = null;
 					addressedUser = Utilities.getContactByFullName(content
-							.split(" ")[0], contacts);
+							.split(" ")[0], activeUsers);
 					if (addressedUser != null)
 						addressedUser.setLocation(location);
 				}
@@ -266,7 +302,7 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 		}
 
 		private void updateShoppingActivity(String content, int userId) {
-			
+
 			if (content.contains("start")) {
 				User user = null;
 				for (User u : activeUsers) {
@@ -319,4 +355,47 @@ public class HomeActivity extends Activity implements MyInterruptHandler {
 		return mContext;
 	}
 
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		// TODO not relevant
+
+	}
+
+	public void onSensorChanged(SensorEvent event) {
+
+		// get the current values
+		// if there is difference more than the noise limit
+		// then there is a movement
+		// switch view!
+
+		float NOISE = (float) 3.0;
+		float x = event.values[0];
+		float y = event.values[1];
+		float z = event.values[2];
+		
+		if (!acceleromenterInitialize) {
+			lastx = x;
+			lasty = y;
+			lastz = z;
+			acceleromenterInitialize = true;
+		} else {
+			float deltaX = Math.abs(lastx - x);
+			float deltaY = Math.abs(lasty - y);
+			float deltaZ = Math.abs(lastz - z);
+			if (deltaX < NOISE)
+				deltaX = (float) 0.0;
+			if (deltaY < NOISE)
+				deltaY = (float) 0.0;
+			if (deltaZ < NOISE)
+				deltaZ = (float) 0.0;
+			lastx = x;
+			lasty = y;
+			lastz = z;
+
+			if (deltaX > NOISE || deltaY > NOISE || deltaZ > NOISE ){
+				Log.d(TAG, "detected accelerometer event worth changing the view");
+				myInterrupt();
+			}
+		}
+
+	}
 }
