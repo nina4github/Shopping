@@ -1,5 +1,6 @@
 package com.shopping;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -22,6 +23,7 @@ public class WakeService extends Service {
 	public static final String ACTOR = "actor";
 
 	public ArrayList<User> contacts = null;
+	private Listener l;
 	private static final String EB = "EventBus";
 	private static final String TAG = "WakeService";
 
@@ -60,7 +62,7 @@ public class WakeService extends Service {
 			contact_ids[i] = String.valueOf(contacts.get(i).getFullName());
 		}
 		
-		Listener l = new Listener(new PatternBuilder().add(activity,PatternOperator.EQ, HomeActivity.ACTIVITY)
+		l = new Listener(new PatternBuilder().add(activity,PatternOperator.EQ, HomeActivity.ACTIVITY)
 				.add(actor,PatternOperator.EQ,contact_ids).getPattern()) {			
 			
 			
@@ -134,6 +136,12 @@ public class WakeService extends Service {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		GalleryActivity.isEbRunning = false;
+		try {
+			l.stop();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

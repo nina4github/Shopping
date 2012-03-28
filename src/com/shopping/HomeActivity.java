@@ -251,7 +251,7 @@ public class HomeActivity extends Activity implements MyInterruptHandler,
 					updateShoppingActivity(content.split(" ")[0], actor_id);
 
 				}
-				// else if(activity.equalsIgnoreCase("shopping")&&
+				// TODO: else if(activity.equalsIgnoreCase("shopping")&&
 				// (content.contains("enter") ||
 				// content.contains("leave"))){
 				//               
@@ -392,7 +392,7 @@ public class HomeActivity extends Activity implements MyInterruptHandler,
 			lastz = z;
 
 			if (deltaX > NOISE || deltaY > NOISE || deltaZ > NOISE ){
-				Log.d(TAG, "detected accelerometer event worth changing the view");
+				//Log.d(TAG, "detected accelerometer event worth changing the view");
 				myInterrupt();
 			}
 		}
