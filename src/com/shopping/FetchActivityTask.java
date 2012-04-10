@@ -10,8 +10,10 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -183,8 +185,8 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 	 * @param filter
 	 * @return
 	 */
-	public static ArrayList<User> getContactsForUser(boolean includeSelf,
-			String userId, String filter) {
+	public static ArrayList<User> getContactsForUser(Context context,
+			boolean includeSelf, String userId, String filter) {
 
 		ArrayList<User> contacts = new ArrayList<User>();
 		if (includeSelf)
@@ -222,15 +224,17 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 
 				}
 			}
+			FetchActivityTask.setUserActivity(context, contacts,
+					HomeActivity.USER_ID);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return contacts;
 	}
 
-	public static ArrayList<User> getContactsForUser(boolean includeSelf,
-			String userId) {
-		return getContactsForUser(includeSelf, userId, "");
+	public static ArrayList<User> getContactsForUser(Context context,
+			boolean includeSelf, String userId) {
+		return getContactsForUser(context, includeSelf, userId, "");
 	}
 
 	/**
@@ -336,6 +340,7 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 		}
 
 		newUser.setImageUrl(image_url);
+
 		if (gender.equalsIgnoreCase("male"))
 			newUser.setGender(Gender.Male);
 		else
@@ -362,7 +367,10 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 	 */
 	public static void setUserActivity(Context context,
 			ArrayList<User> entities, String uId) {
+
 		String jString = readActivity(getActivityString(uId));
+
+		Log.d("fetch activity", "called setUserActivity");
 		/**
 		 * Server return a JSONObject "aspects" which contain JSONArray of
 		 * objects "aspect"
@@ -378,9 +386,9 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 			JSONArray jArr = jObj.getJSONArray("stream");
 			// Take oldest updates first
 			for (int i = jArr.length() - 1; 0 <= i; i--) {
-				
+
 				boolean start = false;
-				
+
 				String data = "";
 				String loc = "";
 				JSONObject actor = null;
@@ -406,26 +414,28 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 				// Set user v2
 				String content = object.getString("content");
 
-				if (jArr.getJSONObject(i).getString("verb")
-						.equalsIgnoreCase("Photo")) {
+				if (jArr.getJSONObject(i).getString("verb").equalsIgnoreCase(
+						"Photo")) {
 					// get the
 					String imageurl = object.getString("remotePhotoPath")
 							+ object.getString("remotePhotoName");
 					// get the user to update, actor = person
 					String personname = actor.getString("name");
-					User currentuser = null;
+					User currentuser = new User();
+
 					for (User user : entities) {
-						if (personname.equals(user.getFirstName())) {
+
+						if (personname.equalsIgnoreCase(user.getFirstName())) {
 							currentuser = user;
 							break;
 						}
 					}
 
-					Log.d("fetch activity task", "new spark from: "
-							+ currentuser.getFirstName());
+					// Log.d("fetch activity task", "new spark from: "+
+					// currentuser.getFirstName());
 
 					boolean isNew = true;
-					
+					// Log.d("FETCH activity photo","something? "+currentuser.getFirstName());
 					if (currentuser.getOffers() != null) {
 						ArrayList<Movable> list = currentuser.getOffers();
 						for (Movable movable : list) {
@@ -442,10 +452,12 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 						currentuser.addOffer(offer);
 					}
 
-				}else if (content.contains("start") || content.contains("stop")) {
+				} else if (content.contains("start")
+						|| content.contains("stop")) {
 					start = content.contains("start") ? true : false;
 					String thingName = actor.getString("name");
-					Log.d("fetch", "detected start or stop by :" + thingName);
+					// Log.d("fetch", "detected start or stop by :" +
+					// thingName);
 
 					String userName = thingName.split(" ")[0];
 					userName = userName.substring(0, userName.length() - 1); // TODO
@@ -488,9 +500,11 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 					// <a data-hovercard='/people/8'
 					// href='/u/bagrollator02' class='mention hovercardable'
 					// >Toves Taske Rollator </a> enter <a
+
 					// href=\"/tags/shopping\" class=\"tag\">#shopping</a>
 					//
-					String thingname = content.split(">")[0].split("<")[0];
+					Log.d("fetch activity task", content);
+					String thingname = content.split(">")[1].split("<")[0];
 					Log.d("fetch activity task", "thing in a new location: "
 							+ thingname);
 					String userName = thingname.split(" ")[0];
@@ -502,7 +516,7 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 							break;
 						}
 					}
-				} 
+				}
 				// // Find user among shopping friends and update activity
 				// int userId = actor.getInt("id");
 				// if (shopping) {
@@ -935,6 +949,8 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 		ArrayList<ShoppingOffer> so = new ArrayList<ShoppingOffer>();
 		String JSON_GET_USER_OFFERS_ACTIVITY = "http://idea.itu.dk:8080/activities/shopping.json?user="
 				+ id + "@idea.itu.dk:3000";
+		String JSON_GET_USER_OFFERS_WEEK_ACTIVITY = "http://idea.itu.dk:8080/activities/shopping/week.json?user="
+				+ id + "@idea.itu.dk:3000";
 		Log.d("Fetch user uploaded offers", "request: "
 				+ JSON_GET_USER_OFFERS_ACTIVITY);
 		String jString = readActivity(JSON_GET_USER_OFFERS_ACTIVITY);
@@ -986,6 +1002,167 @@ public class FetchActivityTask {// extends AsyncTask<String, Integer, Boolean> {
 					}
 				}
 			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return so;
+	}
+
+	/**
+	 * Filters all shopping offers in stream for the friends. For this string is
+	 * can be anyone of the shopping friends. Who shared what offer will have to
+	 * be filtered afterwards, see setSharedByUserId on Movable
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public static ArrayList<ShoppingOffer> getWeekOffersByUser(String id,
+			User user) {
+		ArrayList<ShoppingOffer> so = new ArrayList<ShoppingOffer>();
+
+		String JSON_GET_USER_OFFERS_WEEK_ACTIVITY = "http://idea.itu.dk:8080/activities/shopping/week.json?user="
+				+ id + "@idea.itu.dk:3000";
+		Log.d("Fetch user uploaded offers", "request: "
+				+ JSON_GET_USER_OFFERS_WEEK_ACTIVITY);
+		String jString = readActivity(JSON_GET_USER_OFFERS_WEEK_ACTIVITY);
+
+		/**
+		 * Server return a JSONObject "aspects" which contain JSONArray of
+		 * objects "aspect"
+		 */
+		JSONObject jObj = null;
+		try {
+			jObj = new JSONObject(jString);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			JSONObject stream = jObj.getJSONObject("stream");
+
+			Iterator iterator = stream.keys();
+			// browse all the days of the last week with data
+			while (iterator.hasNext()) {
+				String key = (String) iterator.next();
+
+				JSONArray jsonArray = stream.getJSONArray(key);
+
+				for (int j = 0; j < jsonArray.length(); j++) {
+					JSONObject jsonObject = jsonArray.getJSONObject(j);
+					if (jsonObject.getString("verb").equals("Photo")) {
+						int objectId = jsonObject.getInt("id");
+						JSONObject tobject = jsonObject.getJSONObject("object");
+						int actorId = jsonObject.getJSONObject("actor").getInt(
+								"id");
+						Log.d("Fetch offers", "actor id " + actorId
+								+ " =? user id " + user.getUserId());
+						if (actorId == user.getUserId()) {
+							Log.d("Fetch offers", "matching");
+							// String actor_name =
+							// Utilities.getContactById(Integer.parseInt(objectId),getContacts()).getFullName();
+							String filename = actorId + "_offer_" + objectId
+									+ ".jpg";
+
+							String originalImageUrl = tobject
+									.getString("remotePhotoPath")
+									+ "" + tobject.getString("remotePhotoName");
+
+							Bitmap b = ((BitmapDrawable) fetchBitmap(
+									originalImageUrl, filename)).getBitmap(); // getImage(originalImageUrl,filename);
+							ShoppingOffer s = new ShoppingOffer(GalleryActivity
+									.getContext(), b);
+							s.setPublished(jsonObject.getString("published"));
+							s.setSharedByUserId(jsonObject.getJSONObject(
+									"actor").getInt("id"));
+							s.setName(tobject.getString("remotePhotoName"));
+							so.add(s);
+							System.gc();
+						}
+					}
+
+				}
+
+			}// how to order these offers????
+			Collections.sort(so, new OfferComparator());
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return so;
+	}
+
+	/**
+	 * Filters all shopping offers in stream for the friends. For this string is
+	 * can be anyone of the shopping friends. Who shared what offer will have to
+	 * be filtered afterwards, see setSharedByUserId on Movable
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public static ArrayList<ShoppingOffer> getAllWeekOffers(String id) {
+		ArrayList<ShoppingOffer> so = new ArrayList<ShoppingOffer>();
+
+		String JSON_GET_USER_OFFERS_WEEK_ACTIVITY = "http://idea.itu.dk:8080/activities/shopping/week.json?user="
+				+ id + "@idea.itu.dk:3000";
+		Log.d("Fetch user uploaded offers", "request: "
+				+ JSON_GET_USER_OFFERS_WEEK_ACTIVITY);
+		String jString = readActivity(JSON_GET_USER_OFFERS_WEEK_ACTIVITY);
+
+		/**
+		 * Server return a JSONObject "aspects" which contain JSONArray of
+		 * objects "aspect"
+		 */
+		JSONObject jObj = null;
+		try {
+			jObj = new JSONObject(jString);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			JSONObject stream = jObj.getJSONObject("stream");
+
+			Iterator iterator = stream.keys();
+			// browse all the days of the last week with data
+			while (iterator.hasNext()) {
+				String key = (String) iterator.next();
+
+				JSONArray jsonArray = stream.getJSONArray(key);
+
+				for (int j = 0; j < jsonArray.length(); j++) {
+					JSONObject jsonObject = jsonArray.getJSONObject(j);
+					if (jsonObject.getString("verb").equals("Photo")) {
+						int objectId = jsonObject.getInt("id");
+						JSONObject tobject = jsonObject.getJSONObject("object");
+						int actorId = jsonObject.getJSONObject("actor").getInt(
+								"id");
+
+						// String actor_name =
+						// Utilities.getContactById(Integer.parseInt(objectId),getContacts()).getFullName();
+						String filename = actorId + "_offer_" + objectId
+								+ ".jpg";
+
+						String originalImageUrl = tobject
+								.getString("remotePhotoPath")
+								+ "" + tobject.getString("remotePhotoName");
+
+						Bitmap b = ((BitmapDrawable) fetchBitmap(
+								originalImageUrl, filename)).getBitmap(); // getImage(originalImageUrl,filename);
+						ShoppingOffer s = new ShoppingOffer(GalleryActivity
+								.getContext(), b);
+						s.setPublished(jsonObject.getString("published"));
+						s.setSharedByUserId(jsonObject.getJSONObject("actor")
+								.getInt("id"));
+						s.setName(tobject.getString("remotePhotoName"));
+						so.add(s);
+						System.gc();
+					}
+
+				}
+
+			}// how to order these offers????
+			Collections.sort(so, new OfferComparator());
+
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

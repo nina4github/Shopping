@@ -14,11 +14,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnLongClickListener;
@@ -105,6 +107,7 @@ public class GroupProfileActivity extends android.app.Activity {
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		// params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 		ImageView iv;
+		ImageView i;
 		int x = 0;
 		for (User u : shoppingFriends) {
 			iv = new ImageView(GalleryActivity.getContext());
@@ -118,19 +121,21 @@ public class GroupProfileActivity extends android.app.Activity {
 			// Add shopping cart if shopping. This is the cart image underneath
 			// the user image.
 			if (u.getUserActivity() == UserActivity.Shopping) {
-				iv = new ImageView(this);
-				params = new RelativeLayout.LayoutParams(200, 200);
-				iv.setLayoutParams(params);
-				iv
+				i = new ImageView(this);
+				RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(100, 100);
+//				p.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+//				p.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+				i.setLayoutParams(p);
+				i
 						.setImageDrawable(getResources().getDrawable(
 								R.drawable.cart));
-				iv.setTranslationX(x);
+				i.setTranslationX(x);
 
-				iv.setTranslationY(d.getIntrinsicHeight() - 25);// 25 is magic
+				i.setTranslationY(d.getIntrinsicHeight() - 25);// 25 is magic
 				// number for
 				// distance to
 				// user image
-				statusLayout.addView(iv);
+				statusLayout.addView(i);
 			}
 			x += d.getIntrinsicWidth() + 20; // next image is placed at width of
 			// current image plus some
@@ -221,6 +226,7 @@ public class GroupProfileActivity extends android.app.Activity {
 		RelativeLayout statusLayout = (RelativeLayout) findViewById(R.id.groupStatusLayout);
 		statusLayout.removeAllViews();
 		statusLayout.invalidate();
+		updateButtonColor(view);
 		
 		ArrayList<User> entities = new ArrayList<User>();
 		//entities.add(user);
@@ -234,16 +240,16 @@ public class GroupProfileActivity extends android.app.Activity {
 		// ArrayList<HashMap<Integer,
 														// Integer>>
 														// weekActivity =
+		//DEBUG
 		Log.d(TAG, "week activities object has (person): "+weekActivities.countByType("person"));
 		weekActivities.print();
 		
 		populateWeekView(weekActivities,statusLayout);
 		
-		updateButtonColor(view);
+	
 	}
 
-	// private void populateWeekView(ArrayList<ArrayList<Movable>> weekActivity)
-	// {
+	
 	private void populateWeekView(
 			WeekActivities activities, RelativeLayout statusLayout) {
 		
@@ -262,7 +268,8 @@ public class GroupProfileActivity extends android.app.Activity {
 		LinearLayout.LayoutParams weekparams = new LinearLayout.LayoutParams(750,450);
 		weekLayout.setLayoutParams(weekparams);
 	
-		weekLayout.setOrientation(LinearLayout.VERTICAL);
+		weekLayout.setOrientation(LinearLayout.HORIZONTAL);
+		String weekday[] = {"S","M","T","O","T","F","L"};
 		
 		statusLayout.addView(weekLayout);
 		LinearLayout[] dayLayout = new LinearLayout[7];
@@ -274,16 +281,23 @@ public class GroupProfileActivity extends android.app.Activity {
 			shoppingcounter[i]=activities.countByDayAndType(day, "thing");
 			placecounter[i]=activities.countByDayAndType(day, "place");
 			
-			//Log.d(TAG, "dimensions "+sparkscounter[i] + " "+ shoppingcounter[i]+ " "+ placecounter[i]);
+			Log.d(TAG, "dimensions "+sparkscounter[i] + " "+ shoppingcounter[i]+ " "+ placecounter[i]);
 			
-			dayLayout[i] = new LinearLayout(GalleryActivity.getContext());
-			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 400);
+			dayLayout[i] = new LinearLayout(this);
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(80, 400);
 			dayLayout[i].setLayoutParams(params);
-			//dayLayout[i].setBackgroundColor();
+			dayLayout[i].setOrientation(LinearLayout.VERTICAL);
+			if (i%2!=0){
+			dayLayout[i].setBackgroundColor(R.color.myblue);}
 			dayLayout[i].setTranslationX(x);
 			Log.d(TAG, "traslation "+ x);
-			x+=(10+100);
-			
+			x+=(10);
+			TextView dayText = new TextView(this);
+			dayText.setGravity(Gravity.CENTER_HORIZONTAL);
+			dayText.setTextSize(20);
+			dayText.setTextColor(R.color.black);
+			dayText.setText(weekday[day]);
+			dayLayout[i].addView(dayText);
 			populateDayView(sparkscounter[i],shoppingcounter[i],placecounter[i],dayLayout[i]);
 			weekLayout.addView(dayLayout[i]);
 		}
@@ -298,16 +312,16 @@ public class GroupProfileActivity extends android.app.Activity {
 		
 		for (int i = 0; i <sparks; i++) {
 			ImageView shoppingCarts = new ImageView(this);
-			shoppingCarts.setImageResource( R.drawable.cart);
-			shoppingCarts.setScaleType(ScaleType.FIT_XY);
-			shoppingCarts.setLayoutParams(new LinearLayout.LayoutParams(80,80));
+			shoppingCarts.setImageResource( R.drawable.tilbud);
+			//shoppingCarts.setScaleType(ScaleType.FIT_XY);
+			shoppingCarts.setLayoutParams(new LinearLayout.LayoutParams(60,60));
 			day.addView(shoppingCarts);
 		}
 		for (int i = 0; i <shopping; i++) {
 			ImageView shoppingOffers = new ImageView(this);
-			shoppingOffers.setImageResource( R.drawable.bag);
-			shoppingOffers.setScaleType(ScaleType.FIT_XY);
-			shoppingOffers.setLayoutParams(new LinearLayout.LayoutParams(80,80));
+			shoppingOffers.setImageResource( R.drawable.cart);
+			//shoppingOffers.setScaleType(ScaleType.FIT_XY);
+			shoppingOffers.setLayoutParams(new LinearLayout.LayoutParams(60,60));
 			day.addView(shoppingOffers);
 		}
 	}
@@ -324,7 +338,7 @@ public class GroupProfileActivity extends android.app.Activity {
 				// offers = FetchActivityTask
 				// .getAllOffersForUser(HomeActivity.USER_ID);
 				offers = FetchActivityTask
-						.getAllOffersForUser(HomeActivity.USER_ID);
+						.getAllWeekOffers(HomeActivity.USER_ID);//.getAllOffersForUser(HomeActivity.USER_ID);
 				runOnUiThread(new Runnable() {
 					public void run() {
 						onOffers();

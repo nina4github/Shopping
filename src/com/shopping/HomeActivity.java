@@ -66,7 +66,6 @@ public class HomeActivity extends Activity implements MyInterruptHandler,
 	// Sadly this is a mixture of persons and objects e.g. rollators
 
 	private ArrayList<User> activeUsers;
-	
 
 	private static Context mContext;
 
@@ -117,11 +116,12 @@ public class HomeActivity extends Activity implements MyInterruptHandler,
 				ShoppingCart sc = new ShoppingCart(this);
 				sc.setId(u.getUserId());
 				shoppingHomeHomeActivityView.addShopper(sc, false);
-				for (Movable so : u.getOffers()) { // Movables are ShoppingOffer
-					// objects. Had problems
-					// with parceling these
-					shoppingHomeHomeActivityView.addOffer(so, false);
-				}
+				// for (Movable so : u.getOffers()) { // Movables are
+				// ShoppingOffer
+				// // objects. Had problems
+				// // with parceling these
+				// shoppingHomeHomeActivityView.addOffer(so, false);
+				// }
 			} else if (u.getOffers().size() > 0) {
 				for (Movable so : u.getOffers()) { // Movables are ShoppingOffer
 					// objects. Had problems
@@ -185,7 +185,6 @@ public class HomeActivity extends Activity implements MyInterruptHandler,
 
 	int i = 0;
 
-
 	public void myInterrupt() {
 		i++;
 		if (!interrupted) {
@@ -227,10 +226,10 @@ public class HomeActivity extends Activity implements MyInterruptHandler,
 			actor_u = Utilities.getContactByFullName(actor, activeUsers);
 			if (actor_u != null) {
 				int actor_id = actor_u.getUserId();
-				// Not a very good way of making distinction between messages,
-				// and
-				// won't scale well with more message types.
-				// 1. shopping star | stop
+
+				// message parsing
+
+				// start / stop shopping
 				if (activity.equalsIgnoreCase("shopping")
 						&& (content.contains("start") || content
 								.contains("stop"))) {
@@ -241,21 +240,15 @@ public class HomeActivity extends Activity implements MyInterruptHandler,
 					String thing = actor;
 					String userName = thing.split(" ")[0];
 					userName = userName.substring(0, userName.length() - 1);
+//					Log.d(TAG, "thing activity detected, username is: "
+//							+ userName);
 
-					for (User user : activeUsers) {
-						if (userName.equals(user.getFirstName())) {
-							actor_id = user.getUserId();
-							break;
-						}
-					}
+					actor_id = Utilities.getUserByObject(actor_u, activeUsers)
+							.getUserId();
+//					Log.d(TAG,"user id that I am going to update "+ actor_id);
 					updateShoppingActivity(content.split(" ")[0], actor_id);
 
 				}
-				// TODO: else if(activity.equalsIgnoreCase("shopping")&&
-				// (content.contains("enter") ||
-				// content.contains("leave"))){
-				//               
-				// }
 
 				// 2. Shopping offer is activity "shopping" but with url as
 				// content
@@ -277,26 +270,36 @@ public class HomeActivity extends Activity implements MyInterruptHandler,
 
 					shoppingHomeHomeActivityView.addOffer(so, true);
 				}
+
 				// 3. Place
 				// A user is at at certain place.
 				// This is e.g. Actor=place01 and
 				// content is now the userId
 				// We update this users location property "where is he"
-				// ACTOR WILL ALWAYS BE A PLACE
-				else {
+				// the field ACTOR WILL ALWAYS BE of type PLACE
+				else if (activity.equalsIgnoreCase("shopping")
+						&& (content.contains("enter") || content
+								.contains("leave"))) {
+					Log.d(TAG, "place message");
 					String location = null;
 					if (content.contains("enter")) {
 						location = actor_u.getFirstName();
 						// TODO: do something to show that location has changed?
+						ShoppingPlace sp = new ShoppingPlace(HomeActivity.this, actor_u.getUserImage());
+						sp.setId(actor_u.getUserId());
+						shoppingHomeHomeActivityView.addPlace(sp, true);
 					} else {
 						location = "unknown";
 						// TODO: do something to show that location has changed?
+						shoppingHomeHomeActivityView.removePlace(actor_u.getUserId());
 					}
 					User addressedUser = null;
 					addressedUser = Utilities.getContactByFullName(content
 							.split(" ")[0], activeUsers);
+					addressedUser = Utilities.getUserByObject(addressedUser, activeUsers);
 					if (addressedUser != null)
 						addressedUser.setLocation(location);
+					Log.d(TAG, "location is "+location);
 				}
 			}// end if actor_user!=null
 		}
@@ -371,7 +374,7 @@ public class HomeActivity extends Activity implements MyInterruptHandler,
 		float x = event.values[0];
 		float y = event.values[1];
 		float z = event.values[2];
-		
+
 		if (!acceleromenterInitialize) {
 			lastx = x;
 			lasty = y;
@@ -391,8 +394,9 @@ public class HomeActivity extends Activity implements MyInterruptHandler,
 			lasty = y;
 			lastz = z;
 
-			if (deltaX > NOISE || deltaY > NOISE || deltaZ > NOISE ){
-				//Log.d(TAG, "detected accelerometer event worth changing the view");
+			if (deltaX > NOISE || deltaY > NOISE || deltaZ > NOISE) {
+				// Log.d(TAG,
+				// "detected accelerometer event worth changing the view");
 				myInterrupt();
 			}
 		}

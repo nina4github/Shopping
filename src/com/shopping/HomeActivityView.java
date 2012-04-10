@@ -48,6 +48,7 @@ public class HomeActivityView extends View {
 
     private ArrayList<Movable> carts;
     private ArrayList<Movable> offers;
+    private ArrayList<Movable> places;
     //We always put one cart on the screen to make the screen look alive
     private Movable defaultCart;
     private int x, y=0;
@@ -104,6 +105,7 @@ public class HomeActivityView extends View {
         setFocusable(true);
         carts = new ArrayList<Movable>();
         offers = new ArrayList<Movable>();
+        places = new ArrayList<Movable>();
 
         //Put cart somewhere meaningful
         //For bottom of screen we can start offscreen
@@ -184,6 +186,36 @@ public class HomeActivityView extends View {
             for(Movable so : offers){
                 if(so.getId() == offerId){
                     offers.remove(so);
+                    break;
+                }
+            }
+        }
+    }
+    
+    public void addPlace(Movable so, boolean flashScreen) {
+        if(flashScreen)touch = 1;
+        movableOffset+=60;
+        so.setX(movableOffset);
+        so.setY(300);
+        synchronized (places){
+            if(rn.nextInt(1) == 1)
+                so.setXDirection(rn.nextInt(2) + 1);
+            else
+                so.setXDirection(rn.nextInt(2) - 2);
+            if(rn.nextInt(1) == 1)
+                so.setYDirection(rn.nextInt(2) + 1);
+            else
+                so.setYDirection(rn.nextInt(2) - 2);
+
+            this.places.add(so);
+        }
+    }
+
+    public void removePlace(int placeId) {
+        synchronized (places){
+            for(Movable so : places){
+                if(so.getId() == placeId){
+                    places.remove(so);
                     break;
                 }
             }
@@ -287,30 +319,30 @@ public class HomeActivityView extends View {
         drawImage(m, canvas);
     }
 
-    /**
-     * OLD STD with home animation in top left corner
-     * Update the position of a single Movable, that moves as the default cart.
-     * For now, some magic numbers here to define the space of the movable.
-     */
-    private void updatedDefaultCart(Movable m, Canvas canvas) {
-        //Here, default cart is given the upper left fifth of the screen
-        int w = (int)(canvas.getWidth() * 0.20);
-        int h = (int)(canvas.getHeight() * 0.20);
-        int dirSpeed = rn.nextInt(4) + 1;
-        if(m.getX() + m.getBitmap().getWidth() >= w && m.getXDirection() > 0)
-            m.setXDirection(dirSpeed * -1);
-        else if(m.getX() <= 0 && m.getXDirection() < 0)
-            m.setXDirection(dirSpeed);
-
-        if(m.getY() + m.getBitmap().getHeight() >= h && m.getYDirection() > 0)
-            m.setYDirection(dirSpeed * -1);
-        else if(m.getY() <= 0 && m.getYDirection() < 0)
-            m.setYDirection(dirSpeed);
-
-        //Update direction and draw
-        m.updatePosition();
-        drawImage(m, canvas);
-    }
+//    /**
+//     * OLD STD with home animation in top left corner
+//     * Update the position of a single Movable, that moves as the default cart.
+//     * For now, some magic numbers here to define the space of the movable.
+//     */
+//    private void updatedDefaultCart(Movable m, Canvas canvas) {
+//        //Here, default cart is given the upper left fifth of the screen
+//        int w = (int)(canvas.getWidth() * 0.20);
+//        int h = (int)(canvas.getHeight() * 0.20);
+//        int dirSpeed = rn.nextInt(4) + 1;
+//        if(m.getX() + m.getBitmap().getWidth() >= w && m.getXDirection() > 0)
+//            m.setXDirection(dirSpeed * -1);
+//        else if(m.getX() <= 0 && m.getXDirection() < 0)
+//            m.setXDirection(dirSpeed);
+//
+//        if(m.getY() + m.getBitmap().getHeight() >= h && m.getYDirection() > 0)
+//            m.setYDirection(dirSpeed * -1);
+//        else if(m.getY() <= 0 && m.getYDirection() < 0)
+//            m.setYDirection(dirSpeed);
+//
+//        //Update direction and draw
+//        m.updatePosition();
+//        drawImage(m, canvas);
+//    }
 
     /**
      * NEW STD with home cart at bottom of screen
@@ -338,6 +370,7 @@ public class HomeActivityView extends View {
     public void clear() {
         offers = new ArrayList<Movable>();
         carts = new ArrayList<Movable>();
+        places = new ArrayList<Movable>();
     }
 
     //****************************************************************
@@ -376,5 +409,8 @@ public class HomeActivityView extends View {
 
     public ArrayList<Movable> getCarts() {
         return carts;
+    }
+    public ArrayList<Movable> getPlaces() {
+        return places;
     }
 }

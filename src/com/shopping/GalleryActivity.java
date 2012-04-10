@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +60,7 @@ public class GalleryActivity extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+		mContext = this;
 		new Thread() {
 			public void run() {
 				doOnCreate();
@@ -81,12 +81,12 @@ public class GalleryActivity extends Activity {
 		shoppingFriends = new ArrayList<User>();
 		objects = new ArrayList<User>();
 		places = new ArrayList<User>();
-		entities = FetchActivityTask.getContactsForUser(true,
+		entities = FetchActivityTask.getContactsForUser(this, true,
 				HomeActivity.USER_ID, "");
-		Log.d("GalleryActivity", "size of entities: "+entities.size());
-		
-		
 
+		Log.d("GalleryActivity", "size of entities: " + entities.size());
+
+		
 		for (User user : entities) {
 			if (user.getType() == "person")
 				shoppingFriends.add(user);
@@ -96,8 +96,27 @@ public class GalleryActivity extends Activity {
 				places.add(user);
 
 		}
-		FetchActivityTask.setUserActivity(this, entities, HomeActivity.USER_ID);
 		
+		// when I am done with the data
+		// return to do things on the view
+		runOnUiThread(new Runnable() {
+			public void run() {
+				onDataFetched();
+			}
+		});
+
+		// routine to set a timer for the screensaver that in this case is the
+		// ambient display mode (HomeActivity)
+		restartTimer();
+	}
+
+	public void onContacts() {
+		
+
+		
+
+		
+
 		// shoppingFriends = FetchActivityTask.getContactsForUser(true,
 		// HomeActivity.USER_ID, "person");
 		// // retrieve the stream of today and set the activity field of the
@@ -122,20 +141,7 @@ public class GalleryActivity extends Activity {
 		// FetchActivityTask.setUserActivity(this, places,
 		// HomeActivity.USER_ID);
 
-		mContext = this;
-
-		// when I am done with the data
-		// return to do things on the view
-		runOnUiThread(new Runnable() {
-			public void run() {
-				onDataFetched();
-			}
-		});
-
-		// routine to set a timer for the screensaver that in this case is the
-		// ambient display mode (HomeActivity)
-		restartTimer();
-
+		
 	}
 
 	private void onDataFetched() {
@@ -255,9 +261,9 @@ public class GalleryActivity extends Activity {
 	}
 
 	private void onShoppingFriends() {
-		if (shoppingFriends != null) {
-			FetchActivityTask.setUserActivity(GalleryActivity.this,
-					shoppingFriends, HomeActivity.USER_ID);
+		if (entities != null) {
+			FetchActivityTask.setUserActivity(this,
+					entities, HomeActivity.USER_ID);
 		}
 
 	}
@@ -277,9 +283,9 @@ public class GalleryActivity extends Activity {
 				// objs.addAll(places);
 				intent.putParcelableArrayListExtra(
 						GalleryActivity.ACTIVE_USERS, entities); // all the
-																	// users are
-																	// active
-																	// users
+				// users are
+				// active
+				// users
 				startActivity(intent);
 			}
 		}, GalleryActivity.SLEEP_DELAY);

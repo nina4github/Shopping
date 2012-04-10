@@ -1,5 +1,9 @@
 package com.shopping;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -31,6 +35,8 @@ public class Movable implements Parcelable{
     private String altImageUrl;
     private int sharedByUserId;
     private String name;
+    
+    private String published;
     //Get rid of the three above
 
 
@@ -39,7 +45,25 @@ public class Movable implements Parcelable{
         altImageUrl = "";
     }
 
-    protected Bitmap getBitmap(){
+    public String getPublished() {
+    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD'T'HH:mm:ss'Z'");
+		Date date;
+		try {
+			date = formatter.parse(this.published);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return "";
+		}
+		SimpleDateFormat newFormat = new SimpleDateFormat("DD/MM-HH:mm");
+		return newFormat.format(date);
+		//return published;
+	}
+
+	public void setPublished(String published) {
+		this.published = published;
+	}
+
+	protected Bitmap getBitmap(){
         return bitmap;
     }
 

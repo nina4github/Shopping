@@ -114,78 +114,80 @@ public class Utilities {
 		return activeThings;
 	}
 
-//	public static ArrayList<User> updateActiveThings(File dir, String filename,
-//			ArrayList<User> contacts) {
-//
-//		StringBuffer fileData = Utilities.readStringFromFile(dir, filename);
-//		JSONObject jObj = null;
-//		try {
-//			jObj = new JSONObject(fileData.toString());
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		try {
-//
-//			JSONArray jsonArray = jObj.getJSONArray("stream");
-//
-//			for (int i = 0; i < jsonArray.length(); i++) {
-//
-//				// get the object
-//				JSONObject jsonObject = jsonArray.getJSONObject(i);
-//				// take only if the verb is statusmessage (we want to check
-//				// for start and stop
-//				if (jsonObject.getString("verb").equals("StatusMessage")) {
-//
-//					Log.d(TAG, "scanning post n. " + jsonObject.getInt("id"));
-//					int id = jsonObject.getJSONObject("actor").getInt("id");
-//
-//					// get in contacts the user with id = id
-//					// take only the actors who are things
-//					for (int j = 0; j < contacts.size(); j++) {
-//						User actor = (User) contacts.get(j);
-//						// it will never be the user. but in case you can always
-//						// add
-//						// currentUser.getUserId() ==id ||
-//						// to the following if statement
-//						if ((actor.getUserId() == id) && actor.getEntityType().equalsIgnoreCase("thing")) {
-//							String content = jsonObject.getJSONObject("object")
-//									.getString("content");
-//							int status = content.contains("start") ? 1 : 0;
-//							// update the status of the actor who posted this
-//							// message
-//							actor.setStatus(status);
-//							// and update the counter :)
-//
-//							Log.d(TAG, "updated status of actor "
-//									+ actor.getUserId() + " named "
-//									+ actor.getFullName() + " to " + status);
-//							break;
-//						}
-//					}
-//				}
-//
-//			}
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return contacts;
-//
-//	}
-//
-//	public static HashMap<String, Integer> updateNotificationCounter(
-//			ArrayList<User> c) {
-//		HashMap<String, Integer> counter = new HashMap<String, Integer>();
-//		for (User user : c) {
-//			if (user.getEntityType() == "thing") {
-//				counter.put(user.getFullName(), user.getStatus());
-//			}
-//
-//		}
-//		return counter;
-//	}
+	// public static ArrayList<User> updateActiveThings(File dir, String
+	// filename,
+	// ArrayList<User> contacts) {
+	//
+	// StringBuffer fileData = Utilities.readStringFromFile(dir, filename);
+	// JSONObject jObj = null;
+	// try {
+	// jObj = new JSONObject(fileData.toString());
+	// } catch (JSONException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	//
+	// try {
+	//
+	// JSONArray jsonArray = jObj.getJSONArray("stream");
+	//
+	// for (int i = 0; i < jsonArray.length(); i++) {
+	//
+	// // get the object
+	// JSONObject jsonObject = jsonArray.getJSONObject(i);
+	// // take only if the verb is statusmessage (we want to check
+	// // for start and stop
+	// if (jsonObject.getString("verb").equals("StatusMessage")) {
+	//
+	// Log.d(TAG, "scanning post n. " + jsonObject.getInt("id"));
+	// int id = jsonObject.getJSONObject("actor").getInt("id");
+	//
+	// // get in contacts the user with id = id
+	// // take only the actors who are things
+	// for (int j = 0; j < contacts.size(); j++) {
+	// User actor = (User) contacts.get(j);
+	// // it will never be the user. but in case you can always
+	// // add
+	// // currentUser.getUserId() ==id ||
+	// // to the following if statement
+	// if ((actor.getUserId() == id) &&
+	// actor.getEntityType().equalsIgnoreCase("thing")) {
+	// String content = jsonObject.getJSONObject("object")
+	// .getString("content");
+	// int status = content.contains("start") ? 1 : 0;
+	// // update the status of the actor who posted this
+	// // message
+	// actor.setStatus(status);
+	// // and update the counter :)
+	//
+	// Log.d(TAG, "updated status of actor "
+	// + actor.getUserId() + " named "
+	// + actor.getFullName() + " to " + status);
+	// break;
+	// }
+	// }
+	// }
+	//
+	// }
+	//
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// return contacts;
+	//
+	// }
+	//
+	// public static HashMap<String, Integer> updateNotificationCounter(
+	// ArrayList<User> c) {
+	// HashMap<String, Integer> counter = new HashMap<String, Integer>();
+	// for (User user : c) {
+	// if (user.getEntityType() == "thing") {
+	// counter.put(user.getFullName(), user.getStatus());
+	// }
+	//
+	// }
+	// return counter;
+	// }
 
 	public Bitmap getDecentSizeImage(String filepath) {
 		int maxsize = 1000;
@@ -263,30 +265,29 @@ public class Utilities {
 		return null;
 	}
 
-//	public static void createAlertDialogue(Context context, String message) {
-//		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//		builder.setMessage(message).setCancelable(true).setPositiveButton(
-//				R.string.okButton, new DialogInterface.OnClickListener() {
-//					public void onClick(DialogInterface dialog, int id) {
-//						dialog.cancel();
-//					}
-//				});
-//		AlertDialog alert = builder.create();
-//		alert.show();
-//	}
+	// public static void createAlertDialogue(Context context, String message) {
+	// AlertDialog.Builder builder = new AlertDialog.Builder(context);
+	// builder.setMessage(message).setCancelable(true).setPositiveButton(
+	// R.string.okButton, new DialogInterface.OnClickListener() {
+	// public void onClick(DialogInterface dialog, int id) {
+	// dialog.cancel();
+	// }
+	// });
+	// AlertDialog alert = builder.create();
+	// alert.show();
+	// }
 
 	public static User getContactById(int actor, ArrayList<User> c) {
 		for (User user : c) {
-			
-			if (user.getUserId()==actor) {
+
+			if (user.getUserId() == actor) {
 				return user;
 			}
 		}
 		return null;
 	}
 
-	public static User getContactByFullName(String actor,
-			ArrayList<User> c) {
+	public static User getContactByFullName(String actor, ArrayList<User> c) {
 		for (User user : c) {
 			if (user.getFullName().equals(actor)) {
 				return user;
@@ -294,13 +295,45 @@ public class Utilities {
 		}
 		return null;
 	}
+	
+	public static User getContactByFirstName(String actor, ArrayList<User> c) {
+		for (User user : c) {
+			if (user.getFirstName().equals(actor)) {
+				return user;
+			}
+		}
+		return null;
+	}
 
-	public void showLoading(ProgressDialog dialog, Context context){
-		dialog = ProgressDialog.show(context,"", "Loading. Please wait...",
+	public static User getObjectByUser(User actor, ArrayList<User> c) {
+		for (User user : c) {
+			if (user.getType().equals("thing")
+					&& user.getFirstName().contains(actor.getFirstName())) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+	public static User getUserByObject(User actor, ArrayList<User> c) {
+		
+		// step 1. retrieve the name of the person related to the object
+		// eg. johns bag rollator => userName = john
+		
+		String userName = actor.getFirstName().split(" ")[0];
+		userName = userName.substring(0, userName.length() - 1);
+		
+		return getContactByFirstName(userName, c);
+		
+	}
+
+	public void showLoading(ProgressDialog dialog, Context context) {
+		dialog = ProgressDialog.show(context, "", "Loading. Please wait...",
 				true);
 		dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 	}
-	public void stopLoading(ProgressDialog dialog){
+
+	public void stopLoading(ProgressDialog dialog) {
 		dialog.cancel();
 	}
 }

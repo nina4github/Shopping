@@ -11,11 +11,11 @@ import android.graphics.BitmapFactory;
  * Time: 21.58
  * To change this template use File | Settings | File Templates.
  */
-public class ShoppingOffer extends Movable{
-    public ShoppingOffer(Context context) {
+public class ShoppingPlace extends Movable{
+    public ShoppingPlace(Context context) {
         super(BitmapFactory.decodeResource(context.getResources(), R.drawable.tilbud));
     }
-    public ShoppingOffer(Context context, Bitmap bitmap) {
+    public ShoppingPlace(Context context, Bitmap bitmap) {
         super(bitmap);
     }
 }
